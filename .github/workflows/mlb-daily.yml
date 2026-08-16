@@ -39,29 +39,37 @@ jobs:
 
       # No pip install — everything is stdlib. That keeps this workflow fast + hermetic.
 
-      - name: Compute target date (today in ET)
+      - name: Compute target dates (today + tomorrow in ET)
         id: target
         run: |
-          # These runs fire in the afternoon/evening ET, so "today in ET" is the
-          # current day's slate. Each later run re-pulls whatever lineups have
-          # since been confirmed, so the dashboard refreshes itself through the day.
-          TARGET=$(TZ='America/New_York' date +%Y-%m-%d)
-          echo "date=$TARGET" >> $GITHUB_OUTPUT
-          echo "Targeting slate for $TARGET"
+          # Generate a 2-day window so the calendar shows the upcoming slate ahead
+          # of time (tomorrow = probable pitchers + opening lines), while today keeps
+          # refreshing with confirmed lineups on each hourly run.
+          TODAY=$(TZ='America/New_York' date +%Y-%m-%d)
+          TOMORROW=$(TZ='America/New_York' date -d "+1 day" +%Y-%m-%d 2>/dev/null \
+                     || TZ='America/New_York' date -v+1d +%Y-%m-%d)
+          echo "dates=$TODAY $TOMORROW" >> $GITHUB_OUTPUT
+          echo "Targeting slate for $TODAY and $TOMORROW"
 
-      # ---- MLB ----
-      - name: Run MLB scraper (MLB StatsAPI · Statcast · Open-Meteo)
-        run: python mlb_tonight_edates.py ${{ steps.target.outputs.date }}
-
-      - name: Run MLB predictions (ESPN odds + MLB StatsAPI)
-        run: python mlb_predict.py ${{ steps.target.outputs.date }}
+      # ---- MLB ----  (scraper writes per-date CSV; predict embeds it into each JSON)
+      - name: Run MLB pipeline (ESPN odds + MLB StatsAPI) for the window
+        run: |
+          for D in ${{ steps.target.outputs.dates }}; do
+            echo "=== MLB $D ==="
+            python mlb_tonight_edates.py "$D"
+            python mlb_predict.py "$D"
+          done
 
       - name: Build MLB dashboard HTML
         run: python mlb_dashboard.py
 
       # ---- WNBA ----  (keyless too; safe to fail without blocking MLB)
-      - name: Run WNBA predictions (ESPN odds + stats.wnba.com)
-        run: python wnba_predict.py ${{ steps.target.outputs.date }} || echo "WNBA step failed — continuing with MLB only"
+      - name: Run WNBA predictions (ESPN odds + stats.wnba.com) for the window
+        run: |
+          for D in ${{ steps.target.outputs.dates }}; do
+            echo "=== WNBA $D ==="
+            python wnba_predict.py "$D" || echo "WNBA $D failed — continuing"
+          done
 
       - name: Build WNBA dashboard HTML
         run: python wnba_dashboard.py || echo "WNBA dashboard build skipped"
