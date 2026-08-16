@@ -744,6 +744,17 @@ HTML_SHELL = """<!DOCTYPE html>
   .brand-mark {{ font-weight: 800; letter-spacing: -0.02em; font-size: 20px; color: var(--accent); }}
   .brand-sub {{ color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; }}
 
+  /* MLB / WNBA sport toggle */
+  .sport-tabs {{ display: flex; gap: 4px; background: var(--chip-bg); padding: 3px; border-radius: 8px; }}
+  .sport-tab {{
+    flex: 1; text-align: center; text-decoration: none;
+    padding: 7px 10px; border-radius: 6px;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--muted); transition: background 0.12s, color 0.12s;
+  }}
+  .sport-tab:hover {{ color: var(--ink); }}
+  .sport-tab.active {{ background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,0.08); }}
+
   .calendar {{ display: flex; flex-direction: column; gap: 2px; }}
   .cal-week {{ display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }}
   .cal-header span {{
@@ -1081,6 +1092,10 @@ HTML_SHELL = """<!DOCTYPE html>
       <span class="brand-mark">MLB TONIGHT</span>
       <span class="brand-sub">daily model &amp; picks</span>
     </div>
+    <nav class="sport-tabs">
+      <a class="sport-tab active" href="index.html">⚾ MLB</a>
+      <a class="sport-tab" href="wnba.html">🏀 WNBA</a>
+    </nav>
     {calendar}
     {legend}
   </aside>

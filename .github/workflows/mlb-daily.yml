@@ -1,4 +1,4 @@
-name: MLB daily update
+name: Daily update (MLB + WNBA)
 
 on:
   schedule:
@@ -44,32 +44,43 @@ jobs:
           echo "date=$TARGET" >> $GITHUB_OUTPUT
           echo "Targeting slate for $TARGET"
 
-      - name: Run scraper (MLB StatsAPI · Statcast · Open-Meteo)
+      # ---- MLB ----
+      - name: Run MLB scraper (MLB StatsAPI · Statcast · Open-Meteo)
         run: python mlb_tonight_edates.py ${{ steps.target.outputs.date }}
 
-      - name: Run Monte Carlo predictions (ESPN odds + MLB StatsAPI)
+      - name: Run MLB predictions (ESPN odds + MLB StatsAPI)
         run: python mlb_predict.py ${{ steps.target.outputs.date }}
 
-      - name: Build dashboard HTML
+      - name: Build MLB dashboard HTML
         run: python mlb_dashboard.py
+
+      # ---- WNBA ----  (keyless too; safe to fail without blocking MLB)
+      - name: Run WNBA predictions (ESPN odds + stats.wnba.com)
+        run: python wnba_predict.py ${{ steps.target.outputs.date }} || echo "WNBA step failed — continuing with MLB only"
+
+      - name: Build WNBA dashboard HTML
+        run: python wnba_dashboard.py || echo "WNBA dashboard build skipped"
 
       - name: Commit updated predictions JSON
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Only stage the persistent JSON snapshots (past days stay browsable via calendar)
-          git add data/predictions_*.json 2>/dev/null || true
+          # Persistent JSON snapshots keep past days browsable via the calendar.
+          git add data/predictions_*.json data/wnba_predictions_*.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "no prediction changes to commit"
           else
-            git commit -m "auto: MLB predictions $(date -u +%Y-%m-%d)"
+            git commit -m "auto: predictions $(date -u +%Y-%m-%d)"
             git push
           fi
 
-      - name: Prepare Pages site
+      - name: Prepare Pages site (both dashboards)
         run: |
           mkdir -p site
           cp mlb_dashboard.html site/index.html
+          # Publish WNBA only if it built; the tab still shows but links to a page
+          # that exists once WNBA has run at least once.
+          if [ -f wnba_dashboard.html ]; then cp wnba_dashboard.html site/wnba.html; fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v4
