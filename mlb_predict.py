@@ -56,14 +56,28 @@ LEAGUE_AVG_OPS = 0.720
 LEAGUE_AVG_K_PCT = 22.5
 N_SIMS = 10_000
 
+# ---- Run-scoring model constants (sabermetric rebuild) ----------------------
+# Sources: Bill James log5 / odds-ratio method; negative-binomial run distribution
+# (variance ≈ 2.2× mean — Poisson understates it, mispricing totals/run-lines);
+# FIP/xERA as pitcher true-talent; home-field ≈ 0.13 runs; temperature ≈ +1%/°F.
+LG_RPG = 4.30            # league runs per game per team (recent seasons)
+LG_ERA = 4.05            # league ERA
+HFA_RUNS = 0.13          # home-field advantage, in runs
+RUN_DISPERSION = 1.15    # negative-binomial theta: var ≈ mean × (1 + theta) ≈ 2.15× mean
+STARTER_IP = 5.2         # league-avg innings per start (rest goes to the bullpen)
+UNEARNED_FACTOR = 0.92   # earned runs ≈ 92% of total runs (converts ERA → total run rate)
+
 # Probability shrinkage toward the market. The raw sim is systematically
 # overconfident (backtest: it says 92% when reality is ~50%), so every reported
 # probability is blended toward the devigged market consensus:
 #     p_used = MODEL_TRUST * p_sim + (1 - MODEL_TRUST) * p_market_fair
 # MODEL_TRUST < 1 caps how far we'll disagree with the sharpest available price.
-# 0.35 = trust the market 65%, the model 35%. Tune on the forward-graded sample;
-# the backtest report's calibration table is the scoreboard for this number.
-MODEL_TRUST = 0.35
+# 0.50 = weight the model and the market equally. Raised from 0.35 after the
+# sabermetric rebuild (negative-binomial runs, odds-ratio offense/pitching,
+# xERA talent, starter/bullpen split): a sharper model earns more trust, but we
+# still respect the market since the improvements aren't yet CLV-validated. The
+# backtest's beat-close % is the scoreboard for tuning this number over time.
+MODEL_TRUST = 0.50
 
 # ---- HTTP helpers (all free, keyless) --------------------------------------
 
@@ -220,6 +234,62 @@ def _load_lineups_for_date(date_str: str) -> dict[frozenset, dict]:
         print(f"  (MLB lineup fetch failed for {date_str}: {e})", file=sys.stderr)
     _LINEUP_CACHE[date_str] = out
     return out
+
+
+_TEAM_SCORING: dict[int, dict] = {}
+
+
+def load_team_scoring(year: int) -> dict[str, dict]:
+    """Team runs-scored and runs-allowed per game from the MLB Stats API standings.
+    Returns {normalized_team_name: {"rpg": float, "rapg": float}}. One call, cached."""
+    if _TEAM_SCORING:
+        return _TEAM_SCORING
+    try:
+        d = mlb_get("/standings", leagueId="103,104", season=year,
+                    standingsTypes="regularSeason", hydrate="team")
+        for record in d.get("records", []):
+            for tr in record.get("teamRecords", []):
+                name = tr.get("team", {}).get("name", "")
+                gp = tr.get("gamesPlayed") or 0
+                rs = tr.get("runsScored")
+                ra = tr.get("runsAllowed")
+                if not name or not gp:
+                    continue
+                _TEAM_SCORING[_slug_norm(name)] = {
+                    "rpg": (rs / gp) if rs is not None else None,
+                    "rapg": (ra / gp) if ra is not None else None,
+                }
+    except Exception as e:
+        print(f"  (team scoring fetch failed: {e})", file=sys.stderr)
+    return _TEAM_SCORING
+
+
+def team_scoring_for(name: str) -> dict:
+    return _TEAM_SCORING.get(_slug_norm(name), {})
+
+
+def _extra_scoring(scraper_row: dict, side_key: str, team_name: str) -> dict:
+    """Run-model inputs beyond OPS/pitcher: team runs-for/against per game (standings)
+    and bullpen fatigue (recent 3-day IP + back-to-back arms, from the scraper CSV)."""
+    sc = team_scoring_for(team_name)
+    b2b, pen_ip3 = 0, 0.0
+    if scraper_row:
+        try:
+            b2b = int(scraper_row.get(f"{side_key}_bullpen_b2b_arms") or 0)
+        except (TypeError, ValueError):
+            b2b = 0
+        ip = str(scraper_row.get(f"{side_key}_bullpen_ip_last3d") or "")
+        try:  # baseball IP notation "16.2" = 16 and 2/3
+            whole, _, frac = ip.partition(".")
+            pen_ip3 = int(whole or 0) + int(frac or 0) / 3.0
+        except Exception:
+            pen_ip3 = 0.0
+    return {
+        "off_rpg": sc.get("rpg"),
+        "def_rpg": sc.get("rapg"),
+        "bullpen_b2b": b2b,
+        "bullpen_ip3": pen_ip3,
+    }
 
 
 # ---- MLB StatsAPI stats (with disk cache) ----------------------------------
@@ -439,36 +509,114 @@ def ev_pct(model_prob: float, american_odds) -> float:
     return (model_prob * payout - (1 - model_prob)) * 100.0
 
 
+# ---- Run model (shared by the sim and the market-calibration pre-pass) ------
+
+def _weather_mult(weather: dict) -> float:
+    """Temperature/wind/precip multiplier on run scoring. ~0.3%/°F around 70°F
+    (the ~1%/°F figure is HR-only), capped ±5%. Dome/unknown → neutral."""
+    m = 1.0
+    temp = weather.get("temp_f")
+    if isinstance(temp, (int, float)):
+        m *= max(0.95, min(1.05, 1.0 + 0.003 * (temp - 70.0)))
+    wind = weather.get("wind_mph")
+    if isinstance(wind, (int, float)) and wind > 12:
+        m *= 1.01
+    precip = weather.get("precip_pct")
+    if isinstance(precip, (int, float)) and precip > 50:
+        m *= 0.98
+    return m
+
+
+def _starter_run_rate(pit: dict) -> float:
+    """Starter's expected TOTAL runs allowed per 9, from xERA (primary, Statcast)
+    blended with ERA, regressed toward league for stability."""
+    xera = pit.get("xera"); era = pit.get("era")
+    parts = []
+    if isinstance(xera, (int, float)) and xera > 0:
+        parts.append((0.70, xera))
+    if isinstance(era, (int, float)) and era > 0:
+        parts.append((0.30 if parts else 1.0, era))
+    base = (sum(w * v for w, v in parts) / sum(w for w, _ in parts)) if parts else LG_ERA
+    base = 0.82 * base + 0.18 * LG_ERA          # regress toward league
+    return base / UNEARNED_FACTOR               # earned ERA → total run rate
+
+
+def _lineup_ops_factor(lineup: list) -> float | None:
+    """Aggregate offensive strength of the ACTUAL projected batting order, weighted
+    by batting-order PA (top of order sees more). Returns OPS relative to league,
+    or None if the lineup/stats aren't available (e.g. game-lines-only mode)."""
+    pa_w = {1: 4.7, 2: 4.6, 3: 4.5, 4: 4.4, 5: 4.3, 6: 4.2, 7: 4.1, 8: 4.0, 9: 3.9}
+    num = den = 0.0
+    for b in lineup or []:
+        ops = (b.get("stats") or {}).get("ops")
+        if not isinstance(ops, (int, float)) or ops <= 0:
+            continue
+        w = pa_w.get(b.get("slot") or 5, 4.2)
+        num += w * ops
+        den += w
+    if den == 0:
+        return None
+    return (num / den) / LEAGUE_AVG_OPS
+
+
+def team_run_mean(off_ctx: dict, def_ctx: dict, park_mult: float,
+                  weather_mult: float, is_home: bool) -> float:
+    """Expected runs for off_ctx's offense vs def_ctx's pitching (odds-ratio combine
+    of team offense × opponent starter/bullpen ÷ league, then park/weather/HFA)."""
+    lg_sp_rate = LG_ERA / UNEARNED_FACTOR
+    off_rpg = off_ctx.get("off_rpg") or LG_RPG
+    team_factor = off_rpg / LG_RPG
+    ops = off_ctx.get("team_ops_vs_hand")
+    plat_factor = (ops / LEAGUE_AVG_OPS) if ops else team_factor
+    # Lineup-level offense (the ACTUAL batters tonight) is the sharpest signal when
+    # available — the market prices confirmed lineups, so we should too.
+    lineup_factor = _lineup_ops_factor(off_ctx.get("lineup"))
+    if lineup_factor is not None:
+        off_factor = 0.45 * team_factor + 0.25 * plat_factor + 0.30 * lineup_factor
+    else:
+        off_factor = 0.70 * team_factor + 0.30 * plat_factor
+
+    sp_factor = _starter_run_rate(def_ctx.get("pitcher", {})) / lg_sp_rate
+    pen_rpg = def_ctx.get("def_rpg") or LG_RPG
+    b2b = def_ctx.get("bullpen_b2b") or 0
+    pen_ip3 = def_ctx.get("bullpen_ip3") or 0.0
+    fatigue = 1.0 + 0.012 * b2b + (0.02 if pen_ip3 >= 12 else 0.0)
+    pen_factor = (pen_rpg / LG_RPG) * fatigue
+    sp_w = STARTER_IP / 9.0
+    pitch_factor = sp_w * sp_factor + (1 - sp_w) * pen_factor
+
+    exp = LG_RPG * off_factor * pitch_factor * park_mult * weather_mult
+    exp += (HFA_RUNS / 2.0) if is_home else (-HFA_RUNS / 2.0)  # margin edge, total-neutral
+    return max(2.0, min(9.5, exp))
+
+
+def game_run_means(away_ctx: dict, home_ctx: dict, park_factor: float,
+                   weather: dict) -> tuple[float, float]:
+    """(away_mean, home_mean) expected runs, before market calibration."""
+    park_mult = park_factor / 100.0 if park_factor else 1.0
+    wm = _weather_mult(weather)
+    return (team_run_mean(away_ctx, home_ctx, park_mult, wm, is_home=False),
+            team_run_mean(home_ctx, away_ctx, park_mult, wm, is_home=True))
+
+
 # ---- Simulator --------------------------------------------------------------
 
 def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
-             weather: dict, n_sims: int = N_SIMS) -> dict:
-    """Return arrays of length n_sims: away_runs, home_runs, plus per-player samples."""
+             weather: dict, n_sims: int = N_SIMS, run_scale: float = 1.0) -> dict:
+    """Return arrays of length n_sims: away_runs, home_runs, plus per-player samples.
+
+    Team scoring uses a sabermetric run model (odds-ratio offense×pitching,
+    xERA-based starter talent + bullpen split, home-field, park, temperature) and
+    samples from a NEGATIVE BINOMIAL (variance ≈ 2.2× mean) instead of Poisson —
+    Poisson understates run variance, which mis-prices totals and run lines."""
     park_mult = park_factor / 100.0 if park_factor else 1.0
-    # Weather: wind out lifts runs modestly, precip suppresses slightly
-    weather_mult = 1.0
-    if weather.get("wind_mph") and weather.get("wind_dir") is not None:
-        # Rough: any wind >12mph adjusts +/- ~3%. Without knowing park orientation,
-        # apply a mild neutral bump when it's windy.
-        if weather["wind_mph"] > 12:
-            weather_mult *= 1.02
-    if weather.get("precip_pct") and weather["precip_pct"] > 40:
-        weather_mult *= 0.97
 
-    def team_lambda(ctx: dict, opp_pitcher: dict) -> float:
-        # Offense factor
-        ops = ctx.get("team_ops_vs_hand") or LEAGUE_AVG_OPS
-        off_factor = ops / LEAGUE_AVG_OPS
-        # Pitcher: 65% starter (blended era/xera), 35% bullpen (proxy = league)
-        p_era = opp_pitcher.get("blend_era")
-        if p_era is None:
-            pit_factor = 1.0
-        else:
-            pit_factor = (p_era / LEAGUE_AVG_ERA) * 0.65 + 1.0 * 0.35
-        return LEAGUE_AVG_RPG * off_factor * pit_factor * park_mult * weather_mult
-
-    away_lam = team_lambda(away_ctx, home_ctx["pitcher"])
-    home_lam = team_lambda(home_ctx, away_ctx["pitcher"])
+    # Run means from the shared model, then apply the per-slate market calibration
+    # (run_scale) so the model's overall run level matches the market's — a
+    # persistent over/under lean is bias, not edge; the game-to-game deviations are.
+    away_mean, home_mean = game_run_means(away_ctx, home_ctx, park_factor, weather)
+    away_mean = max(1.5, away_mean * run_scale)
+    home_mean = max(1.5, home_mean * run_scale)
 
     rng = random.Random(42)
 
@@ -483,23 +631,27 @@ def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
             if p <= L:
                 return k - 1
 
+    def sample_runs(mean: float) -> int:
+        """Negative binomial via Gamma-Poisson mixture: draw a per-game rate from
+        Gamma(shape=mean/theta, scale=theta) then Poisson it. Gives variance ≈
+        mean×(1+theta) ≈ 2.15× mean, matching real MLB run overdispersion."""
+        shape = max(0.05, mean / RUN_DISPERSION)
+        lam = rng.gammavariate(shape, RUN_DISPERSION)
+        return poisson(lam)
+
     def binomial(n: int, p: float) -> int:
         if p <= 0 or n <= 0:
             return 0
         if p >= 1:
             return n
-        # Small n, direct sampling
         k = 0
         for _ in range(n):
             if rng.random() < p:
                 k += 1
         return k
 
-    away_runs = [0] * n_sims
-    home_runs = [0] * n_sims
-    for i in range(n_sims):
-        away_runs[i] = poisson(away_lam)
-        home_runs[i] = poisson(home_lam)
+    away_runs = [sample_runs(away_mean) for _ in range(n_sims)]
+    home_runs = [sample_runs(home_mean) for _ in range(n_sims)]
 
     # Pitcher K props: sample BF ~ triangular(18,24,30), then Binomial(BF, K%)
     def pitcher_ks(pit: dict) -> list[int]:
@@ -929,11 +1081,13 @@ def build_game_context(bdl_game: dict, scraper_row: dict, year: int,
             "team": away_team, "abbr": bdl_game["away_team"]["abbreviation"],
             "lineup": [], "pitcher": away_pitcher,
             "team_ops_vs_hand": team_ops_only("away"),
+            **_extra_scoring(scraper_row, "away", away_team),
         }
         home_ctx = {
             "team": home_team, "abbr": bdl_game["home_team"]["abbreviation"],
             "lineup": [], "pitcher": home_pitcher,
             "team_ops_vs_hand": team_ops_only("home"),
+            **_extra_scoring(scraper_row, "home", home_team),
         }
         park_factor = None
         weather = {}
@@ -1039,11 +1193,13 @@ def build_game_context(bdl_game: dict, scraper_row: dict, year: int,
         "team": away_team, "abbr": bdl_game["away_team"]["abbreviation"],
         "lineup": away_batters, "pitcher": away_pitcher,
         "team_ops_vs_hand": team_ops_vs("away", home_pitcher.get("k_pct")),
+        **_extra_scoring(scraper_row, "away", away_team),
     }
     home_ctx = {
         "team": home_team, "abbr": bdl_game["home_team"]["abbreviation"],
         "lineup": home_batters, "pitcher": home_pitcher,
         "team_ops_vs_hand": team_ops_vs("home", away_pitcher.get("k_pct")),
+        **_extra_scoring(scraper_row, "home", home_team),
     }
 
     park_factor = None
@@ -1078,6 +1234,7 @@ def run_for_date(date_str: str, game_lines_only: bool = False) -> Path:
 
     # Load supporting context from the existing scraper output
     scraper_idx = load_scraper_context(date_str)
+    load_team_scoring(year)  # team runs-for/against per game (one StatsAPI call, cached)
 
     games = fetch_games(date_str)
     print(f"  ESPN returned {len(games)} games", file=sys.stderr)
@@ -1085,32 +1242,48 @@ def run_for_date(date_str: str, game_lines_only: bool = False) -> Path:
     all_output = {"date": date_str, "n_sims": N_SIMS, "generated_at": datetime.now(ET).isoformat(),
                   "games": []}
 
+    # ---- Pass 1: build contexts + odds, compute raw model totals vs market ----
+    prepared = []
+    model_tot_sum = market_tot_sum = 0.0
     for i, g in enumerate(games, 1):
         gid = g["id"]
-        away_name = g["away_team_name"]
-        home_name = g["home_team_name"]
+        away_name = g["away_team_name"]; home_name = g["home_team_name"]
         print(f"  [{i}/{len(games)}] {away_name} @ {home_name}", file=sys.stderr)
-
         scraper_row = scraper_idx.get(
-            frozenset({_slug_norm(away_name), _slug_norm(home_name)})
-        ) or {}
-
+            frozenset({_slug_norm(away_name), _slug_norm(home_name)})) or {}
         try:
             away_ctx, home_ctx, park_factor, weather = build_game_context(
                 g, scraper_row, year, game_lines_only=game_lines_only, date_str=date_str)
         except Exception as e:
             print(f"    context error: {e}", file=sys.stderr)
             continue
-
         try:
             odds = fetch_odds(gid)
-            props = []  # no free player-prop odds source
         except Exception as e:
             print(f"    odds fetch error: {e}", file=sys.stderr)
-            odds, props = [], []
+            odds = []
+        am, hm = game_run_means(away_ctx, home_ctx, park_factor, weather)
+        market_total = _modal_value(odds, "total_value")
+        if market_total is not None and (am + hm) > 0:
+            model_tot_sum += (am + hm)
+            market_tot_sum += market_total
+        prepared.append((g, gid, away_name, home_name, scraper_row,
+                         away_ctx, home_ctx, park_factor, weather, odds))
 
+    # Per-slate calibration: scale the model's run level to the market's average so
+    # a systematic over/under lean (bias, not edge) is removed. Clamp to a sane band.
+    run_scale = 1.0
+    if model_tot_sum > 0 and market_tot_sum > 0:
+        run_scale = max(0.80, min(1.20, market_tot_sum / model_tot_sum))
+    print(f"  run calibration scale = {run_scale:.3f}", file=sys.stderr)
+
+    # ---- Pass 2: simulate with the calibrated run level, generate picks ----
+    for (g, gid, away_name, home_name, scraper_row,
+         away_ctx, home_ctx, park_factor, weather, odds) in prepared:
+        props = []  # no free player-prop odds source
         try:
-            sim = sim_game(away_ctx, home_ctx, park_factor, weather, n_sims=N_SIMS)
+            sim = sim_game(away_ctx, home_ctx, park_factor, weather,
+                           n_sims=N_SIMS, run_scale=run_scale)
         except Exception as e:
             print(f"    sim error: {e}", file=sys.stderr)
             continue

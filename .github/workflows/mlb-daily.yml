@@ -81,6 +81,14 @@ jobs:
             python wnba_predict.py "$D" || echo "WNBA $D failed — continuing"
           done
 
+      - name: Grade WNBA picks (CLV + performance)
+        continue-on-error: true
+        run: |
+          END=$(TZ='America/New_York' date +%Y-%m-%d)
+          START=$(TZ='America/New_York' date -d "-21 days" +%Y-%m-%d 2>/dev/null \
+                  || TZ='America/New_York' date -v-21d +%Y-%m-%d)
+          python wnba_backtest.py "$START" "$END" || echo "WNBA backtest skipped"
+
       - name: Build WNBA dashboard HTML
         run: python wnba_dashboard.py || echo "WNBA dashboard build skipped"
 
@@ -94,7 +102,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Persistent JSON snapshots keep past days browsable via the calendar;
           # performance.json holds the running CLV/record for the dashboard panel.
-          git add data/predictions_*.json data/wnba_predictions_*.json data/performance.json 2>/dev/null || true
+          git add data/predictions_*.json data/wnba_predictions_*.json data/performance.json data/wnba_performance.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "no prediction changes to commit"
             exit 0
