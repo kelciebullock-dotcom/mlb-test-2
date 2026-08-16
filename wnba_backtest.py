@@ -17,6 +17,9 @@ import urllib.request
 from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
+
+ET = ZoneInfo("America/New_York")
 
 CWD = Path(__file__).parent
 DATA_DIR = CWD / "data"
@@ -50,6 +53,13 @@ def fetch_actuals(date_str: str) -> dict[frozenset, dict]:
     events = d.get("content", {}).get("sbData", {}).get("events") or []
     out = {}
     for ev in events:
+        # ESPN's date filter is loose — only grade games whose ET tip-off matches.
+        iso = ev.get("date", "")
+        try:
+            if not iso or datetime.fromisoformat(iso.replace("Z", "+00:00")).astimezone(ET).strftime("%Y-%m-%d") != date_str:
+                continue
+        except Exception:
+            continue
         try:
             comp = ev["competitions"][0]
             if comp.get("status", {}).get("type", {}).get("state") != "post":

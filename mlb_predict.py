@@ -135,6 +135,15 @@ def fetch_games(date_str: str) -> list[dict]:
         except (KeyError, IndexError, StopIteration):
             continue
 
+        # ESPN's dates= filter is loose (can return an adjacent day's games), so
+        # keep only games whose ACTUAL first pitch in ET matches the requested date.
+        iso = ev.get("date", "")
+        try:
+            if not iso or datetime.fromisoformat(iso.replace("Z", "+00:00")).astimezone(ET).strftime("%Y-%m-%d") != date_str:
+                continue
+        except Exception:
+            continue
+
         def team_obj(c):
             t = c.get("team", {})
             return {"id": t.get("id"), "abbreviation": t.get("abbreviation", ""),

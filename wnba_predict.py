@@ -98,6 +98,17 @@ def _american(node) -> float | None:
 
 # ---- Games + odds (ESPN) ----------------------------------------------------
 
+def _is_et_date(iso_utc: str, date_str: str) -> bool:
+    """True if an ESPN UTC game time falls on `date_str` (YYYY-MM-DD) in ET."""
+    if not iso_utc:
+        return False
+    try:
+        dt = datetime.fromisoformat(iso_utc.replace("Z", "+00:00")).astimezone(ET)
+        return dt.strftime("%Y-%m-%d") == date_str
+    except Exception:
+        return False
+
+
 def fetch_games(date_str: str) -> list[dict]:
     """WNBA games for a date from ESPN's free scoreboard, normalized."""
     yyyymmdd = date_str.replace("-", "")
@@ -118,6 +129,12 @@ def fetch_games(date_str: str) -> list[dict]:
         except (KeyError, IndexError, StopIteration):
             continue
 
+        # ESPN's dates= filter is loose (it can return games from an adjacent day),
+        # so keep only games whose ACTUAL tip-off date in ET matches the request.
+        iso = ev.get("date", "")
+        if not _is_et_date(iso, date_str):
+            continue
+
         def team_obj(c):
             t = c.get("team", {})
             return {"id": t.get("id"), "abbreviation": t.get("abbreviation", ""),
@@ -126,7 +143,7 @@ def fetch_games(date_str: str) -> list[dict]:
 
         out.append({
             "id": ev.get("id"),
-            "date": ev.get("date", ""),
+            "date": iso,
             "home_team": team_obj(home),
             "visitor_team": team_obj(away),  # keep old key name used downstream
         })
