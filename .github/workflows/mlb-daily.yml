@@ -1,0 +1,84 @@
+name: MLB daily update
+
+on:
+  schedule:
+    # 02:00 UTC = 10pm ET (EDT, Mar–Nov) / 9pm ET (EST, Nov–Mar).
+    # GitHub cron is UTC-only; add a second entry if you want fixed 10pm ET year-round.
+    - cron: '0 2 * * *'
+  workflow_dispatch:  # allow manual "Run workflow" button
+
+# Only one build/deploy at a time; don't cancel a running deploy.
+concurrency:
+  group: mlb-daily
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # commit generated JSON back to main
+  pages: write      # publish to GitHub Pages
+  id-token: write   # required by deploy-pages
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # No pip install — everything is stdlib. That keeps this workflow fast + hermetic.
+
+      - name: Compute target date (ET tomorrow — cron fires at 10pm ET the night before)
+        id: target
+        run: |
+          # Runner clock is UTC. At 02:00 UTC (10pm ET during EDT) the UTC "today"
+          # already equals ET tomorrow, so plain UTC date is what we want.
+          TARGET=$(date -u +%Y-%m-%d)
+          echo "date=$TARGET" >> $GITHUB_OUTPUT
+          echo "Targeting slate for $TARGET"
+
+      - name: Run scraper (MLB StatsAPI · Statcast · Open-Meteo)
+        run: python mlb_tonight_edates.py ${{ steps.target.outputs.date }}
+
+      - name: Run Monte Carlo predictions (ESPN odds + MLB StatsAPI)
+        run: python mlb_predict.py ${{ steps.target.outputs.date }}
+
+      - name: Build dashboard HTML
+        run: python mlb_dashboard.py
+
+      - name: Commit updated predictions JSON
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Only stage the persistent JSON snapshots (past days stay browsable via calendar)
+          git add data/predictions_*.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "no prediction changes to commit"
+          else
+            git commit -m "auto: MLB predictions $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      - name: Prepare Pages site
+        run: |
+          mkdir -p site
+          cp mlb_dashboard.html site/index.html
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,18 @@
+# Secrets (none needed anymore, but never commit any key file)
+mlb_config.json
+
+# API response caches — regenerated per run
+data/cache/
+data/cache_wnba/
+
+# Generated artifacts — rebuilt by the workflow each run
+*.html
+mlb_tonight_edates.csv
+
+# System
+__pycache__/
+*.pyc
+.DS_Store
+
+# NOTE: data/predictions_*.json and data/wnba_predictions_*.json ARE committed
+# so the calendar has history to show immediately.
