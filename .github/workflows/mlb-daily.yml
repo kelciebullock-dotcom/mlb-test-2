@@ -60,6 +60,16 @@ jobs:
             python mlb_predict.py "$D"
           done
 
+      # Grade the last few weeks of picks vs actual results + closing lines, and
+      # write data/performance.json (CLV, record, ROI) for the dashboard panel.
+      - name: Grade past picks (CLV + performance)
+        continue-on-error: true   # never block the deploy on grading
+        run: |
+          END=$(TZ='America/New_York' date +%Y-%m-%d)
+          START=$(TZ='America/New_York' date -d "-21 days" +%Y-%m-%d 2>/dev/null \
+                  || TZ='America/New_York' date -v-21d +%Y-%m-%d)
+          python mlb_backtest.py "$START" "$END" || echo "backtest step skipped"
+
       - name: Build MLB dashboard HTML
         run: python mlb_dashboard.py
 
@@ -82,8 +92,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Persistent JSON snapshots keep past days browsable via the calendar.
-          git add data/predictions_*.json data/wnba_predictions_*.json 2>/dev/null || true
+          # Persistent JSON snapshots keep past days browsable via the calendar;
+          # performance.json holds the running CLV/record for the dashboard panel.
+          git add data/predictions_*.json data/wnba_predictions_*.json data/performance.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "no prediction changes to commit"
             exit 0

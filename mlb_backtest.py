@@ -39,6 +39,7 @@ from pathlib import Path
 CWD = Path(__file__).parent
 DATA_DIR = CWD / "data"
 MLB_BASE = "https://statsapi.mlb.com/api/v1"
+ESPN_ODDS = "https://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events/{eid}/competitions/{eid}/odds"
 GAME_LINE_MARKETS = {"Moneyline", "Total", "Runline"}
 STAKE = 100.0  # flat stake per bet, in dollars
 
@@ -83,6 +84,161 @@ def fetch_actuals(date_str: str) -> dict[frozenset, dict]:
                 "home_margin": int(h_score) - int(a_score),
             })
     return out
+
+
+# ---- Closing lines (ESPN) + CLV --------------------------------------------
+
+def _american_to_prob(odds) -> float:
+    try:
+        o = float(odds)
+    except (TypeError, ValueError):
+        return 0.0
+    if abs(o) < 100:
+        return 0.0
+    return 100.0 / (o + 100.0) if o > 0 else (-o) / ((-o) + 100.0)
+
+
+def _devig(a, b) -> tuple[float, float]:
+    pa, pb = _american_to_prob(a), _american_to_prob(b)
+    tot = pa + pb
+    if tot <= 0:
+        return 0.0, 0.0
+    return pa / tot, pb / tot
+
+
+def _espn_american(node):
+    """Read an american-odds number from an ESPN price node."""
+    if node is None:
+        return None
+    if isinstance(node, (int, float)):
+        return float(node)
+    am = node.get("american") if isinstance(node, dict) else None
+    if am is None:
+        return None
+    try:
+        return float(str(am).replace("+", ""))
+    except (TypeError, ValueError):
+        return None
+
+
+_CLOSING_CACHE: dict = {}
+
+
+def fetch_closing_probs(event_id) -> dict:
+    """Fetch a game's CLOSING line from ESPN and return devigged fair probabilities
+    per side: {ml_home, ml_away, total_line, over, under, rl_home_line, rl_home,
+    rl_away}. Empty dict on failure. Uses each side's `close` node (falls back to
+    `current`)."""
+    if not event_id:
+        return {}
+    if event_id in _CLOSING_CACHE:
+        return _CLOSING_CACHE[event_id]
+    try:
+        req = urllib.request.Request(ESPN_ODDS.format(eid=event_id),
+                                     headers={"User-Agent": "Mozilla/5.0 (mlb-backtest)"})
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            d = json.loads(resp.read().decode("utf-8"))
+    except Exception:
+        _CLOSING_CACHE[event_id] = {}
+        return {}
+
+    items = [it for it in d.get("items", [])
+             if "live" not in it.get("provider", {}).get("name", "").lower()]
+    if not items:
+        _CLOSING_CACHE[event_id] = {}
+        return {}
+    items.sort(key=lambda it: 0 if "draftkings" in it.get("provider", {}).get("name", "").lower() else 1)
+    it = items[0]
+    home = it.get("homeTeamOdds", {}) or {}
+    away = it.get("awayTeamOdds", {}) or {}
+
+    def ml_close(node):
+        c = node.get("close") or node.get("current") or {}
+        v = _espn_american(c.get("moneyLine"))
+        return v if v is not None else _espn_american(node.get("moneyLine"))
+
+    def spread_close(node):
+        c = node.get("close") or node.get("current") or node.get("open") or {}
+        return _espn_american(c.get("spread"))
+
+    out = {}
+    # Moneyline
+    hml, aml = ml_close(home), ml_close(away)
+    fh, fa = _devig(hml, aml)
+    out["ml_home"], out["ml_away"] = fh, fa
+    # Total (closing over/under prices from top-level `close`, line from close.total)
+    close = it.get("close") or {}
+    over_odds = _espn_american(close.get("over")) if close else _espn_american(it.get("overOdds"))
+    under_odds = _espn_american(close.get("under")) if close else _espn_american(it.get("underOdds"))
+    fo, fu = _devig(over_odds, under_odds)
+    out["over"], out["under"] = fo, fu
+    try:
+        out["total_line"] = float((close.get("total") or {}).get("american")) if close.get("total") else float(it.get("overUnder"))
+    except (TypeError, ValueError, AttributeError):
+        out["total_line"] = None
+    # Runline (spread ±1.5)
+    sh, sa = spread_close(home), spread_close(away)
+    frh, fra = _devig(sh, sa)
+    out["rl_home"], out["rl_away"] = frh, fra
+    try:
+        out["rl_home_line"] = float(it.get("spread")) if it.get("spread") is not None else None
+    except (TypeError, ValueError):
+        out["rl_home_line"] = None
+
+    _CLOSING_CACHE[event_id] = out
+    return out
+
+
+def clv_for_pick(pick: dict, closing: dict, actual: dict) -> float | None:
+    """Closing Line Value in probability points: closing fair prob of the pick's
+    side minus the entry fair prob the model saw. Positive = the market moved
+    toward our pick (we 'beat the close'). None if not computable.
+
+    Moneyline is clean (no line). Total/Runline are only compared when the closing
+    line matches our entry line, so a line move never masquerades as price CLV."""
+    entry_fair = pick.get("market_fair_prob")
+    if entry_fair is None or not closing:
+        return None
+    market = pick.get("market")
+    side = pick.get("side", "")
+
+    if market == "Moneyline":
+        team = side.replace(" ML", "").strip()
+        if _slug(team) == _slug(actual["home_team"]):
+            close_fair = closing.get("ml_home")
+        elif _slug(team) == _slug(actual["away_team"]):
+            close_fair = closing.get("ml_away")
+        else:
+            return None
+    elif market == "Total":
+        if pick.get("line") is None or closing.get("total_line") != pick.get("line"):
+            return None  # line moved — skip to avoid a false CLV reading
+        close_fair = closing.get("over") if side.startswith("Over") else closing.get("under")
+    elif market == "Runline":
+        cl = closing.get("rl_home_line")
+        if cl is None:
+            return None
+        # our pick's line is from that team's perspective; match magnitude/sign
+        toks = side.rsplit(" ", 1)
+        if len(toks) != 2:
+            return None
+        team = toks[0].strip()
+        if _slug(team) == _slug(actual["home_team"]):
+            if cl != pick.get("line"):
+                return None
+            close_fair = closing.get("rl_home")
+        elif _slug(team) == _slug(actual["away_team"]):
+            if -cl != pick.get("line"):
+                return None
+            close_fair = closing.get("rl_away")
+        else:
+            return None
+    else:
+        return None
+
+    if not close_fair:
+        return None
+    return (close_fair - entry_fair) * 100.0
 
 
 # ---- Grading ----------------------------------------------------------------
@@ -270,7 +426,8 @@ def run_backtest(dates: list[str]) -> None:
     ev_ledger = Ledger("POSITIVE-EV (every +EV game-line pick)")
     all_ledger = Ledger("ALL GAME-LINE PICKS (calibration sample)")
     calib_rows: list[tuple[float, bool]] = []
-    clv_samples: list[float] = []  # model_prob - market_prob for graded recs
+    rec_clv: list[float] = []   # CLV (pts) for recommended picks
+    all_clv: list[float] = []   # CLV (pts) for every graded game-line pick
 
     graded_dates = 0
     total_games = 0
@@ -287,7 +444,7 @@ def run_backtest(dates: list[str]) -> None:
         graded_dates += 1
 
         # Dedupe prediction games to one per matchup (grade the richer entry).
-        seen: dict[frozenset, dict] = {}
+        seen: dict[frozenset, tuple] = {}
         for g in pred.get("games", []):
             key = frozenset({_slug(g.get("away_team", "")), _slug(g.get("home_team", ""))})
             gl = [p for p in (g.get("picks") or []) if p.get("market") in GAME_LINE_MARKETS]
@@ -299,6 +456,7 @@ def run_backtest(dates: list[str]) -> None:
             if not actual:
                 continue
             total_games += 1
+            closing = fetch_closing_probs(g.get("bdl_game_id"))  # ESPN event id
 
             # RECOMMENDED
             rec = recommended_pick(g)
@@ -306,11 +464,11 @@ def run_backtest(dates: list[str]) -> None:
                 graded = grade_pick(rec, actual)
                 if graded:
                     rec_ledger.add(rec, graded)
-                    if graded["result"] != "push":
-                        mp = rec.get("model_prob") or 0
-                        clv_samples.append(mp - (rec.get("market_prob") or 0))
+                clv = clv_for_pick(rec, closing, actual)
+                if clv is not None:
+                    rec_clv.append(clv)
 
-            # POSITIVE-EV + ALL + calibration
+            # POSITIVE-EV + ALL + calibration + CLV
             for p in gl:
                 graded = grade_pick(p, actual)
                 if not graded:
@@ -320,6 +478,9 @@ def run_backtest(dates: list[str]) -> None:
                     ev_ledger.add(p, graded)
                 if graded["result"] != "push":
                     calib_rows.append((p.get("model_prob") or 0, graded["result"] == "win"))
+                clv = clv_for_pick(p, closing, actual)
+                if clv is not None:
+                    all_clv.append(clv)
 
     # ---- Report ----
     print("=" * 68)
@@ -331,6 +492,7 @@ def run_backtest(dates: list[str]) -> None:
         print("No completed games with predictions found in the given range.")
         print("(Predictions exist only for dates you've run mlb_predict.py on, and")
         print(" games must be Final. Use --backfill to generate a historical sample.)")
+        _write_performance({}, {}, 0, 0)
         return
 
     print(rec_ledger.report()); print()
@@ -340,14 +502,69 @@ def run_backtest(dates: list[str]) -> None:
     print("CALIBRATION (does predicted win% match reality?)")
     print(calibration_table(calib_rows)); print()
 
-    if clv_samples:
-        avg_edge = sum(clv_samples) / len(clv_samples) * 100
-        print(f"Avg model edge vs market on recommended picks: {avg_edge:+.1f} pts")
-        print("  (model_prob - devigged market_prob; positive = model claims an edge.")
-        print("   Whether that edge is real is what the ROI above actually tests.)")
+    # ---- CLV — the metric that matters ----
+    def _clv_summary(name, samples):
+        if not samples:
+            return f"  {name}: no closing lines matched yet"
+        n = len(samples)
+        avg = sum(samples) / n
+        beat = sum(1 for x in samples if x > 0) / n * 100
+        return (f"  {name}\n"
+                f"    beat the close   {beat:.0f}%  ({sum(1 for x in samples if x>0)}/{n})\n"
+                f"    avg CLV          {avg:+.2f} pts")
+
+    print("CLOSING LINE VALUE — did the market move toward our picks?")
+    print(_clv_summary("RECOMMENDED picks", rec_clv))
+    print(_clv_summary("ALL game-line picks", all_clv))
     print()
-    print("Reminder: break-even at -110 juice is 52.4% wins. Beating the closing")
-    print("line over a LARGE sample (500+ bets) is the only real proof of edge.")
+    print("  CLV is the real scoreboard: consistently positive CLV (beat-close > 50%)")
+    print("  means genuine edge, detectable in ~50 bets. ROI needs 500+ to trust.")
+    print()
+    print("Reminder: break-even at -110 juice is 52.4% wins.")
+
+    _write_performance(rec_ledger, all_ledger, len(rec_clv), len(all_clv),
+                       rec_clv=rec_clv, all_clv=all_clv, calib_rows=calib_rows,
+                       graded_dates=graded_dates, total_games=total_games,
+                       ev_ledger=ev_ledger)
+
+
+def _ledger_summary(led) -> dict:
+    decided = led.wins + led.losses
+    return {
+        "wins": led.wins, "losses": led.losses, "pushes": led.pushes,
+        "win_pct": round(led.wins / decided * 100, 1) if decided else None,
+        "roi_pct": round(led.profit / led.staked * 100, 1) if led.staked else None,
+        "profit": round(led.profit, 0), "staked": round(led.staked, 0),
+    }
+
+
+def _write_performance(rec_ledger, all_ledger, n_rec_clv, n_all_clv,
+                       rec_clv=None, all_clv=None, calib_rows=None,
+                       graded_dates=0, total_games=0, ev_ledger=None) -> None:
+    """Write data/performance.json for the dashboard's model-performance panel."""
+    def clv_block(samples):
+        if not samples:
+            return {"n": 0, "beat_close_pct": None, "avg_clv": None}
+        n = len(samples)
+        return {"n": n,
+                "beat_close_pct": round(sum(1 for x in samples if x > 0) / n * 100, 0),
+                "avg_clv": round(sum(samples) / n, 2)}
+
+    out = {
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "graded_dates": graded_dates,
+        "graded_games": total_games,
+        "recommended": _ledger_summary(rec_ledger) if rec_ledger else {},
+        "positive_ev": _ledger_summary(ev_ledger) if ev_ledger else {},
+        "all_lines": _ledger_summary(all_ledger) if all_ledger else {},
+        "clv_recommended": clv_block(rec_clv or []),
+        "clv_all": clv_block(all_clv or []),
+    }
+    try:
+        with open(DATA_DIR / "performance.json", "w") as f:
+            json.dump(out, f, indent=2)
+    except Exception as e:
+        print(f"  (could not write performance.json: {e})", file=sys.stderr)
 
 
 def main() -> int:

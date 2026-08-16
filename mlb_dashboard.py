@@ -44,6 +44,64 @@ def load_predictions() -> dict[str, dict]:
     return out
 
 
+def render_performance() -> str:
+    """Sidebar panel showing the model's realized record + closing-line value.
+    Reads data/performance.json (written by mlb_backtest.py). CLV is the headline
+    metric — whether the market moves toward our picks — so it leads."""
+    p = DATA_DIR / "performance.json"
+    if not p.exists():
+        return ""
+    try:
+        with open(p) as f:
+            perf = json.load(f)
+    except Exception:
+        return ""
+
+    rec = perf.get("recommended", {}) or {}
+    clv = perf.get("clv_recommended", {}) or {}
+    games = perf.get("graded_games", 0)
+    if not games:
+        return ""
+
+    beat = clv.get("beat_close_pct")
+    avg_clv = clv.get("avg_clv")
+    n_clv = clv.get("n", 0)
+    # CLV verdict color: >52% beat-close is the edge threshold
+    if beat is None:
+        clv_cls, clv_txt = "perf-na", "—"
+    elif beat >= 55:
+        clv_cls, clv_txt = "perf-good", f"{beat:.0f}%"
+    elif beat >= 50:
+        clv_cls, clv_txt = "perf-mid", f"{beat:.0f}%"
+    else:
+        clv_cls, clv_txt = "perf-bad", f"{beat:.0f}%"
+
+    wl = f'{rec.get("wins","–")}-{rec.get("losses","–")}'
+    roi = rec.get("roi_pct")
+    roi_txt = f'{roi:+.1f}%' if isinstance(roi, (int, float)) else "—"
+    avg_clv_txt = f'{avg_clv:+.2f}' if isinstance(avg_clv, (int, float)) else "—"
+
+    small = n_clv < 40
+    note = ('<div class="perf-note">Small sample — CLV needs ~50+ graded picks '
+            'to trust. Building daily.</div>') if small else (
+            '<div class="perf-note">CLV &gt; 52% = real edge vs the market.</div>')
+
+    return (
+        '<div class="perf-panel">'
+        '<div class="perf-title">MODEL PERFORMANCE</div>'
+        '<div class="perf-hero">'
+        f'<div class="perf-hero-val {clv_cls}">{clv_txt}</div>'
+        '<div class="perf-hero-lab">beat the close<br>(recommended picks)</div>'
+        '</div>'
+        '<div class="perf-row"><span>Avg CLV</span><b>{}</b></div>'.format(avg_clv_txt) +
+        f'<div class="perf-row"><span>Record</span><b>{wl}</b></div>'
+        f'<div class="perf-row"><span>ROI (flat)</span><b>{roi_txt}</b></div>'
+        f'<div class="perf-row"><span>Graded picks</span><b>{n_clv}</b></div>'
+        f'{note}'
+        '</div>'
+    )
+
+
 def load_scraper_csv() -> list[dict]:
     p = CWD / "mlb_tonight_edates.csv"
     if not p.exists():
@@ -676,6 +734,7 @@ def build_dashboard() -> str:
         n_games=initial["n_games"],
         generated=initial["generated_at"] or "—",
         calendar=cal,
+        performance=render_performance(),
         legend=LEGEND_HTML,
         cards=initial["cards_html"],
         bundle_json=json.dumps(bundle),
@@ -777,6 +836,24 @@ HTML_SHELL = """<!DOCTYPE html>
   .cal-sel {{ background: var(--accent) !important; color: white !important; font-weight: 700; }}
 
   /* Legend */
+  /* Model performance panel */
+  .perf-panel {{
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 12px 14px; border-radius: 8px;
+    background: var(--card); border: 1px solid var(--rule);
+  }}
+  .perf-title {{ font-size: 10px; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; font-weight: 700; }}
+  .perf-hero {{ display: flex; align-items: center; gap: 10px; padding: 4px 0 6px; border-bottom: 1px solid var(--rule); margin-bottom: 2px; }}
+  .perf-hero-val {{ font-size: 30px; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1; }}
+  .perf-hero-lab {{ font-size: 10.5px; color: var(--muted); line-height: 1.25; }}
+  .perf-good {{ color: var(--good); }}
+  .perf-mid  {{ color: var(--mid); }}
+  .perf-bad  {{ color: var(--bad); }}
+  .perf-na   {{ color: var(--muted); }}
+  .perf-row {{ display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }}
+  .perf-row b {{ color: var(--ink); font-weight: 600; }}
+  .perf-note {{ font-size: 10px; color: var(--muted); font-style: italic; line-height: 1.35; margin-top: 4px; }}
+
   .legend-panel {{ display: flex; flex-direction: column; gap: 10px; font-size: 11.5px; }}
   .legend-title {{
     font-size: 10px; letter-spacing: 0.16em; color: var(--muted);
@@ -1097,6 +1174,7 @@ HTML_SHELL = """<!DOCTYPE html>
       <a class="sport-tab" href="wnba.html">🏀 WNBA</a>
     </nav>
     {calendar}
+    {performance}
     {legend}
   </aside>
   <main>
