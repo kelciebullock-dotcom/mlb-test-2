@@ -1,7 +1,7 @@
 {
   "date": "2026-08-17",
   "n_sims": 10000,
-  "generated_at": "2026-08-17T09:34:29.854917-04:00",
+  "generated_at": "2026-08-17T10:22:16.671812-04:00",
   "games": [
     {
       "bdl_game_id": null,
@@ -12,8 +12,8 @@
       "away_abbr": "STL",
       "home_abbr": "CIN",
       "venue": "",
-      "away_pitcher": "",
-      "home_pitcher": "",
+      "away_pitcher": "Quinn Mathews",
+      "home_pitcher": "Kent Emanuel",
       "park_factor": 108.0,
       "weather": {
         "temp_f": 79.9,
@@ -22,12 +22,12 @@
         "precip_pct": 10.0
       },
       "model": {
-        "away_win_pct": 0.4754,
-        "home_win_pct": 0.5246,
-        "mean_away_runs": 4.05,
-        "mean_home_runs": 3.74,
-        "mean_total": 7.79,
-        "mean_margin": -0.31
+        "away_win_pct": 0.4909,
+        "home_win_pct": 0.5091,
+        "mean_away_runs": 4.0,
+        "mean_home_runs": 3.56,
+        "mean_total": 7.56,
+        "mean_margin": -0.44
       },
       "picks": [],
       "projected_box": {
@@ -41,7 +41,7 @@
               "r": 0.5,
               "h": 0.9,
               "hr": 0.14,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.4,
               "k": 0.7
             },
@@ -66,7 +66,7 @@
               "h": 1.1,
               "hr": 0.24,
               "rbi": 0.6,
-              "bb": 0.4,
+              "bb": 0.3,
               "k": 0.7
             },
             {
@@ -144,21 +144,21 @@
           ],
           "totals": {
             "ab": 32.0,
-            "r": 4.1,
+            "r": 4.0,
             "h": 8.2,
             "hr": 1.35,
-            "rbi": 4.1,
-            "bb": 2.8,
+            "rbi": 4.0,
+            "bb": 2.7,
             "k": 6.5
           },
           "starter": {
-            "name": "",
+            "name": "Quinn Mathews",
             "ip": 8.0,
-            "h": 5.6,
-            "r": 3.6,
-            "er": 3.6,
+            "h": 5.0,
+            "r": 3.2,
+            "er": 3.2,
             "bb": 1.9,
-            "k": 5.1,
+            "k": 2.9,
             "hr": 1.02
           }
         },
@@ -166,39 +166,39 @@
           "batters": [
             {
               "slot": 1,
-              "pos": "1B",
-              "name": "Sal Stewart",
-              "ab": 3.6,
-              "r": 0.5,
-              "h": 0.9,
-              "hr": 0.3,
-              "rbi": 0.5,
-              "bb": 0.4,
-              "k": 0.9
-            },
-            {
-              "slot": 2,
               "pos": "SS",
               "name": "Elly De La Cruz",
               "ab": 3.5,
               "r": 0.5,
-              "h": 0.9,
-              "hr": 0.25,
+              "h": 1.0,
+              "hr": 0.26,
               "rbi": 0.5,
               "bb": 0.4,
-              "k": 1.1
+              "k": 0.6
+            },
+            {
+              "slot": 2,
+              "pos": "1B",
+              "name": "Sal Stewart",
+              "ab": 3.5,
+              "r": 0.5,
+              "h": 1.0,
+              "hr": 0.29,
+              "rbi": 0.5,
+              "bb": 0.4,
+              "k": 0.5
             },
             {
               "slot": 3,
-              "pos": "LF",
-              "name": "JJ Bleday",
-              "ab": 3.3,
+              "pos": "C",
+              "name": "Tyler Stephenson",
+              "ab": 3.5,
               "r": 0.5,
-              "h": 0.7,
-              "hr": 0.3,
+              "h": 1.0,
+              "hr": 0.21,
               "rbi": 0.5,
-              "bb": 0.6,
-              "k": 0.8
+              "bb": 0.4,
+              "k": 0.6
             },
             {
               "slot": 4,
@@ -206,84 +206,84 @@
               "name": "Eugenio Su\u00e1rez",
               "ab": 3.5,
               "r": 0.4,
-              "h": 0.6,
+              "h": 0.8,
               "hr": 0.28,
               "rbi": 0.4,
               "bb": 0.4,
-              "k": 1.4
+              "k": 0.8
             },
             {
               "slot": 5,
+              "pos": "CF",
+              "name": "Dane Myers",
+              "ab": 3.4,
+              "r": 0.5,
+              "h": 0.9,
+              "hr": 0.07,
+              "rbi": 0.4,
+              "bb": 0.5,
+              "k": 0.6
+            },
+            {
+              "slot": 6,
+              "pos": "LF",
+              "name": "Michael Toglia",
+              "ab": 3.5,
+              "r": 0.3,
+              "h": 0.6,
+              "hr": 0.17,
+              "rbi": 0.3,
+              "bb": 0.3,
+              "k": 0.8
+            },
+            {
+              "slot": 7,
               "pos": "2B",
               "name": "Matt McLain",
               "ab": 3.4,
               "r": 0.4,
-              "h": 0.6,
-              "hr": 0.17,
+              "h": 0.7,
+              "hr": 0.16,
               "rbi": 0.4,
               "bb": 0.4,
-              "k": 1.1
-            },
-            {
-              "slot": 6,
-              "pos": "C",
-              "name": "Tyler Stephenson",
-              "ab": 3.4,
-              "r": 0.5,
-              "h": 0.8,
-              "hr": 0.2,
-              "rbi": 0.5,
-              "bb": 0.4,
-              "k": 1.0
-            },
-            {
-              "slot": 7,
-              "pos": "CF",
-              "name": "TJ Friedl",
-              "ab": 3.5,
-              "r": 0.3,
-              "h": 0.6,
-              "hr": 0.07,
-              "rbi": 0.3,
-              "bb": 0.3,
-              "k": 0.9
+              "k": 0.6
             },
             {
               "slot": 8,
-              "pos": "CF",
-              "name": "Dane Myers",
-              "ab": 3.3,
-              "r": 0.5,
-              "h": 0.8,
-              "hr": 0.07,
-              "rbi": 0.4,
-              "bb": 0.5,
-              "k": 1.0
-            },
-            {
-              "slot": 9,
               "pos": "RF",
               "name": "Noelvi Marte",
-              "ab": 3.5,
+              "ab": 3.6,
               "r": 0.3,
               "h": 0.7,
               "hr": 0.17,
+              "rbi": 0.4,
+              "bb": 0.2,
+              "k": 0.5
+            },
+            {
+              "slot": 9,
+              "pos": "3B",
+              "name": "Ke'Bryan Hayes",
+              "ab": 3.5,
+              "r": 0.3,
+              "h": 0.6,
+              "hr": 0.15,
               "rbi": 0.3,
               "bb": 0.2,
-              "k": 1.0
+              "k": 0.4
             }
           ],
           "totals": {
-            "ab": 31.0,
-            "r": 3.7,
-            "h": 6.6,
-            "hr": 1.81,
-            "rbi": 3.8,
-            "bb": 3.6,
-            "k": 9.2
+            "ab": 31.4,
+            "r": 3.6,
+            "h": 7.3,
+            "hr": 1.76,
+            "rbi": 3.7,
+            "bb": 3.2,
+            "k": 5.4
           },
           "starter": {
-            "name": "",
+            "name": "Kent Emanuel",
             "ip": 8.0,
             "h": 5.6,
             "r": 3.6,
@@ -302,32 +302,32 @@
         "first_pitch_et": "1:40 PM ET",
         "venue": "Great American Ball Park",
         "park_factor": "108",
-        "umpire_hp": "",
+        "umpire_hp": "Vic Carapazza",
         "weather_temp_f": "79.9",
         "weather_wind": "6.7 mph W",
         "weather_precip_pct": "10",
         "away_record": "63-61 \u00b7 L10 7-3 \u00b7 W2 \u00b7 RD +7",
-        "away_vs_opp_hand": "",
+        "away_vs_opp_hand": "AVG .237 / OPS .704 / 42 HR",
         "away_il_count": "2",
         "away_il_names": "Max Rajcic, Ram\u00f3n Ur\u00edas",
-        "away_pitcher": "TBD",
-        "away_pitcher_hand": "",
-        "away_pitcher_era": "",
-        "away_pitcher_xera": "",
-        "away_pitcher_k_pct": "",
-        "away_pitcher_bb_pct": "",
-        "away_pitcher_barrel_pct": "",
-        "away_pitcher_whiff_pct": "",
-        "away_pitcher_hardhit_pct": "",
-        "away_pitcher_last3": "",
+        "away_pitcher": "Quinn Mathews",
+        "away_pitcher_hand": "L",
+        "away_pitcher_era": "3.60",
+        "away_pitcher_xera": "3.6",
+        "away_pitcher_k_pct": "12.5",
+        "away_pitcher_bb_pct": "12.5",
+        "away_pitcher_barrel_pct": "0",
+        "away_pitcher_whiff_pct": "25.5",
+        "away_pitcher_hardhit_pct": "22.2",
+        "away_pitcher_last3": "2026-08-01: 5.0 IP, 2 ER, 3 K",
         "away_bullpen_ip_last3d": "9.2",
         "away_bullpen_b2b_arms": "0",
         "home_record": "59-64 \u00b7 L10 4-6 \u00b7 L2 \u00b7 RD -86",
-        "home_vs_opp_hand": "",
+        "home_vs_opp_hand": "AVG .239 / OPS .740 / 38 HR",
         "home_il_count": "6",
         "home_il_names": "Blake Dunn, Brandon Williamson, Graham Ashcraft, Hunter Greene, Spencer Steer",
-        "home_pitcher": "TBD",
-        "home_pitcher_hand": "",
+        "home_pitcher": "Kent Emanuel",
+        "home_pitcher_hand": "L",
         "home_pitcher_era": "",
         "home_pitcher_xera": "",
         "home_pitcher_k_pct": "",
@@ -349,7 +349,7 @@
       "away_abbr": "STL",
       "home_abbr": "CIN",
       "venue": "",
-      "away_pitcher": "",
+      "away_pitcher": "Andre Pallante",
       "home_pitcher": "Rhett Lowder",
       "park_factor": 108.0,
       "weather": {
@@ -359,12 +359,12 @@
         "precip_pct": 22.0
       },
       "model": {
-        "away_win_pct": 0.5104,
-        "home_win_pct": 0.4896,
+        "away_win_pct": 0.5351,
+        "home_win_pct": 0.4649,
         "mean_away_runs": 4.47,
-        "mean_home_runs": 3.72,
-        "mean_total": 8.18,
-        "mean_margin": -0.75
+        "mean_home_runs": 3.57,
+        "mean_total": 8.04,
+        "mean_margin": -0.89
       },
       "picks": [],
       "projected_box": {
@@ -489,13 +489,13 @@
             "k": 5.3
           },
           "starter": {
-            "name": "",
+            "name": "Andre Pallante",
             "ip": 8.0,
-            "h": 5.6,
-            "r": 3.6,
-            "er": 3.6,
+            "h": 5.0,
+            "r": 3.2,
+            "er": 3.2,
             "bb": 1.9,
-            "k": 5.1,
+            "k": 3.9,
             "hr": 1.02
           }
         },
@@ -506,24 +506,24 @@
               "pos": "1B",
               "name": "Sal Stewart",
               "ab": 3.6,
-              "r": 0.5,
-              "h": 0.9,
+              "r": 0.4,
+              "h": 1.0,
               "hr": 0.3,
               "rbi": 0.5,
               "bb": 0.4,
-              "k": 0.9
+              "k": 0.7
             },
             {
               "slot": 2,
               "pos": "SS",
               "name": "Elly De La Cruz",
               "ab": 3.5,
-              "r": 0.5,
+              "r": 0.4,
               "h": 0.9,
               "hr": 0.25,
               "rbi": 0.5,
               "bb": 0.4,
-              "k": 1.1
+              "k": 0.8
             },
             {
               "slot": 3,
@@ -531,11 +531,11 @@
               "name": "JJ Bleday",
               "ab": 3.3,
               "r": 0.4,
-              "h": 0.7,
+              "h": 0.8,
               "hr": 0.3,
               "rbi": 0.5,
               "bb": 0.6,
-              "k": 0.8
+              "k": 0.6
             },
             {
               "slot": 4,
@@ -543,11 +543,11 @@
               "name": "Eugenio Su\u00e1rez",
               "ab": 3.5,
               "r": 0.4,
-              "h": 0.6,
+              "h": 0.7,
               "hr": 0.28,
               "rbi": 0.4,
               "bb": 0.4,
-              "k": 1.4
+              "k": 1.1
             },
             {
               "slot": 5,
@@ -555,23 +555,23 @@
               "name": "Matt McLain",
               "ab": 3.4,
               "r": 0.4,
-              "h": 0.6,
+              "h": 0.7,
               "hr": 0.17,
               "rbi": 0.4,
               "bb": 0.4,
-              "k": 1.1
+              "k": 0.8
             },
             {
               "slot": 6,
               "pos": "C",
               "name": "Tyler Stephenson",
               "ab": 3.4,
-              "r": 0.5,
-              "h": 0.8,
+              "r": 0.4,
+              "h": 0.9,
               "hr": 0.2,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.4,
-              "k": 1.0
+              "k": 0.7
             },
             {
               "slot": 7,
@@ -581,9 +581,9 @@
               "r": 0.3,
               "h": 0.6,
               "hr": 0.07,
-              "rbi": 0.3,
+              "rbi": 0.2,
               "bb": 0.3,
-              "k": 0.9
+              "k": 0.7
             },
             {
               "slot": 8,
@@ -593,9 +593,9 @@
               "r": 0.5,
               "h": 0.8,
               "hr": 0.07,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.5,
-              "k": 1.0
+              "k": 0.7
             },
             {
               "slot": 9,
@@ -607,17 +607,17 @@
               "hr": 0.17,
               "rbi": 0.3,
               "bb": 0.2,
-              "k": 1.0
+              "k": 0.7
             }
           ],
           "totals": {
             "ab": 31.0,
-            "r": 3.7,
-            "h": 6.6,
+            "r": 3.6,
+            "h": 7.1,
             "hr": 1.81,
-            "rbi": 3.8,
+            "rbi": 3.5,
             "bb": 3.6,
-            "k": 9.2
+            "k": 6.8
           },
           "starter": {
             "name": "Rhett Lowder",
@@ -647,20 +647,20 @@
         "away_vs_opp_hand": "AVG .242 / OPS .695 / 87 HR",
         "away_il_count": "2",
         "away_il_names": "Max Rajcic, Ram\u00f3n Ur\u00edas",
-        "away_pitcher": "TBD",
-        "away_pitcher_hand": "",
-        "away_pitcher_era": "",
-        "away_pitcher_xera": "",
-        "away_pitcher_k_pct": "",
-        "away_pitcher_bb_pct": "",
-        "away_pitcher_barrel_pct": "",
-        "away_pitcher_whiff_pct": "",
-        "away_pitcher_hardhit_pct": "",
-        "away_pitcher_last3": "",
+        "away_pitcher": "Andre Pallante",
+        "away_pitcher_hand": "R",
+        "away_pitcher_era": "3.46",
+        "away_pitcher_xera": "3.84",
+        "away_pitcher_k_pct": "17.1",
+        "away_pitcher_bb_pct": "7.4",
+        "away_pitcher_barrel_pct": "5.5",
+        "away_pitcher_whiff_pct": "21.4",
+        "away_pitcher_hardhit_pct": "34.7",
+        "away_pitcher_last3": "2026-07-30: 6.1 IP, 2 ER, 3 K | 2026-08-05: 5.1 IP, 1 ER, 4 K | 2026-08-11: 6.0 IP, 0 ER, 2 K",
         "away_bullpen_ip_last3d": "9.2",
         "away_bullpen_b2b_arms": "0",
         "home_record": "59-64 \u00b7 L10 4-6 \u00b7 L2 \u00b7 RD -86",
-        "home_vs_opp_hand": "",
+        "home_vs_opp_hand": "AVG .223 / OPS .688 / 123 HR",
         "home_il_count": "6",
         "home_il_names": "Blake Dunn, Brandon Williamson, Graham Ashcraft, Hunter Greene, Spencer Steer",
         "home_pitcher": "Rhett Lowder",
@@ -1437,19 +1437,14 @@
       "away_pitcher": "Framber Valdez",
       "home_pitcher": "Carmen Mlodzinski",
       "park_factor": 98.0,
-      "weather": {
-        "temp_f": 79.2,
-        "wind_mph": 3.3,
-        "wind_dir": "N",
-        "precip_pct": 12.0
-      },
+      "weather": {},
       "model": {
-        "away_win_pct": 0.4692,
-        "home_win_pct": 0.5308,
-        "mean_away_runs": 4.07,
-        "mean_home_runs": 3.81,
-        "mean_total": 7.88,
-        "mean_margin": -0.26
+        "away_win_pct": 0.4661,
+        "home_win_pct": 0.5339,
+        "mean_away_runs": 3.95,
+        "mean_home_runs": 3.71,
+        "mean_total": 7.66,
+        "mean_margin": -0.23
       },
       "picks": [],
       "projected_box": {
@@ -1463,7 +1458,7 @@
               "r": 0.5,
               "h": 1.1,
               "hr": 0.11,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.6,
               "k": 0.4
             },
@@ -1487,7 +1482,7 @@
               "r": 0.4,
               "h": 0.8,
               "hr": 0.21,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.4,
               "k": 1.0
             },
@@ -1499,7 +1494,7 @@
               "r": 0.4,
               "h": 1.0,
               "hr": 0.13,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.3,
               "k": 0.6
             },
@@ -1511,7 +1506,7 @@
               "r": 0.4,
               "h": 0.8,
               "hr": 0.06,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.4,
               "k": 0.5
             },
@@ -1535,7 +1530,7 @@
               "r": 0.4,
               "h": 1.0,
               "hr": 0.13,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.2,
               "k": 0.8
             },
@@ -1566,10 +1561,10 @@
           ],
           "totals": {
             "ab": 31.4,
-            "r": 4.1,
+            "r": 3.9,
             "h": 8.7,
             "hr": 1.32,
-            "rbi": 4.2,
+            "rbi": 3.7,
             "bb": 3.4,
             "k": 5.8
           },
@@ -1607,7 +1602,7 @@
               "h": 0.9,
               "hr": 0.26,
               "rbi": 0.5,
-              "bb": 0.4,
+              "bb": 0.3,
               "k": 1.0
             },
             {
@@ -1615,11 +1610,11 @@
               "pos": "3B",
               "name": "Nick Gonzales",
               "ab": 3.7,
-              "r": 0.5,
+              "r": 0.4,
               "h": 1.2,
               "hr": 0.06,
               "rbi": 0.4,
-              "bb": 0.2,
+              "bb": 0.3,
               "k": 0.6
             },
             {
@@ -1697,7 +1692,7 @@
           ],
           "totals": {
             "ab": 31.4,
-            "r": 3.8,
+            "r": 3.7,
             "h": 8.3,
             "hr": 1.3,
             "rbi": 3.7,
@@ -1725,9 +1720,9 @@
         "venue": "PNC Park",
         "park_factor": "98",
         "umpire_hp": "",
-        "weather_temp_f": "79.2",
-        "weather_wind": "3.3 mph N",
-        "weather_precip_pct": "12",
+        "weather_temp_f": "",
+        "weather_wind": "",
+        "weather_precip_pct": "",
         "away_record": "60-64 \u00b7 L10 5-5 \u00b7 L3 \u00b7 RD +83",
         "away_vs_opp_hand": "AVG .247 / OPS .739 / 118 HR",
         "away_il_count": "14",
@@ -1781,12 +1776,12 @@
         "precip_pct": 2.0
       },
       "model": {
-        "away_win_pct": 0.4263,
-        "home_win_pct": 0.5737,
+        "away_win_pct": 0.4201,
+        "home_win_pct": 0.5799,
         "mean_away_runs": 3.61,
         "mean_home_runs": 3.79,
-        "mean_total": 7.39,
-        "mean_margin": 0.18
+        "mean_total": 7.4,
+        "mean_margin": 0.19
       },
       "picks": [],
       "projected_box": {
@@ -1955,7 +1950,7 @@
               "r": 0.3,
               "h": 0.7,
               "hr": 0.19,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.3,
               "k": 0.9
             },
@@ -2014,7 +2009,7 @@
               "ab": 3.4,
               "r": 0.4,
               "h": 0.8,
-              "hr": 0.09,
+              "hr": 0.11,
               "rbi": 0.4,
               "bb": 0.3,
               "k": 0.7
@@ -2036,8 +2031,8 @@
             "ab": 31.9,
             "r": 3.8,
             "h": 8.4,
-            "hr": 1.59,
-            "rbi": 3.9,
+            "hr": 1.61,
+            "rbi": 3.8,
             "bb": 2.8,
             "k": 5.8
           },
@@ -2118,8 +2113,8 @@
         "precip_pct": 4.0
       },
       "model": {
-        "away_win_pct": 0.3934,
-        "home_win_pct": 0.6066,
+        "away_win_pct": 0.3925,
+        "home_win_pct": 0.6075,
         "mean_away_runs": 3.13,
         "mean_home_runs": 3.53,
         "mean_total": 6.65,
@@ -2184,7 +2179,7 @@
               "ab": 3.4,
               "r": 0.3,
               "h": 0.7,
-              "hr": 0.18,
+              "hr": 0.19,
               "rbi": 0.4,
               "bb": 0.5,
               "k": 1.0
@@ -2220,7 +2215,7 @@
               "ab": 3.4,
               "r": 0.3,
               "h": 0.7,
-              "hr": 0.05,
+              "hr": 0.07,
               "rbi": 0.3,
               "bb": 0.3,
               "k": 1.0
@@ -2242,7 +2237,7 @@
             "ab": 31.4,
             "r": 3.1,
             "h": 7.2,
-            "hr": 1.24,
+            "hr": 1.27,
             "rbi": 3.3,
             "bb": 3.3,
             "k": 8.8
@@ -2448,19 +2443,14 @@
       "away_pitcher": "Mason Barnett",
       "home_pitcher": "Michael Wacha",
       "park_factor": 99.0,
-      "weather": {
-        "temp_f": 90.4,
-        "wind_mph": 3.7,
-        "wind_dir": "N",
-        "precip_pct": 0.0
-      },
+      "weather": {},
       "model": {
-        "away_win_pct": 0.3772,
-        "home_win_pct": 0.6228,
-        "mean_away_runs": 3.71,
-        "mean_home_runs": 4.48,
-        "mean_total": 8.19,
-        "mean_margin": 0.77
+        "away_win_pct": 0.3714,
+        "home_win_pct": 0.6286,
+        "mean_away_runs": 3.53,
+        "mean_home_runs": 4.27,
+        "mean_total": 7.81,
+        "mean_margin": 0.74
       },
       "picks": [],
       "projected_box": {
@@ -2474,7 +2464,7 @@
               "r": 0.4,
               "h": 0.7,
               "hr": 0.15,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.4,
               "k": 0.9
             },
@@ -2486,7 +2476,7 @@
               "r": 0.4,
               "h": 1.1,
               "hr": 0.07,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.3,
               "k": 0.4
             },
@@ -2519,7 +2509,7 @@
               "pos": "C",
               "name": "Jonah Heim",
               "ab": 3.6,
-              "r": 0.4,
+              "r": 0.3,
               "h": 0.8,
               "hr": 0.19,
               "rbi": 0.4,
@@ -2567,20 +2557,20 @@
               "pos": "2B",
               "name": "Donovan Walton",
               "ab": 3.3,
-              "r": 0.5,
+              "r": 0.4,
               "h": 1.0,
               "hr": 0.1,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.4,
               "k": 0.6
             }
           ],
           "totals": {
             "ab": 32.1,
-            "r": 3.7,
+            "r": 3.5,
             "h": 8.3,
             "hr": 1.21,
-            "rbi": 3.8,
+            "rbi": 3.5,
             "bb": 2.7,
             "k": 6.2
           },
@@ -2605,7 +2595,7 @@
               "r": 0.4,
               "h": 0.8,
               "hr": 0.18,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.2,
               "k": 0.8
             },
@@ -2614,10 +2604,10 @@
               "pos": "SS",
               "name": "Bobby Witt Jr.",
               "ab": 3.5,
-              "r": 0.6,
+              "r": 0.5,
               "h": 1.1,
               "hr": 0.15,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.4,
               "k": 0.7
             },
@@ -2640,7 +2630,7 @@
               "ab": 3.6,
               "r": 0.5,
               "h": 1.0,
-              "hr": 0.24,
+              "hr": 0.25,
               "rbi": 0.6,
               "bb": 0.3,
               "k": 1.0
@@ -2665,7 +2655,7 @@
               "r": 0.5,
               "h": 1.0,
               "hr": 0.16,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.2,
               "k": 0.7
             },
@@ -2686,7 +2676,7 @@
               "pos": "CF",
               "name": "Kyle Isbel",
               "ab": 3.6,
-              "r": 0.5,
+              "r": 0.4,
               "h": 0.8,
               "hr": 0.09,
               "rbi": 0.4,
@@ -2708,10 +2698,10 @@
           ],
           "totals": {
             "ab": 31.9,
-            "r": 4.5,
+            "r": 4.3,
             "h": 7.8,
-            "hr": 1.21,
-            "rbi": 4.5,
+            "hr": 1.22,
+            "rbi": 4.2,
             "bb": 2.7,
             "k": 7.4
           },
@@ -2722,7 +2712,7 @@
             "r": 3.4,
             "er": 3.4,
             "bb": 1.9,
-            "k": 4.4,
+            "k": 4.3,
             "hr": 1.02
           }
         }
@@ -2736,9 +2726,9 @@
         "venue": "Kauffman Stadium",
         "park_factor": "99",
         "umpire_hp": "",
-        "weather_temp_f": "90.4",
-        "weather_wind": "3.7 mph N",
-        "weather_precip_pct": "0",
+        "weather_temp_f": "",
+        "weather_wind": "",
+        "weather_precip_pct": "",
         "away_record": "49-75 \u00b7 L10 4-6 \u00b7 W1 \u00b7 RD -174",
         "away_vs_opp_hand": "AVG .243 / OPS .721 / 92 HR",
         "away_il_count": "13",
@@ -3459,19 +3449,14 @@
       "away_pitcher": "Blake Snell",
       "home_pitcher": "Tomoyuki Sugano",
       "park_factor": 112.0,
-      "weather": {
-        "temp_f": 92.4,
-        "wind_mph": 6.4,
-        "wind_dir": "E",
-        "precip_pct": 1.0
-      },
+      "weather": {},
       "model": {
-        "away_win_pct": 0.6664,
-        "home_win_pct": 0.3336,
-        "mean_away_runs": 6.17,
-        "mean_home_runs": 3.74,
-        "mean_total": 9.92,
-        "mean_margin": -2.43
+        "away_win_pct": 0.6608,
+        "home_win_pct": 0.3392,
+        "mean_away_runs": 5.85,
+        "mean_home_runs": 3.55,
+        "mean_total": 9.4,
+        "mean_margin": -2.3
       },
       "picks": [],
       "projected_box": {
@@ -3484,7 +3469,7 @@
               "ab": 3.6,
               "r": 0.7,
               "h": 1.1,
-              "hr": 0.23,
+              "hr": 0.25,
               "rbi": 0.7,
               "bb": 0.3,
               "k": 0.5
@@ -3497,7 +3482,7 @@
               "r": 0.8,
               "h": 1.1,
               "hr": 0.31,
-              "rbi": 0.9,
+              "rbi": 0.8,
               "bb": 0.6,
               "k": 0.6
             },
@@ -3506,7 +3491,7 @@
               "pos": "1B",
               "name": "Freddie Freeman",
               "ab": 3.5,
-              "r": 0.8,
+              "r": 0.7,
               "h": 1.2,
               "hr": 0.18,
               "rbi": 0.7,
@@ -3518,7 +3503,7 @@
               "pos": "RF",
               "name": "Kyle Tucker",
               "ab": 3.4,
-              "r": 0.7,
+              "r": 0.6,
               "h": 0.9,
               "hr": 0.14,
               "rbi": 0.6,
@@ -3533,8 +3518,8 @@
               "r": 0.7,
               "h": 0.9,
               "hr": 0.33,
-              "rbi": 0.8,
-              "bb": 0.5,
+              "rbi": 0.7,
+              "bb": 0.4,
               "k": 0.6
             },
             {
@@ -3544,7 +3529,7 @@
               "ab": 3.6,
               "r": 0.6,
               "h": 1.0,
-              "hr": 0.25,
+              "hr": 0.24,
               "rbi": 0.6,
               "bb": 0.3,
               "k": 0.3
@@ -3566,7 +3551,7 @@
               "pos": "2B",
               "name": "Miguel Rojas",
               "ab": 3.5,
-              "r": 0.7,
+              "r": 0.6,
               "h": 1.1,
               "hr": 0.09,
               "rbi": 0.6,
@@ -3581,18 +3566,18 @@
               "r": 0.6,
               "h": 0.9,
               "hr": 0.1,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.3,
               "k": 0.6
             }
           ],
           "totals": {
             "ab": 31.3,
-            "r": 6.2,
+            "r": 5.9,
             "h": 9.1,
-            "hr": 1.82,
-            "rbi": 6.1,
-            "bb": 3.5,
+            "hr": 1.83,
+            "rbi": 5.8,
+            "bb": 3.4,
             "k": 4.4
           },
           "starter": {
@@ -3613,7 +3598,7 @@
               "pos": "1B",
               "name": "TJ Rumfield",
               "ab": 3.6,
-              "r": 0.5,
+              "r": 0.4,
               "h": 1.0,
               "hr": 0.17,
               "rbi": 0.4,
@@ -3640,7 +3625,7 @@
               "r": 0.4,
               "h": 1.0,
               "hr": 0.19,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.2,
               "k": 1.1
             },
@@ -3675,7 +3660,7 @@
               "ab": 3.5,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.05,
+              "hr": 0.04,
               "rbi": 0.4,
               "bb": 0.3,
               "k": 1.1
@@ -3712,17 +3697,17 @@
               "r": 0.5,
               "h": 0.8,
               "hr": 0.14,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.4,
               "k": 1.3
             }
           ],
           "totals": {
             "ab": 31.8,
-            "r": 3.7,
+            "r": 3.6,
             "h": 6.8,
-            "hr": 1.76,
-            "rbi": 3.8,
+            "hr": 1.75,
+            "rbi": 3.6,
             "bb": 2.7,
             "k": 13.9
           },
@@ -3747,9 +3732,9 @@
         "venue": "Coors Field",
         "park_factor": "112",
         "umpire_hp": "",
-        "weather_temp_f": "92.4",
-        "weather_wind": "6.4 mph E",
-        "weather_precip_pct": "1",
+        "weather_temp_f": "",
+        "weather_wind": "",
+        "weather_precip_pct": "",
         "away_record": "74-51 \u00b7 L10 5-5 \u00b7 L2 \u00b7 RD +136",
         "away_vs_opp_hand": "AVG .261 / OPS .769 / 111 HR",
         "away_il_count": "13",
