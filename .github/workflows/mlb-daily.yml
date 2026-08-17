@@ -74,8 +74,10 @@ jobs:
       - name: Build MLB dashboard HTML
         run: python mlb_dashboard.py
 
-      # ---- WNBA ----  (keyless too; safe to fail without blocking MLB)
-      - name: Run WNBA predictions (ESPN odds + stats.wnba.com) for the window
+      # ---- WNBA ----  (The Odds API for schedule+odds, stats.wnba.com for stats)
+      - name: Run WNBA predictions (Odds API + stats.wnba.com) for the window
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           for D in ${{ steps.target.outputs.dates }}; do
             echo "=== WNBA $D ==="
@@ -103,7 +105,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Persistent JSON snapshots keep past days browsable via the calendar;
           # performance.json holds the running CLV/record for the dashboard panel.
-          git add data/predictions_*.json data/wnba_predictions_*.json data/performance.json data/wnba_performance.json 2>/dev/null || true
+          git add data/predictions_*.json data/wnba_predictions_*.json data/performance.json data/wnba_performance.json data/oddsapi_wnba_cache.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "no prediction changes to commit"
             exit 0

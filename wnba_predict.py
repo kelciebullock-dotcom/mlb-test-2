@@ -45,11 +45,28 @@ DATA_DIR.mkdir(exist_ok=True)
 CACHE_DIR = DATA_DIR / "cache_wnba"
 CACHE_DIR.mkdir(exist_ok=True)
 
-# ESPN (free, keyless) for games + odds; stats.wnba.com (official, free) for stats.
-ESPN_SB = "https://cdn.espn.com/core/wnba/scoreboard"   # ?xhr=1&dates=YYYYMMDD
+# Primary WNBA schedule + odds: The Odds API (keyed). ESPN is the free fallback.
+ODDS_API_URL = "https://api.the-odds-api.com/v4/sports/basketball_wnba/odds/"
+ODDS_API_CACHE = DATA_DIR / "oddsapi_wnba_cache.json"   # committed; TTL-limited to save quota
+ODDS_API_TTL_HOURS = 5.0                                # ~4 fetches/day × 3 req = ~360/mo (< 500 free)
+ESPN_SB = "https://cdn.espn.com/core/wnba/scoreboard"   # ?xhr=1&dates=YYYYMMDD (free fallback)
 ESPN_ODDS = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/wnba/events/{eid}/competitions/{eid}/odds"
 ESPN_TEAM_RECORD = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/wnba/seasons/{yr}/types/2/teams/{tid}/record"
 WNBA_STATS = "https://stats.wnba.com/stats/leaguedashplayerstats"
+
+
+def _odds_api_key() -> str:
+    import os
+    k = os.environ.get("ODDS_API_KEY")
+    if k:
+        return k.strip()
+    cfg = CWD / "mlb_config.json"
+    if cfg.exists():
+        try:
+            return (json.load(open(cfg)).get("odds_api_key") or "").strip()
+        except Exception:
+            return ""
+    return ""
 
 # League baselines (WNBA team ~81 pts/game). Used when a team's PPG is unknown.
 LEAGUE_AVG_PTS = 81.5
@@ -109,10 +126,82 @@ def _is_et_date(iso_utc: str, date_str: str) -> bool:
         return False
 
 
+def _read_odds_cache() -> tuple[float, list]:
+    """Return (fetched_at_epoch, games) from the committed cache. The timestamp is
+    stored INSIDE the file (git checkout resets mtimes, so mtime can't be trusted)."""
+    try:
+        c = json.load(open(ODDS_API_CACHE))
+        return float(c.get("_fetched_at", 0)), (c.get("data") or [])
+    except Exception:
+        return 0.0, []
+
+
+def _fetch_oddsapi() -> list[dict]:
+    """All upcoming WNBA games with odds from The Odds API — one call, disk-cached
+    with an in-file TTL to stay under the 500-request/month free quota (each call =
+    3 requests). Returns the raw list (commence_time, teams, bookmakers) or []."""
+    fetched_at, cached = _read_odds_cache()
+    if cached and (time.time() - fetched_at) / 3600.0 < ODDS_API_TTL_HOURS:
+        return cached
+    key = _odds_api_key()
+    if not key:
+        return cached  # no key → serve whatever's cached (may be empty)
+    params = {"apiKey": key, "regions": "us",
+              "markets": "h2h,spreads,totals", "oddsFormat": "american"}
+    try:
+        d = _get_json(f"{ODDS_API_URL}?{urllib.parse.urlencode(params)}")
+        with open(ODDS_API_CACHE, "w") as f:
+            json.dump({"_fetched_at": time.time(), "data": d}, f)
+        return d
+    except Exception as e:
+        print(f"  (Odds API fetch failed: {e})", file=sys.stderr)
+        return cached  # serve stale rather than nothing
+
+
+# Map a WNBA team's full name (from The Odds API) to the stats.wnba.com abbreviation
+# by its nickname (last word) — unique across the league.
+_WNBA_NICK_TO_ABBR = {
+    "wings": "DAL", "valkyries": "GSV", "sparks": "LAS", "sun": "CON", "fever": "IND",
+    "tempo": "TOR", "liberty": "NYL", "sky": "CHI", "dream": "ATL", "aces": "LVA",
+    "storm": "SEA", "mercury": "PHX", "lynx": "MIN", "mystics": "WAS", "fire": "PDX",
+}
+
+
+def _oddsapi_games_for_date(date_str: str) -> list[dict]:
+    """Normalized WNBA games for a date from The Odds API (correct dates + odds)."""
+    out = []
+    for g in _fetch_oddsapi():
+        ct = g.get("commence_time", "")
+        try:
+            et = datetime.fromisoformat(ct.replace("Z", "+00:00")).astimezone(ET)
+        except Exception:
+            continue
+        if et.strftime("%Y-%m-%d") != date_str:
+            continue
+
+        def team_obj(name):
+            nick = (name or "").split()[-1].lower() if name else ""
+            return {"id": None, "abbreviation": _WNBA_NICK_TO_ABBR.get(nick, ""),
+                    "full_name": name, "name": (name or "").split()[-1]}
+
+        out.append({
+            "id": g.get("id"),
+            "date": ct,
+            "home_team": team_obj(g.get("home_team", "")),
+            "visitor_team": team_obj(g.get("away_team", "")),
+            "_oddsapi": g,   # raw odds, parsed by fetch_odds
+        })
+    return out
+
+
 def fetch_games(date_str: str) -> list[dict]:
-    """WNBA games for a date from ESPN's free scoreboard, normalized. ESPN's dates=
-    filter is loose, so we scan date-1..date+1 and keep only games whose ACTUAL
-    tip-off in ET matches the requested date (catches ESPN's cross-day mislabeling)."""
+    """WNBA games for a date — The Odds API (keyed, reliable schedule + odds) first,
+    ESPN free scoreboard as fallback. Both keep only games on the requested ET date."""
+    games = _oddsapi_games_for_date(date_str)
+    if games:
+        return games
+
+    # ---- ESPN fallback (free, keyless) ----
     base = datetime.strptime(date_str, "%Y-%m-%d").date()
     events, seen_ids = [], set()
     for delta in (0, -1, 1):
@@ -156,9 +245,45 @@ def fetch_games(date_str: str) -> list[dict]:
     return out
 
 
+def _parse_oddsapi_game(g: dict) -> list[dict]:
+    """Convert one The Odds API game (bookmakers/markets/outcomes) into our internal
+    odds-dict shape. Prefers DraftKings, falls back to the first book with all lines."""
+    home_name = g.get("home_team", ""); away_name = g.get("away_team", "")
+    books = g.get("bookmakers", []) or []
+    def rank(b):
+        return 0 if b.get("key") == "draftkings" else 1
+    for b in sorted(books, key=rank):
+        mk = {m.get("key"): m for m in b.get("markets", [])}
+        row = {"vendor": b.get("key", ""),
+               "moneyline_home_odds": None, "moneyline_away_odds": None,
+               "total_value": None, "total_over_odds": None, "total_under_odds": None,
+               "spread_home_value": None, "spread_away_value": None,
+               "spread_home_odds": None, "spread_away_odds": None}
+        for o in (mk.get("h2h", {}) or {}).get("outcomes", []):
+            if o.get("name") == home_name: row["moneyline_home_odds"] = o.get("price")
+            elif o.get("name") == away_name: row["moneyline_away_odds"] = o.get("price")
+        for o in (mk.get("totals", {}) or {}).get("outcomes", []):
+            row["total_value"] = o.get("point")
+            if o.get("name") == "Over": row["total_over_odds"] = o.get("price")
+            elif o.get("name") == "Under": row["total_under_odds"] = o.get("price")
+        for o in (mk.get("spreads", {}) or {}).get("outcomes", []):
+            if o.get("name") == home_name:
+                row["spread_home_value"] = o.get("point"); row["spread_home_odds"] = o.get("price")
+            elif o.get("name") == away_name:
+                row["spread_away_value"] = o.get("point"); row["spread_away_odds"] = o.get("price")
+        if row["moneyline_home_odds"] is not None or row["total_value"] is not None:
+            return [row]
+    return []
+
+
 def fetch_odds(event_id) -> list[dict]:
-    """One-element list with the pregame DraftKings line from ESPN, in the
-    internal odds-dict shape the pick generator expects."""
+    """Odds for a game. Accepts either a game dict (The Odds API path — parses its
+    embedded odds) or an ESPN event id (fallback → ESPN odds endpoint)."""
+    if isinstance(event_id, dict):
+        g = event_id
+        if g.get("_oddsapi"):
+            return _parse_oddsapi_game(g["_oddsapi"])
+        event_id = g.get("id")
     if not event_id:
         return []
     try:
@@ -209,7 +334,10 @@ _players_cache: dict[int, list[dict]] = {}  # season -> list of player dicts
 
 
 def fetch_team_scoring(espn_team_id, season: int) -> dict:
-    """Return {'pf': avgPointsFor, 'pa': avgPointsAgainst} for an ESPN team id."""
+    """Return {'pf': avgPointsFor, 'pa': avgPointsAgainst} for an ESPN team id.
+    Odds-API games carry no ESPN id → returns {} (model falls back to league avg)."""
+    if not espn_team_id:
+        return {"pf": None, "pa": None}
     key = str(espn_team_id)
     if key in _team_score_cache:
         return _team_score_cache[key]
@@ -780,7 +908,7 @@ def format_tipoff(iso_str: str) -> str:
 def run_for_date(date_str: str) -> Path:
     year = int(date_str[:4])
     games = fetch_games(date_str)
-    print(f"WNBA predicting for {date_str} — ESPN returned {len(games)} games", file=sys.stderr)
+    print(f"WNBA predicting for {date_str} — {len(games)} games (Odds API / ESPN)", file=sys.stderr)
 
     all_output = {
         "date": date_str, "n_sims": N_SIMS,
@@ -808,7 +936,7 @@ def run_for_date(date_str: str) -> Path:
             continue
 
         try:
-            odds = fetch_odds(gid)
+            odds = fetch_odds(g)   # parses embedded Odds API data, else ESPN by id
             props = []  # no free WNBA player-prop odds source
         except Exception as e:
             print(f"    odds error: {e}", file=sys.stderr)
