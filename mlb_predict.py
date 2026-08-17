@@ -112,49 +112,64 @@ def _american(node: dict) -> float | None:
         return None
 
 
-# ---- Game + odds fetchers (ESPN free API) -----------------------------------
+# ---- Games (MLB Stats API schedule) + odds (ESPN, matched by matchup) --------
 
-def fetch_games(date_str: str) -> list[dict]:
-    """Return games for a date from ESPN's free scoreboard, normalized to the
-    shape the rest of the pipeline expects (id, team names, team dicts)."""
-    yyyymmdd = date_str.replace("-", "")
-    try:
-        d = _http_get_json(f"{ESPN_SB}?xhr=1&dates={yyyymmdd}")
-    except Exception as e:
-        print(f"  (ESPN scoreboard fetch failed: {e})", file=sys.stderr)
-        return []
-    events = (d.get("content", {}).get("sbData", {}).get("events")
-              or d.get("events") or [])
-    games = []
-    for ev in events:
+def _espn_event_map(date_str: str) -> dict:
+    """{frozenset(team slugs): espn_event_id} from ESPN's scoreboard around a date.
+    ESPN mis-dates games, so scan date-1..date+1 and key by matchup (unique per day)."""
+    out = {}
+    base = datetime.strptime(date_str, "%Y-%m-%d").date()
+    for delta in (0, -1, 1):
+        yyyymmdd = (base + timedelta(days=delta)).strftime("%Y%m%d")
         try:
-            comp = ev["competitions"][0]
-            competitors = comp.get("competitors", [])
-            home = next(c for c in competitors if c.get("homeAway") == "home")
-            away = next(c for c in competitors if c.get("homeAway") == "away")
-        except (KeyError, IndexError, StopIteration):
-            continue
-
-        # ESPN's dates= filter is loose (can return an adjacent day's games), so
-        # keep only games whose ACTUAL first pitch in ET matches the requested date.
-        iso = ev.get("date", "")
-        try:
-            if not iso or datetime.fromisoformat(iso.replace("Z", "+00:00")).astimezone(ET).strftime("%Y-%m-%d") != date_str:
-                continue
+            j = _http_get_json(f"{ESPN_SB}?xhr=1&dates={yyyymmdd}")
         except Exception:
             continue
+        for ev in (j.get("content", {}).get("sbData", {}).get("events") or j.get("events") or []):
+            try:
+                comp = ev["competitions"][0]
+                comps = comp.get("competitors", [])
+                home = next(c for c in comps if c.get("homeAway") == "home")
+                away = next(c for c in comps if c.get("homeAway") == "away")
+                key = frozenset({_slug_norm(home["team"]["displayName"]),
+                                 _slug_norm(away["team"]["displayName"])})
+                out.setdefault(key, ev.get("id"))
+            except Exception:
+                continue
+    return out
 
-        def team_obj(c):
-            t = c.get("team", {})
-            return {"id": t.get("id"), "abbreviation": t.get("abbreviation", ""),
-                    "name": t.get("displayName", "")}
 
-        games.append({
-            "id": ev.get("id"),                       # ESPN event id (for odds)
-            "home_team_name": home.get("team", {}).get("displayName", ""),
-            "away_team_name": away.get("team", {}).get("displayName", ""),
-            "home_team": team_obj(home),
-            "away_team": team_obj(away),
+def fetch_games(date_str: str) -> list[dict]:
+    """Games for a date from the AUTHORITATIVE MLB Stats API schedule (correct dates
+    + probable pitchers), each matched to its ESPN event id for odds. Using StatsAPI
+    for the schedule fixes ESPN's loose date filter that mislabeled adjacent days."""
+    try:
+        d = mlb_get("/schedule", sportId=1, date=date_str, hydrate="probablePitcher,team")
+    except Exception as e:
+        print(f"  (MLB schedule fetch failed: {e})", file=sys.stderr)
+        return []
+    espn_map = _espn_event_map(date_str)
+    games = []
+    seen = set()
+    for day in d.get("dates", []):
+        for g in day.get("games", []):
+            try:
+                a = g["teams"]["away"]["team"]; h = g["teams"]["home"]["team"]
+            except KeyError:
+                continue
+            key = frozenset({_slug_norm(a.get("name", "")), _slug_norm(h.get("name", ""))})
+            if key in seen:  # collapse doubleheaders to one card per matchup
+                continue
+            seen.add(key)
+            games.append({
+                "id": espn_map.get(key),          # ESPN event id for odds (None until posted)
+                "gamePk": g.get("gamePk"),
+                "home_team_name": h.get("name", ""),
+                "away_team_name": a.get("name", ""),
+                "home_team": {"id": h.get("id"), "abbreviation": h.get("abbreviation", ""),
+                              "name": h.get("name", "")},
+                "away_team": {"id": a.get("id"), "abbreviation": a.get("abbreviation", ""),
+                              "name": a.get("name", "")},
         })
     return games
 
@@ -219,23 +234,70 @@ def fetch_player_props(event_id) -> list[dict]:
 _LINEUP_CACHE: dict[str, dict] = {}
 
 
-def _load_lineups_for_date(date_str: str) -> dict[frozenset, dict]:
-    """One MLB Stats API call → {frozenset(team slugs): {away:[...], home:[...]}}."""
+_PROJ_LINEUP_CACHE: dict[int, list] = {}
+
+
+def _projected_lineup(team_id: int, year: int) -> list[dict]:
+    """Fallback batting order when the official lineup isn't posted yet (Preview
+    games, e.g. tomorrow): the team's 9 position players with the most plate
+    appearances this season, ordered by PA. Lets box scores populate a day ahead."""
+    if not team_id:
+        return []
+    if team_id in _PROJ_LINEUP_CACHE:
+        return _PROJ_LINEUP_CACHE[team_id]
+    players = []
+    try:
+        r = mlb_get(f"/teams/{team_id}/roster", rosterType="active")
+        for entry in r.get("roster", []):
+            pos = entry.get("position", {}) or {}
+            if pos.get("type") == "Pitcher":
+                continue
+            p = entry.get("person", {}) or {}
+            pid = p.get("id")
+            if not pid:
+                continue
+            stats = get_batter_season_stats(pid, year)
+            players.append({
+                "id": pid,
+                "fullName": p.get("fullName", ""),
+                "primaryPosition": {"abbreviation": pos.get("abbreviation", "")},
+                "_pa": (stats or {}).get("pa", 0),
+            })
+        players.sort(key=lambda x: -(x.get("_pa") or 0))
+        players = players[:9]
+    except Exception as e:
+        print(f"    (projected lineup failed for team {team_id}: {e})", file=sys.stderr)
+        players = []
+    _PROJ_LINEUP_CACHE[team_id] = players
+    return players
+
+
+def _load_lineups_for_date(date_str: str, year: int | None = None) -> dict[frozenset, dict]:
+    """{frozenset(team slugs): {away, home, away_pp, home_pp, away_id, home_id}}.
+    Uses official lineups when posted; projects from the roster otherwise."""
     if date_str in _LINEUP_CACHE:
         return _LINEUP_CACHE[date_str]
+    if year is None:
+        year = int(date_str[:4])
     out: dict[frozenset, dict] = {}
     try:
         d = mlb_get("/schedule", sportId=1, date=date_str,
                     hydrate="lineups,probablePitcher,team")
         for day in d.get("dates", []):
             for g in day.get("games", []):
-                a = g["teams"]["away"]["team"]["name"]
-                h = g["teams"]["home"]["team"]["name"]
+                at = g["teams"]["away"]["team"]; ht = g["teams"]["home"]["team"]
+                a, h = at["name"], ht["name"]
                 lu = g.get("lineups", {}) or {}
+                away_players = lu.get("awayPlayers", []) or []
+                home_players = lu.get("homePlayers", []) or []
+                # Project from the roster when the official card isn't up yet.
+                if not away_players:
+                    away_players = _projected_lineup(at.get("id"), year)
+                if not home_players:
+                    home_players = _projected_lineup(ht.get("id"), year)
                 key = frozenset({_slug_norm(a), _slug_norm(h)})
                 out.setdefault(key, {
-                    "away": lu.get("awayPlayers", []) or [],
-                    "home": lu.get("homePlayers", []) or [],
+                    "away": away_players, "home": home_players,
                     "away_pp": (g["teams"]["away"].get("probablePitcher") or {}),
                     "home_pp": (g["teams"]["home"].get("probablePitcher") or {}),
                 })

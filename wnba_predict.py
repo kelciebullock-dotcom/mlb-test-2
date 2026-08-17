@@ -110,15 +110,23 @@ def _is_et_date(iso_utc: str, date_str: str) -> bool:
 
 
 def fetch_games(date_str: str) -> list[dict]:
-    """WNBA games for a date from ESPN's free scoreboard, normalized."""
-    yyyymmdd = date_str.replace("-", "")
-    try:
-        d = _get_json(f"{ESPN_SB}?xhr=1&dates={yyyymmdd}")
-    except Exception as e:
-        print(f"  (ESPN scoreboard fetch failed: {e})", file=sys.stderr)
-        return []
-    events = (d.get("content", {}).get("sbData", {}).get("events")
-              or d.get("events") or [])
+    """WNBA games for a date from ESPN's free scoreboard, normalized. ESPN's dates=
+    filter is loose, so we scan date-1..date+1 and keep only games whose ACTUAL
+    tip-off in ET matches the requested date (catches ESPN's cross-day mislabeling)."""
+    base = datetime.strptime(date_str, "%Y-%m-%d").date()
+    events, seen_ids = [], set()
+    for delta in (0, -1, 1):
+        yyyymmdd = (base + timedelta(days=delta)).strftime("%Y%m%d")
+        try:
+            d = _get_json(f"{ESPN_SB}?xhr=1&dates={yyyymmdd}")
+        except Exception:
+            continue
+        for ev in (d.get("content", {}).get("sbData", {}).get("events") or d.get("events") or []):
+            eid = ev.get("id")
+            if eid and eid not in seen_ids:
+                seen_ids.add(eid)
+                events.append(ev)
+
     out = []
     for ev in events:
         try:
@@ -129,8 +137,6 @@ def fetch_games(date_str: str) -> list[dict]:
         except (KeyError, IndexError, StopIteration):
             continue
 
-        # ESPN's dates= filter is loose (it can return games from an adjacent day),
-        # so keep only games whose ACTUAL tip-off date in ET matches the request.
         iso = ev.get("date", "")
         if not _is_et_date(iso, date_str):
             continue

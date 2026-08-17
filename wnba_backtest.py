@@ -42,18 +42,23 @@ def _get(url: str) -> dict:
 # ---- Actuals + closing lines (ESPN) ----------------------------------------
 
 def fetch_actuals(date_str: str) -> dict[frozenset, dict]:
-    """{frozenset(team slugs): {...final...}} for completed WNBA games, plus the
-    ESPN event id (for closing-line lookup)."""
-    yyyymmdd = date_str.replace("-", "")
-    try:
-        d = _get(f"{ESPN_SB}?xhr=1&dates={yyyymmdd}")
-    except Exception as e:
-        print(f"  (actuals fetch failed for {date_str}: {e})", file=sys.stderr)
-        return {}
-    events = d.get("content", {}).get("sbData", {}).get("events") or []
+    """{frozenset(team slugs): {...final...}} for completed WNBA games on date_str,
+    plus the ESPN event id. Scans date-1..date+1 (ESPN mis-dates) and keeps only
+    games whose ET tip-off matches, so grading never counts an adjacent day."""
+    base = datetime.strptime(date_str, "%Y-%m-%d").date()
+    events, seen_ids = [], set()
+    for delta in (0, -1, 1):
+        try:
+            d = _get(f"{ESPN_SB}?xhr=1&dates={(base + timedelta(days=delta)).strftime('%Y%m%d')}")
+        except Exception:
+            continue
+        for ev in (d.get("content", {}).get("sbData", {}).get("events") or []):
+            eid = ev.get("id")
+            if eid and eid not in seen_ids:
+                seen_ids.add(eid); events.append(ev)
     out = {}
     for ev in events:
-        # ESPN's date filter is loose — only grade games whose ET tip-off matches.
+        # Only grade games whose ET tip-off matches the requested date.
         iso = ev.get("date", "")
         try:
             if not iso or datetime.fromisoformat(iso.replace("Z", "+00:00")).astimezone(ET).strftime("%Y-%m-%d") != date_str:
