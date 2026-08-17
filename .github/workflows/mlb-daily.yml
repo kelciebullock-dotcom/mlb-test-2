@@ -2,13 +2,14 @@ name: Daily update (MLB + WNBA)
 
 on:
   schedule:
-    # Hourly at :10 past, from 2 pm to 10 pm ET. Times are UTC (GitHub cron is
-    # UTC-only); baseball/WNBA seasons are all EDT (UTC-4), so 2–10 pm ET = 18:00
-    # UTC through 02:00 UTC next day. The 2 pm run has the slate ready before 3 pm;
-    # each later hourly run re-pulls whatever lineups have since been confirmed,
-    # so the dashboard keeps refreshing as final lineups post. :10 (not :00)
-    # because GitHub delays scheduled runs most at the top of the hour.
-    - cron: '10 18-23,0-2 * * *'
+    # Times are UTC (GitHub cron is UTC-only); baseball/WNBA seasons are all EDT
+    # (UTC-4). Runs at :10 past to dodge the top-of-hour scheduler backlog.
+    #   8 am ET  = 12:00 UTC   — early morning refresh (next-day slate + lines)
+    #   12 pm ET = 16:00 UTC   — midday refresh
+    #   2–10 pm ET = 18:00 UTC..02:00 UTC next day — hourly through game time
+    # Each run re-pulls whatever lineups/odds have since posted, so the dashboard
+    # keeps sharpening toward final lineups.
+    - cron: '10 12,16,18-23,0-2 * * *'
   workflow_dispatch:  # allow manual "Run workflow" button
 
 # Only one build/deploy at a time; don't cancel a running deploy.
