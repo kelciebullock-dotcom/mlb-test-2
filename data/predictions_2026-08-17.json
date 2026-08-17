@@ -1,10 +1,11 @@
 {
   "date": "2026-08-17",
   "n_sims": 10000,
-  "generated_at": "2026-08-16T20:00:30.984594-04:00",
+  "generated_at": "2026-08-17T09:34:29.854917-04:00",
   "games": [
     {
       "bdl_game_id": null,
+      "game_pk": 824514,
       "date": "2026-08-17",
       "away_team": "St. Louis Cardinals",
       "home_team": "Cincinnati Reds",
@@ -15,18 +16,18 @@
       "home_pitcher": "",
       "park_factor": 108.0,
       "weather": {
-        "temp_f": 78.1,
-        "wind_mph": 8.7,
-        "wind_dir": "NW",
-        "precip_pct": 28.0
+        "temp_f": 79.9,
+        "wind_mph": 6.7,
+        "wind_dir": "W",
+        "precip_pct": 10.0
       },
       "model": {
-        "away_win_pct": 0.4676,
-        "home_win_pct": 0.5324,
-        "mean_away_runs": 3.97,
-        "mean_home_runs": 3.72,
-        "mean_total": 7.69,
-        "mean_margin": -0.25
+        "away_win_pct": 0.4754,
+        "home_win_pct": 0.5246,
+        "mean_away_runs": 4.05,
+        "mean_home_runs": 3.74,
+        "mean_total": 7.79,
+        "mean_margin": -0.31
       },
       "picks": [],
       "projected_box": {
@@ -40,7 +41,7 @@
               "r": 0.5,
               "h": 0.9,
               "hr": 0.14,
-              "rbi": 0.4,
+              "rbi": 0.5,
               "bb": 0.4,
               "k": 0.7
             },
@@ -143,12 +144,349 @@
           ],
           "totals": {
             "ab": 32.0,
-            "r": 4.0,
+            "r": 4.1,
             "h": 8.2,
             "hr": 1.35,
-            "rbi": 4.0,
+            "rbi": 4.1,
             "bb": 2.8,
             "k": 6.5
+          },
+          "starter": {
+            "name": "",
+            "ip": 8.0,
+            "h": 5.6,
+            "r": 3.6,
+            "er": 3.6,
+            "bb": 1.9,
+            "k": 5.1,
+            "hr": 1.02
+          }
+        },
+        "home": {
+          "batters": [
+            {
+              "slot": 1,
+              "pos": "1B",
+              "name": "Sal Stewart",
+              "ab": 3.6,
+              "r": 0.5,
+              "h": 0.9,
+              "hr": 0.3,
+              "rbi": 0.5,
+              "bb": 0.4,
+              "k": 0.9
+            },
+            {
+              "slot": 2,
+              "pos": "SS",
+              "name": "Elly De La Cruz",
+              "ab": 3.5,
+              "r": 0.5,
+              "h": 0.9,
+              "hr": 0.25,
+              "rbi": 0.5,
+              "bb": 0.4,
+              "k": 1.1
+            },
+            {
+              "slot": 3,
+              "pos": "LF",
+              "name": "JJ Bleday",
+              "ab": 3.3,
+              "r": 0.5,
+              "h": 0.7,
+              "hr": 0.3,
+              "rbi": 0.5,
+              "bb": 0.6,
+              "k": 0.8
+            },
+            {
+              "slot": 4,
+              "pos": "DH",
+              "name": "Eugenio Su\u00e1rez",
+              "ab": 3.5,
+              "r": 0.4,
+              "h": 0.6,
+              "hr": 0.28,
+              "rbi": 0.4,
+              "bb": 0.4,
+              "k": 1.4
+            },
+            {
+              "slot": 5,
+              "pos": "2B",
+              "name": "Matt McLain",
+              "ab": 3.4,
+              "r": 0.4,
+              "h": 0.6,
+              "hr": 0.17,
+              "rbi": 0.4,
+              "bb": 0.4,
+              "k": 1.1
+            },
+            {
+              "slot": 6,
+              "pos": "C",
+              "name": "Tyler Stephenson",
+              "ab": 3.4,
+              "r": 0.5,
+              "h": 0.8,
+              "hr": 0.2,
+              "rbi": 0.5,
+              "bb": 0.4,
+              "k": 1.0
+            },
+            {
+              "slot": 7,
+              "pos": "CF",
+              "name": "TJ Friedl",
+              "ab": 3.5,
+              "r": 0.3,
+              "h": 0.6,
+              "hr": 0.07,
+              "rbi": 0.3,
+              "bb": 0.3,
+              "k": 0.9
+            },
+            {
+              "slot": 8,
+              "pos": "CF",
+              "name": "Dane Myers",
+              "ab": 3.3,
+              "r": 0.5,
+              "h": 0.8,
+              "hr": 0.07,
+              "rbi": 0.4,
+              "bb": 0.5,
+              "k": 1.0
+            },
+            {
+              "slot": 9,
+              "pos": "RF",
+              "name": "Noelvi Marte",
+              "ab": 3.5,
+              "r": 0.3,
+              "h": 0.7,
+              "hr": 0.17,
+              "rbi": 0.3,
+              "bb": 0.2,
+              "k": 1.0
+            }
+          ],
+          "totals": {
+            "ab": 31.0,
+            "r": 3.7,
+            "h": 6.6,
+            "hr": 1.81,
+            "rbi": 3.8,
+            "bb": 3.6,
+            "k": 9.2
+          },
+          "starter": {
+            "name": "",
+            "ip": 8.0,
+            "h": 5.6,
+            "r": 3.6,
+            "er": 3.6,
+            "bb": 1.9,
+            "k": 5.1,
+            "hr": 1.02
+          }
+        }
+      },
+      "context": {
+        "date": "2026-08-17",
+        "game_pk": "824514",
+        "away_team": "St. Louis Cardinals",
+        "home_team": "Cincinnati Reds",
+        "first_pitch_et": "1:40 PM ET",
+        "venue": "Great American Ball Park",
+        "park_factor": "108",
+        "umpire_hp": "",
+        "weather_temp_f": "79.9",
+        "weather_wind": "6.7 mph W",
+        "weather_precip_pct": "10",
+        "away_record": "63-61 \u00b7 L10 7-3 \u00b7 W2 \u00b7 RD +7",
+        "away_vs_opp_hand": "",
+        "away_il_count": "2",
+        "away_il_names": "Max Rajcic, Ram\u00f3n Ur\u00edas",
+        "away_pitcher": "TBD",
+        "away_pitcher_hand": "",
+        "away_pitcher_era": "",
+        "away_pitcher_xera": "",
+        "away_pitcher_k_pct": "",
+        "away_pitcher_bb_pct": "",
+        "away_pitcher_barrel_pct": "",
+        "away_pitcher_whiff_pct": "",
+        "away_pitcher_hardhit_pct": "",
+        "away_pitcher_last3": "",
+        "away_bullpen_ip_last3d": "9.2",
+        "away_bullpen_b2b_arms": "0",
+        "home_record": "59-64 \u00b7 L10 4-6 \u00b7 L2 \u00b7 RD -86",
+        "home_vs_opp_hand": "",
+        "home_il_count": "6",
+        "home_il_names": "Blake Dunn, Brandon Williamson, Graham Ashcraft, Hunter Greene, Spencer Steer",
+        "home_pitcher": "TBD",
+        "home_pitcher_hand": "",
+        "home_pitcher_era": "",
+        "home_pitcher_xera": "",
+        "home_pitcher_k_pct": "",
+        "home_pitcher_bb_pct": "",
+        "home_pitcher_barrel_pct": "",
+        "home_pitcher_whiff_pct": "",
+        "home_pitcher_hardhit_pct": "",
+        "home_pitcher_last3": "",
+        "home_bullpen_ip_last3d": "9.0",
+        "home_bullpen_b2b_arms": "2"
+      }
+    },
+    {
+      "bdl_game_id": null,
+      "game_pk": 824478,
+      "date": "2026-08-17",
+      "away_team": "St. Louis Cardinals",
+      "home_team": "Cincinnati Reds",
+      "away_abbr": "STL",
+      "home_abbr": "CIN",
+      "venue": "",
+      "away_pitcher": "",
+      "home_pitcher": "Rhett Lowder",
+      "park_factor": 108.0,
+      "weather": {
+        "temp_f": 78.8,
+        "wind_mph": 11.7,
+        "wind_dir": "NW",
+        "precip_pct": 22.0
+      },
+      "model": {
+        "away_win_pct": 0.5104,
+        "home_win_pct": 0.4896,
+        "mean_away_runs": 4.47,
+        "mean_home_runs": 3.72,
+        "mean_total": 8.18,
+        "mean_margin": -0.75
+      },
+      "picks": [],
+      "projected_box": {
+        "away": {
+          "batters": [
+            {
+              "slot": 1,
+              "pos": "DH",
+              "name": "Iv\u00e1n Herrera",
+              "ab": 3.6,
+              "r": 0.6,
+              "h": 0.9,
+              "hr": 0.14,
+              "rbi": 0.5,
+              "bb": 0.4,
+              "k": 0.6
+            },
+            {
+              "slot": 2,
+              "pos": "2B",
+              "name": "JJ Wetherholt",
+              "ab": 3.5,
+              "r": 0.6,
+              "h": 0.9,
+              "hr": 0.18,
+              "rbi": 0.5,
+              "bb": 0.5,
+              "k": 0.5
+            },
+            {
+              "slot": 3,
+              "pos": "1B",
+              "name": "Alec Burleson",
+              "ab": 3.6,
+              "r": 0.6,
+              "h": 1.1,
+              "hr": 0.24,
+              "rbi": 0.6,
+              "bb": 0.3,
+              "k": 0.5
+            },
+            {
+              "slot": 4,
+              "pos": "RF",
+              "name": "Jordan Walker",
+              "ab": 3.6,
+              "r": 0.5,
+              "h": 1.0,
+              "hr": 0.28,
+              "rbi": 0.6,
+              "bb": 0.3,
+              "k": 0.8
+            },
+            {
+              "slot": 5,
+              "pos": "SS",
+              "name": "Masyn Winn",
+              "ab": 3.5,
+              "r": 0.5,
+              "h": 0.9,
+              "hr": 0.05,
+              "rbi": 0.4,
+              "bb": 0.3,
+              "k": 0.7
+            },
+            {
+              "slot": 6,
+              "pos": "CF",
+              "name": "Nathan Church",
+              "ab": 3.6,
+              "r": 0.4,
+              "h": 0.9,
+              "hr": 0.15,
+              "rbi": 0.5,
+              "bb": 0.2,
+              "k": 0.6
+            },
+            {
+              "slot": 7,
+              "pos": "LF",
+              "name": "Jos\u00e9 Ferm\u00edn",
+              "ab": 3.4,
+              "r": 0.5,
+              "h": 0.9,
+              "hr": 0.11,
+              "rbi": 0.5,
+              "bb": 0.4,
+              "k": 0.4
+            },
+            {
+              "slot": 8,
+              "pos": "C",
+              "name": "Pedro Pag\u00e9s",
+              "ab": 3.6,
+              "r": 0.4,
+              "h": 0.8,
+              "hr": 0.13,
+              "rbi": 0.4,
+              "bb": 0.2,
+              "k": 0.8
+            },
+            {
+              "slot": 9,
+              "pos": "3B",
+              "name": "Blaze Jordan",
+              "ab": 3.6,
+              "r": 0.4,
+              "h": 1.0,
+              "hr": 0.07,
+              "rbi": 0.5,
+              "bb": 0.1,
+              "k": 0.4
+            }
+          ],
+          "totals": {
+            "ab": 32.0,
+            "r": 4.5,
+            "h": 8.4,
+            "hr": 1.35,
+            "rbi": 4.5,
+            "bb": 2.7,
+            "k": 5.3
           },
           "starter": {
             "name": "",
@@ -228,7 +566,7 @@
               "pos": "C",
               "name": "Tyler Stephenson",
               "ab": 3.4,
-              "r": 0.4,
+              "r": 0.5,
               "h": 0.8,
               "hr": 0.2,
               "rbi": 0.5,
@@ -282,28 +620,29 @@
             "k": 9.2
           },
           "starter": {
-            "name": "",
+            "name": "Rhett Lowder",
             "ip": 8.0,
-            "h": 5.6,
-            "r": 3.6,
-            "er": 3.6,
+            "h": 7.1,
+            "r": 4.6,
+            "er": 4.6,
             "bb": 1.9,
-            "k": 5.1,
+            "k": 4.1,
             "hr": 1.02
           }
         }
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "824478",
         "away_team": "St. Louis Cardinals",
         "home_team": "Cincinnati Reds",
         "first_pitch_et": "6:40 PM ET",
         "venue": "Great American Ball Park",
         "park_factor": "108",
         "umpire_hp": "",
-        "weather_temp_f": "78.1",
-        "weather_wind": "8.7 mph NW",
-        "weather_precip_pct": "28",
+        "weather_temp_f": "78.8",
+        "weather_wind": "11.7 mph NW",
+        "weather_precip_pct": "22",
         "away_record": "63-61 \u00b7 L10 7-3 \u00b7 W2 \u00b7 RD +7",
         "away_vs_opp_hand": "AVG .242 / OPS .695 / 87 HR",
         "away_il_count": "2",
@@ -340,6 +679,7 @@
     },
     {
       "bdl_game_id": "401816548",
+      "game_pk": 822939,
       "date": "2026-08-17",
       "away_team": "Baltimore Orioles",
       "home_team": "Tampa Bay Rays",
@@ -351,8 +691,8 @@
       "park_factor": 100.0,
       "weather": {},
       "model": {
-        "away_win_pct": 0.3921,
-        "home_win_pct": 0.6079,
+        "away_win_pct": 0.3909,
+        "home_win_pct": 0.6091,
         "mean_away_runs": 3.32,
         "mean_home_runs": 3.79,
         "mean_total": 7.11,
@@ -363,12 +703,12 @@
           "market": "Total",
           "side": "Under 7",
           "line": 7.0,
-          "model_prob": 0.5138,
-          "raw_model_prob": 0.5458,
+          "model_prob": 0.5141,
+          "raw_model_prob": 0.5465,
           "market_fair_prob": 0.4817,
           "market_odds": -102.0,
           "market_prob": 0.505,
-          "ev_pct": 1.74,
+          "ev_pct": 1.81,
           "fair_odds": -106,
           "book": "DraftKings"
         },
@@ -376,12 +716,12 @@
           "market": "Moneyline",
           "side": "Baltimore Orioles ML",
           "line": null,
-          "model_prob": 0.4423,
-          "raw_model_prob": 0.4502,
+          "model_prob": 0.4429,
+          "raw_model_prob": 0.4514,
           "market_fair_prob": 0.4343,
           "market_odds": 126.0,
           "market_prob": 0.4425,
-          "ev_pct": -0.04,
+          "ev_pct": 0.09,
           "fair_odds": 126,
           "book": "DraftKings"
         },
@@ -389,12 +729,12 @@
           "market": "Moneyline",
           "side": "Tampa Bay Rays ML",
           "line": null,
-          "model_prob": 0.5577,
-          "raw_model_prob": 0.5497,
+          "model_prob": 0.5571,
+          "raw_model_prob": 0.5486,
           "market_fair_prob": 0.5657,
           "market_odds": -136.0,
           "market_prob": 0.5763,
-          "ev_pct": -3.22,
+          "ev_pct": -3.32,
           "fair_odds": -126,
           "book": "DraftKings"
         },
@@ -402,38 +742,38 @@
           "market": "Runline",
           "side": "Baltimore Orioles +1.5",
           "line": 1.5,
-          "model_prob": 0.6199,
-          "raw_model_prob": 0.6238,
+          "model_prob": 0.6211,
+          "raw_model_prob": 0.6263,
           "market_fair_prob": 0.616,
           "market_odds": -181.0,
           "market_prob": 0.6441,
-          "ev_pct": -3.76,
-          "fair_odds": -163,
+          "ev_pct": -3.57,
+          "fair_odds": -164,
           "book": "DraftKings"
         },
         {
           "market": "Runline",
           "side": "Tampa Bay Rays -1.5",
           "line": -1.5,
-          "model_prob": 0.3801,
-          "raw_model_prob": 0.3762,
+          "model_prob": 0.3789,
+          "raw_model_prob": 0.3737,
           "market_fair_prob": 0.384,
           "market_odds": 149.0,
           "market_prob": 0.4016,
-          "ev_pct": -5.35,
-          "fair_odds": 163,
+          "ev_pct": -5.66,
+          "fair_odds": 164,
           "book": "DraftKings"
         },
         {
           "market": "Total",
           "side": "Over 7",
           "line": 7.0,
-          "model_prob": 0.4862,
-          "raw_model_prob": 0.4541,
+          "model_prob": 0.4859,
+          "raw_model_prob": 0.4535,
           "market_fair_prob": 0.5183,
           "market_odds": -119.0,
           "market_prob": 0.5434,
-          "ev_pct": -10.52,
+          "ev_pct": -10.58,
           "fair_odds": 106,
           "book": "DraftKings"
         }
@@ -704,6 +1044,7 @@
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "822939",
         "away_team": "Baltimore Orioles",
         "home_team": "Tampa Bay Rays",
         "first_pitch_et": "6:05 PM ET",
@@ -749,6 +1090,7 @@
     },
     {
       "bdl_game_id": null,
+      "game_pk": 823427,
       "date": "2026-08-17",
       "away_team": "Miami Marlins",
       "home_team": "Philadelphia Phillies",
@@ -759,18 +1101,18 @@
       "home_pitcher": "Cristopher S\u00e1nchez",
       "park_factor": 102.0,
       "weather": {
-        "temp_f": 88.6,
-        "wind_mph": 8.7,
-        "wind_dir": "W",
-        "precip_pct": 12.0
+        "temp_f": 87.3,
+        "wind_mph": 4.1,
+        "wind_dir": "NW",
+        "precip_pct": 11.0
       },
       "model": {
-        "away_win_pct": 0.375,
-        "home_win_pct": 0.625,
+        "away_win_pct": 0.3789,
+        "home_win_pct": 0.6211,
         "mean_away_runs": 3.32,
         "mean_home_runs": 3.93,
         "mean_total": 7.25,
-        "mean_margin": 0.62
+        "mean_margin": 0.61
       },
       "picks": [],
       "projected_box": {
@@ -807,7 +1149,7 @@
               "ab": 3.4,
               "r": 0.4,
               "h": 0.7,
-              "hr": 0.07,
+              "hr": 0.08,
               "rbi": 0.3,
               "bb": 0.5,
               "k": 1.1
@@ -831,7 +1173,7 @@
               "ab": 3.6,
               "r": 0.3,
               "h": 1.1,
-              "hr": 0.06,
+              "hr": 0.07,
               "rbi": 0.3,
               "bb": 0.2,
               "k": 0.4
@@ -889,7 +1231,7 @@
             "ab": 31.4,
             "r": 3.3,
             "h": 7.7,
-            "hr": 1.6,
+            "hr": 1.62,
             "rbi": 3.4,
             "bb": 3.2,
             "k": 10.0
@@ -969,6 +1311,18 @@
             },
             {
               "slot": 6,
+              "pos": "LF",
+              "name": "Brandon Marsh",
+              "ab": 3.6,
+              "r": 0.4,
+              "h": 1.0,
+              "hr": 0.19,
+              "rbi": 0.5,
+              "bb": 0.2,
+              "k": 0.7
+            },
+            {
+              "slot": 7,
               "pos": "2B",
               "name": "Bryson Stott",
               "ab": 3.4,
@@ -978,18 +1332,6 @@
               "rbi": 0.4,
               "bb": 0.4,
               "k": 0.5
-            },
-            {
-              "slot": 7,
-              "pos": "LF",
-              "name": "Brandon Marsh",
-              "ab": 3.6,
-              "r": 0.4,
-              "h": 1.0,
-              "hr": 0.19,
-              "rbi": 0.5,
-              "bb": 0.2,
-              "k": 0.8
             },
             {
               "slot": 8,
@@ -1023,7 +1365,7 @@
             "hr": 1.45,
             "rbi": 4.0,
             "bb": 3.2,
-            "k": 5.4
+            "k": 5.3
           },
           "starter": {
             "name": "Cristopher S\u00e1nchez",
@@ -1039,15 +1381,16 @@
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "823427",
         "away_team": "Miami Marlins",
         "home_team": "Philadelphia Phillies",
         "first_pitch_et": "6:40 PM ET",
         "venue": "Citizens Bank Park",
         "park_factor": "102",
         "umpire_hp": "",
-        "weather_temp_f": "88.6",
-        "weather_wind": "8.7 mph W",
-        "weather_precip_pct": "12",
+        "weather_temp_f": "87.3",
+        "weather_wind": "4.1 mph NW",
+        "weather_precip_pct": "11",
         "away_record": "64-61 \u00b7 L10 6-4 \u00b7 W2 \u00b7 RD +20",
         "away_vs_opp_hand": "AVG .237 / OPS .702 / 30 HR",
         "away_il_count": "8",
@@ -1084,6 +1427,7 @@
     },
     {
       "bdl_game_id": null,
+      "game_pk": 823343,
       "date": "2026-08-17",
       "away_team": "Detroit Tigers",
       "home_team": "Pittsburgh Pirates",
@@ -1094,14 +1438,14 @@
       "home_pitcher": "Carmen Mlodzinski",
       "park_factor": 98.0,
       "weather": {
-        "temp_f": 78.8,
-        "wind_mph": 4.1,
+        "temp_f": 79.2,
+        "wind_mph": 3.3,
         "wind_dir": "N",
         "precip_pct": 12.0
       },
       "model": {
-        "away_win_pct": 0.4716,
-        "home_win_pct": 0.5284,
+        "away_win_pct": 0.4692,
+        "home_win_pct": 0.5308,
         "mean_away_runs": 4.07,
         "mean_home_runs": 3.81,
         "mean_total": 7.88,
@@ -1318,12 +1662,12 @@
               "slot": 7,
               "pos": "C",
               "name": "Henry Davis",
-              "ab": 3.4,
+              "ab": 3.5,
               "r": 0.3,
               "h": 0.6,
-              "hr": 0.16,
+              "hr": 0.15,
               "rbi": 0.3,
-              "bb": 0.4,
+              "bb": 0.3,
               "k": 0.7
             },
             {
@@ -1352,12 +1696,12 @@
             }
           ],
           "totals": {
-            "ab": 31.3,
+            "ab": 31.4,
             "r": 3.8,
             "h": 8.3,
-            "hr": 1.31,
+            "hr": 1.3,
             "rbi": 3.7,
-            "bb": 3.4,
+            "bb": 3.3,
             "k": 6.4
           },
           "starter": {
@@ -1374,14 +1718,15 @@
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "823343",
         "away_team": "Detroit Tigers",
         "home_team": "Pittsburgh Pirates",
         "first_pitch_et": "7:05 PM ET",
         "venue": "PNC Park",
         "park_factor": "98",
         "umpire_hp": "",
-        "weather_temp_f": "78.8",
-        "weather_wind": "4.1 mph N",
+        "weather_temp_f": "79.2",
+        "weather_wind": "3.3 mph N",
         "weather_precip_pct": "12",
         "away_record": "60-64 \u00b7 L10 5-5 \u00b7 L3 \u00b7 RD +83",
         "away_vs_opp_hand": "AVG .247 / OPS .739 / 118 HR",
@@ -1419,6 +1764,7 @@
     },
     {
       "bdl_game_id": null,
+      "game_pk": 824725,
       "date": "2026-08-17",
       "away_team": "Arizona Diamondbacks",
       "home_team": "Boston Red Sox",
@@ -1429,17 +1775,17 @@
       "home_pitcher": "",
       "park_factor": 107.0,
       "weather": {
-        "temp_f": 68.7,
-        "wind_mph": 6.2,
-        "wind_dir": "N",
-        "precip_pct": 11.0
+        "temp_f": 69.5,
+        "wind_mph": 3.0,
+        "wind_dir": "E",
+        "precip_pct": 2.0
       },
       "model": {
-        "away_win_pct": 0.4187,
-        "home_win_pct": 0.5813,
-        "mean_away_runs": 3.59,
-        "mean_home_runs": 3.78,
-        "mean_total": 7.37,
+        "away_win_pct": 0.4263,
+        "home_win_pct": 0.5737,
+        "mean_away_runs": 3.61,
+        "mean_home_runs": 3.79,
+        "mean_total": 7.39,
         "mean_margin": 0.18
       },
       "picks": [],
@@ -1477,7 +1823,7 @@
               "ab": 3.6,
               "r": 0.4,
               "h": 1.0,
-              "hr": 0.24,
+              "hr": 0.23,
               "rbi": 0.4,
               "bb": 0.3,
               "k": 0.6
@@ -1559,7 +1905,7 @@
             "ab": 31.2,
             "r": 3.6,
             "h": 8.3,
-            "hr": 1.36,
+            "hr": 1.35,
             "rbi": 3.6,
             "bb": 3.6,
             "k": 6.6
@@ -1709,15 +2055,16 @@
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "824725",
         "away_team": "Arizona Diamondbacks",
         "home_team": "Boston Red Sox",
         "first_pitch_et": "7:10 PM ET",
         "venue": "Fenway Park",
         "park_factor": "107",
         "umpire_hp": "",
-        "weather_temp_f": "68.7",
-        "weather_wind": "6.2 mph N",
-        "weather_precip_pct": "11",
+        "weather_temp_f": "69.5",
+        "weather_wind": "3.0 mph E",
+        "weather_precip_pct": "2",
         "away_record": "66-59 \u00b7 L10 5-5 \u00b7 L1 \u00b7 RD +18",
         "away_vs_opp_hand": "",
         "away_il_count": "13",
@@ -1754,6 +2101,7 @@
     },
     {
       "bdl_game_id": null,
+      "game_pk": 823589,
       "date": "2026-08-17",
       "away_team": "San Diego Padres",
       "home_team": "New York Mets",
@@ -1764,18 +2112,18 @@
       "home_pitcher": "Nolan McLean",
       "park_factor": 95.0,
       "weather": {
-        "temp_f": 82.2,
-        "wind_mph": 3.0,
-        "wind_dir": "E",
-        "precip_pct": 10.0
+        "temp_f": 79.5,
+        "wind_mph": 7.2,
+        "wind_dir": "NE",
+        "precip_pct": 4.0
       },
       "model": {
-        "away_win_pct": 0.3942,
-        "home_win_pct": 0.6058,
-        "mean_away_runs": 3.14,
-        "mean_home_runs": 3.56,
-        "mean_total": 6.7,
-        "mean_margin": 0.41
+        "away_win_pct": 0.3934,
+        "home_win_pct": 0.6066,
+        "mean_away_runs": 3.13,
+        "mean_home_runs": 3.53,
+        "mean_total": 6.65,
+        "mean_margin": 0.4
       },
       "picks": [],
       "projected_box": {
@@ -1860,7 +2208,7 @@
               "ab": 3.4,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.04,
+              "hr": 0.06,
               "rbi": 0.3,
               "bb": 0.4,
               "k": 0.6
@@ -1894,7 +2242,7 @@
             "ab": 31.4,
             "r": 3.1,
             "h": 7.2,
-            "hr": 1.22,
+            "hr": 1.24,
             "rbi": 3.3,
             "bb": 3.3,
             "k": 8.8
@@ -1944,7 +2292,7 @@
               "r": 0.3,
               "h": 0.8,
               "hr": 0.16,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.3,
               "k": 0.8
             },
@@ -2004,7 +2352,7 @@
               "r": 0.4,
               "h": 1.0,
               "hr": 0.15,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.3,
               "k": 0.6
             },
@@ -2014,8 +2362,8 @@
               "name": "Luis Torrens",
               "ab": 3.4,
               "r": 0.4,
-              "h": 0.8,
-              "hr": 0.1,
+              "h": 0.9,
+              "hr": 0.12,
               "rbi": 0.4,
               "bb": 0.3,
               "k": 0.7
@@ -2023,10 +2371,10 @@
           ],
           "totals": {
             "ab": 31.7,
-            "r": 3.6,
-            "h": 7.9,
-            "hr": 1.23,
-            "rbi": 3.6,
+            "r": 3.5,
+            "h": 8.0,
+            "hr": 1.25,
+            "rbi": 3.4,
             "bb": 3.0,
             "k": 7.2
           },
@@ -2044,15 +2392,16 @@
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "823589",
         "away_team": "San Diego Padres",
         "home_team": "New York Mets",
         "first_pitch_et": "7:10 PM ET",
         "venue": "Citi Field",
         "park_factor": "95",
         "umpire_hp": "",
-        "weather_temp_f": "82.2",
-        "weather_wind": "3.0 mph E",
-        "weather_precip_pct": "10",
+        "weather_temp_f": "79.5",
+        "weather_wind": "7.2 mph NE",
+        "weather_precip_pct": "4",
         "away_record": "67-58 \u00b7 L10 8-2 \u00b7 W1 \u00b7 RD +3",
         "away_vs_opp_hand": "AVG .237 / OPS .710 / 114 HR",
         "away_il_count": "8",
@@ -2089,6 +2438,7 @@
     },
     {
       "bdl_game_id": null,
+      "game_pk": 824077,
       "date": "2026-08-17",
       "away_team": "Athletics",
       "home_team": "Kansas City Royals",
@@ -2099,14 +2449,14 @@
       "home_pitcher": "Michael Wacha",
       "park_factor": 99.0,
       "weather": {
-        "temp_f": 90.3,
-        "wind_mph": 4.9,
+        "temp_f": 90.4,
+        "wind_mph": 3.7,
         "wind_dir": "N",
-        "precip_pct": 1.0
+        "precip_pct": 0.0
       },
       "model": {
-        "away_win_pct": 0.3718,
-        "home_win_pct": 0.6282,
+        "away_win_pct": 0.3772,
+        "home_win_pct": 0.6228,
         "mean_away_runs": 3.71,
         "mean_home_runs": 4.48,
         "mean_total": 8.19,
@@ -2379,15 +2729,16 @@
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "824077",
         "away_team": "Athletics",
         "home_team": "Kansas City Royals",
         "first_pitch_et": "7:40 PM ET",
         "venue": "Kauffman Stadium",
         "park_factor": "99",
         "umpire_hp": "",
-        "weather_temp_f": "90.3",
-        "weather_wind": "4.9 mph N",
-        "weather_precip_pct": "1",
+        "weather_temp_f": "90.4",
+        "weather_wind": "3.7 mph N",
+        "weather_precip_pct": "0",
         "away_record": "49-75 \u00b7 L10 4-6 \u00b7 W1 \u00b7 RD -174",
         "away_vs_opp_hand": "AVG .243 / OPS .721 / 92 HR",
         "away_il_count": "13",
@@ -2424,6 +2775,7 @@
     },
     {
       "bdl_game_id": null,
+      "game_pk": 823668,
       "date": "2026-08-17",
       "away_team": "Atlanta Braves",
       "home_team": "Minnesota Twins",
@@ -2434,18 +2786,18 @@
       "home_pitcher": "Bailey Ober",
       "park_factor": 100.0,
       "weather": {
-        "temp_f": 84.3,
-        "wind_mph": 11.1,
+        "temp_f": 83.7,
+        "wind_mph": 10.1,
         "wind_dir": "SW",
-        "precip_pct": 6.0
+        "precip_pct": 2.0
       },
       "model": {
-        "away_win_pct": 0.5408,
-        "home_win_pct": 0.4592,
-        "mean_away_runs": 4.43,
-        "mean_home_runs": 3.55,
-        "mean_total": 7.99,
-        "mean_margin": -0.88
+        "away_win_pct": 0.5288,
+        "home_win_pct": 0.4712,
+        "mean_away_runs": 4.42,
+        "mean_home_runs": 3.54,
+        "mean_total": 7.96,
+        "mean_margin": -0.87
       },
       "picks": [],
       "projected_box": {
@@ -2555,7 +2907,7 @@
               "r": 0.5,
               "h": 0.8,
               "hr": 0.14,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.4,
               "k": 0.7
             }
@@ -2565,7 +2917,7 @@
             "r": 4.4,
             "h": 8.5,
             "hr": 1.78,
-            "rbi": 4.4,
+            "rbi": 4.3,
             "bb": 3.1,
             "k": 5.6
           },
@@ -2625,7 +2977,7 @@
               "ab": 3.7,
               "r": 0.3,
               "h": 0.9,
-              "hr": 0.23,
+              "hr": 0.24,
               "rbi": 0.4,
               "bb": 0.2,
               "k": 0.8
@@ -2644,18 +2996,6 @@
             },
             {
               "slot": 6,
-              "pos": "1B",
-              "name": "Royce Lewis",
-              "ab": 3.5,
-              "r": 0.4,
-              "h": 0.8,
-              "hr": 0.18,
-              "rbi": 0.4,
-              "bb": 0.4,
-              "k": 0.8
-            },
-            {
-              "slot": 7,
               "pos": "LF",
               "name": "Trevor Larnach",
               "ab": 3.4,
@@ -2665,6 +3005,18 @@
               "rbi": 0.4,
               "bb": 0.4,
               "k": 0.6
+            },
+            {
+              "slot": 7,
+              "pos": "1B",
+              "name": "Royce Lewis",
+              "ab": 3.4,
+              "r": 0.4,
+              "h": 0.8,
+              "hr": 0.17,
+              "rbi": 0.4,
+              "bb": 0.4,
+              "k": 0.8
             },
             {
               "slot": 8,
@@ -2682,23 +3034,23 @@
               "slot": 9,
               "pos": "C",
               "name": "Victor Caratini",
-              "ab": 3.4,
+              "ab": 3.3,
               "r": 0.4,
               "h": 0.8,
               "hr": 0.1,
               "rbi": 0.3,
-              "bb": 0.3,
-              "k": 0.7
+              "bb": 0.4,
+              "k": 0.6
             }
           ],
           "totals": {
-            "ab": 31.8,
-            "r": 3.6,
+            "ab": 31.6,
+            "r": 3.5,
             "h": 8.2,
             "hr": 1.48,
             "rbi": 3.5,
-            "bb": 3.1,
-            "k": 6.1
+            "bb": 3.2,
+            "k": 6.0
           },
           "starter": {
             "name": "Bailey Ober",
@@ -2714,15 +3066,16 @@
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "823668",
         "away_team": "Atlanta Braves",
         "home_team": "Minnesota Twins",
         "first_pitch_et": "7:40 PM ET",
         "venue": "Target Field",
         "park_factor": "100",
         "umpire_hp": "",
-        "weather_temp_f": "84.3",
-        "weather_wind": "11.1 mph SW",
-        "weather_precip_pct": "6",
+        "weather_temp_f": "83.7",
+        "weather_wind": "10.1 mph SW",
+        "weather_precip_pct": "2",
         "away_record": "74-50 \u00b7 L10 5-5 \u00b7 W1 \u00b7 RD +117",
         "away_vs_opp_hand": "AVG .250 / OPS .738 / 111 HR",
         "away_il_count": "6",
@@ -2759,6 +3112,7 @@
     },
     {
       "bdl_game_id": null,
+      "game_pk": 824641,
       "date": "2026-08-17",
       "away_team": "Chicago White Sox",
       "home_team": "Chicago Cubs",
@@ -2769,17 +3123,17 @@
       "home_pitcher": "Shota Imanaga",
       "park_factor": 102.0,
       "weather": {
-        "temp_f": 72.0,
-        "wind_mph": 2.7,
+        "temp_f": 71.6,
+        "wind_mph": 2.4,
         "wind_dir": "SE",
         "precip_pct": 0.0
       },
       "model": {
-        "away_win_pct": 0.3717,
-        "home_win_pct": 0.6283,
-        "mean_away_runs": 3.7,
-        "mean_home_runs": 4.41,
-        "mean_total": 8.1,
+        "away_win_pct": 0.3755,
+        "home_win_pct": 0.6245,
+        "mean_away_runs": 3.69,
+        "mean_home_runs": 4.4,
+        "mean_total": 8.09,
         "mean_margin": 0.71
       },
       "picks": [],
@@ -3049,14 +3403,15 @@
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "824641",
         "away_team": "Chicago White Sox",
         "home_team": "Chicago Cubs",
         "first_pitch_et": "8:05 PM ET",
         "venue": "Wrigley Field",
         "park_factor": "102",
         "umpire_hp": "",
-        "weather_temp_f": "72.0",
-        "weather_wind": "2.7 mph SE",
+        "weather_temp_f": "71.6",
+        "weather_wind": "2.4 mph SE",
         "weather_precip_pct": "0",
         "away_record": "65-58 \u00b7 L10 6-4 \u00b7 W3 \u00b7 RD +47",
         "away_vs_opp_hand": "AVG .241 / OPS .734 / 49 HR",
@@ -3094,6 +3449,7 @@
     },
     {
       "bdl_game_id": null,
+      "game_pk": 824320,
       "date": "2026-08-17",
       "away_team": "Los Angeles Dodgers",
       "home_team": "Colorado Rockies",
@@ -3104,14 +3460,14 @@
       "home_pitcher": "Tomoyuki Sugano",
       "park_factor": 112.0,
       "weather": {
-        "temp_f": 91.6,
-        "wind_mph": 3.8,
-        "wind_dir": "NE",
-        "precip_pct": 2.0
+        "temp_f": 92.4,
+        "wind_mph": 6.4,
+        "wind_dir": "E",
+        "precip_pct": 1.0
       },
       "model": {
-        "away_win_pct": 0.6706,
-        "home_win_pct": 0.3294,
+        "away_win_pct": 0.6664,
+        "home_win_pct": 0.3336,
         "mean_away_runs": 6.17,
         "mean_home_runs": 3.74,
         "mean_total": 9.92,
@@ -3213,7 +3569,7 @@
               "r": 0.7,
               "h": 1.1,
               "hr": 0.09,
-              "rbi": 0.7,
+              "rbi": 0.6,
               "bb": 0.3,
               "k": 0.2
             },
@@ -3235,7 +3591,7 @@
             "r": 6.2,
             "h": 9.1,
             "hr": 1.82,
-            "rbi": 6.2,
+            "rbi": 6.1,
             "bb": 3.5,
             "k": 4.4
           },
@@ -3384,15 +3740,16 @@
       },
       "context": {
         "date": "2026-08-17",
+        "game_pk": "824320",
         "away_team": "Los Angeles Dodgers",
         "home_team": "Colorado Rockies",
         "first_pitch_et": "8:40 PM ET",
         "venue": "Coors Field",
         "park_factor": "112",
         "umpire_hp": "",
-        "weather_temp_f": "91.6",
-        "weather_wind": "3.8 mph NE",
-        "weather_precip_pct": "2",
+        "weather_temp_f": "92.4",
+        "weather_wind": "6.4 mph E",
+        "weather_precip_pct": "1",
         "away_record": "74-51 \u00b7 L10 5-5 \u00b7 L2 \u00b7 RD +136",
         "away_vs_opp_hand": "AVG .261 / OPS .769 / 111 HR",
         "away_il_count": "13",

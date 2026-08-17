@@ -620,6 +620,7 @@ def build_row(game: dict, date_str: str, season_year: int) -> dict:
 
     row = {
         "date": date_str,
+        "game_pk": game_pk,          # unique per game — distinguishes doubleheaders
         "away_team": away_team,
         "home_team": home_team,
         "first_pitch_et": first_pitch,
@@ -673,7 +674,7 @@ def build_row(game: dict, date_str: str, season_year: int) -> dict:
 
 
 FIELDS = [
-    "date", "away_team", "home_team", "first_pitch_et", "venue", "park_factor",
+    "date", "game_pk", "away_team", "home_team", "first_pitch_et", "venue", "park_factor",
     "umpire_hp",
     "weather_temp_f", "weather_wind", "weather_precip_pct",
     "away_record", "away_vs_opp_hand", "away_il_count", "away_il_names",

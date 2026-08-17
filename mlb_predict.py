@@ -150,7 +150,6 @@ def fetch_games(date_str: str) -> list[dict]:
         return []
     espn_map = _espn_event_map(date_str)
     games = []
-    seen = set()
     for day in d.get("dates", []):
         for g in day.get("games", []):
             try:
@@ -158,9 +157,8 @@ def fetch_games(date_str: str) -> list[dict]:
             except KeyError:
                 continue
             key = frozenset({_slug_norm(a.get("name", "")), _slug_norm(h.get("name", ""))})
-            if key in seen:  # collapse doubleheaders to one card per matchup
-                continue
-            seen.add(key)
+            # Doubleheaders are real, distinct games (own gamePk/time/pitchers) — keep
+            # both. StatsAPI is authoritative so there are no phantom duplicates.
             games.append({
                 "id": espn_map.get(key),          # ESPN event id for odds (None until posted)
                 "gamePk": g.get("gamePk"),
@@ -295,12 +293,15 @@ def _load_lineups_for_date(date_str: str, year: int | None = None) -> dict[froze
                     away_players = _projected_lineup(at.get("id"), year)
                 if not home_players:
                     home_players = _projected_lineup(ht.get("id"), year)
-                key = frozenset({_slug_norm(a), _slug_norm(h)})
-                out.setdefault(key, {
+                entry = {
                     "away": away_players, "home": home_players,
                     "away_pp": (g["teams"]["away"].get("probablePitcher") or {}),
                     "home_pp": (g["teams"]["home"].get("probablePitcher") or {}),
-                })
+                }
+                gpk = str(g.get("gamePk") or "").strip()
+                if gpk:
+                    out[f"pk:{gpk}"] = entry     # unique per game (doubleheaders)
+                out.setdefault(f"mu:{frozenset({_slug_norm(a), _slug_norm(h)})}", entry)
     except Exception as e:
         print(f"  (MLB lineup fetch failed for {date_str}: {e})", file=sys.stderr)
     _LINEUP_CACHE[date_str] = out
@@ -1090,10 +1091,14 @@ def load_scraper_context(date_str: str) -> dict[str, dict]:
     if rows and rows[0].get("date") != date_str:
         # Scraper CSV is from a different date; still use it for cross-reference maps
         pass
+    # Key by gamePk (unique per game — distinguishes doubleheaders); fall back to
+    # matchup for older CSVs written before game_pk existed.
     idx = {}
     for r in rows:
-        key = frozenset({_slug_norm(r["away_team"]), _slug_norm(r["home_team"])})
-        idx[key] = r
+        gpk = str(r.get("game_pk") or "").strip()
+        if gpk:
+            idx[f"pk:{gpk}"] = r
+        idx.setdefault(f"mu:{frozenset({_slug_norm(r['away_team']), _slug_norm(r['home_team'])})}", r)
     return idx
 
 
@@ -1169,10 +1174,11 @@ def build_game_context(bdl_game: dict, scraper_row: dict, year: int,
                 park_factor = None
         return away_ctx, home_ctx, park_factor or 100.0, weather
 
-    # Lineups from the free MLB Stats API, matched by team names.
+    # Lineups from the free MLB Stats API — by gamePk (doubleheader-correct), else matchup.
     lineups = _load_lineups_for_date(date_str) if date_str else {}
-    key = frozenset({_slug_norm(away_team), _slug_norm(home_team)})
-    lu = lineups.get(key, {})
+    gpk = str(bdl_game.get("gamePk") or "").strip()
+    lu = (lineups.get(f"pk:{gpk}") if gpk else None) or \
+        lineups.get(f"mu:{frozenset({_slug_norm(away_team), _slug_norm(home_team)})}", {})
 
     def side_pieces(side_key: str) -> tuple[list[dict], dict]:
         players = lu.get(side_key, []) or []
@@ -1320,8 +1326,10 @@ def run_for_date(date_str: str, game_lines_only: bool = False) -> Path:
         gid = g["id"]
         away_name = g["away_team_name"]; home_name = g["home_team_name"]
         print(f"  [{i}/{len(games)}] {away_name} @ {home_name}", file=sys.stderr)
-        scraper_row = scraper_idx.get(
-            frozenset({_slug_norm(away_name), _slug_norm(home_name)})) or {}
+        # Match the scraper row by gamePk (correct for doubleheaders), else matchup.
+        gpk = str(g.get("gamePk") or "").strip()
+        scraper_row = (scraper_idx.get(f"pk:{gpk}") if gpk else None) or \
+            scraper_idx.get(f"mu:{frozenset({_slug_norm(away_name), _slug_norm(home_name)})}") or {}
         try:
             away_ctx, home_ctx, park_factor, weather = build_game_context(
                 g, scraper_row, year, game_lines_only=game_lines_only, date_str=date_str)
@@ -1381,6 +1389,7 @@ def run_for_date(date_str: str, game_lines_only: bool = False) -> Path:
 
         all_output["games"].append({
             "bdl_game_id": gid,
+            "game_pk": g.get("gamePk"),   # unique per game — distinguishes doubleheaders
             "date": date_str,
             "away_team": away_name,
             "home_team": home_name,

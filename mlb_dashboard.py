@@ -144,12 +144,9 @@ def merge_scraper_into_predictions(pred: dict, scraper_rows: list[dict]) -> dict
 
     sorted_games = sorted(pred.get("games", []), key=_sort_key)
 
-    # Dedupe by (away_team, home_team) — BDL returns both games of a doubleheader
-    # under separate IDs; user wants one card per matchup. Prefer the entry with
-    # the more complete game-line market data: rank by whether it can yield a
-    # confident (>=50%) game-line recommendation, then by the count of two-sided
-    # game-line picks, then by total pick count. (Raw total-pick count alone is
-    # dominated by player props and can favor an entry with junk one-sided odds.)
+    # Dedupe by gamePk (unique per game) so real doubleheaders show as TWO cards.
+    # Only collapse genuine duplicates (same gamePk, e.g. a stale re-add); fall
+    # back to a matchup key only for old JSONs that predate game_pk.
     def _dedup_score(g: dict) -> tuple:
         gl = [p for p in (g.get("picks") or [])
               if p.get("market") in ("Moneyline", "Total", "Runline")]
@@ -157,9 +154,10 @@ def merge_scraper_into_predictions(pred: dict, scraper_rows: list[dict]) -> dict
                             for p in gl)
         return (1 if has_confident else 0, len(gl), len(g.get("picks") or []))
 
-    seen: dict[tuple[str, str], dict] = {}
+    seen: dict = {}
     for g in sorted_games:
-        key = (g.get("away_team", ""), g.get("home_team", ""))
+        gpk = g.get("game_pk")
+        key = f"pk:{gpk}" if gpk else f"mu:{g.get('away_team','')}|{g.get('home_team','')}"
         existing = seen.get(key)
         if existing is None or _dedup_score(g) > _dedup_score(existing):
             seen[key] = g
