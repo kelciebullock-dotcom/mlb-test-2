@@ -419,6 +419,66 @@ def get_batter_season_stats(mlb_id: int, year: int) -> dict:
         return {}
 
 
+def _ip_to_float(ip) -> float:
+    """Baseball IP notation to decimal: '120.1' = 120 + 1/3, '.2' = 2/3."""
+    try:
+        whole, _, frac = str(ip).partition(".")
+        return int(whole or 0) + {"": 0, "0": 0, "1": 1, "2": 2}.get(frac, 0) / 3.0
+    except Exception:
+        return 0.0
+
+
+def get_pitcher_start_profile(mlb_id: int, year: int) -> dict:
+    """The pitcher's REAL per-start line from their season totals (MLB StatsAPI),
+    lightly regressed to league for small samples. Returns per-start ip/k/bb/h/hr/er
+    plus starts, or {} if unavailable. Drives the projected boxscore so each starter
+    is projected from their own workload, not a generic number."""
+    if not mlb_id:
+        return {}
+    cached = _cache_get("pitchprof", f"{mlb_id}_{year}")
+    if cached is not None:
+        return cached
+    try:
+        d = mlb_get(f"/people/{mlb_id}/stats", stats="season", group="pitching", season=year)
+        splits = (d.get("stats") or [{}])[0].get("splits") or []
+        if not splits:
+            _cache_put("pitchprof", f"{mlb_id}_{year}", {})
+            return {}
+        s = splits[0].get("stat", {})
+        gs = int(s.get("gamesStarted", 0) or 0)
+        ip = _ip_to_float(s.get("inningsPitched", "0"))
+        if gs < 1 or ip < 1:
+            _cache_put("pitchprof", f"{mlb_id}_{year}", {})
+            return {}
+        # Per-9 RATES from season totals — role-agnostic, so relief innings don't
+        # distort them (unlike total/starts, which inflates swingmen). Applied over
+        # a realistic per-start innings total below.
+        k = int(s.get("strikeOuts", 0) or 0)
+        bb = int(s.get("baseOnBalls", 0) or 0)
+        h = int(s.get("hits", 0) or 0)
+        hr = int(s.get("homeRuns", 0) or 0)
+        er = int(s.get("earnedRuns", 0) or 0)
+        # Innings/start regressed toward league (5.2) by start count, then clamped to
+        # a realistic 3.5–7.0 (no starter truly averages 8+; that was the swingman bug).
+        k_reg = 8.0
+        ip_per_start = (ip + 5.2 * k_reg) / (gs + k_reg)   # ip already ≈ starter innings for pure SPs
+        ip_per_start = max(3.5, min(7.0, ip_per_start))
+        prof = {
+            "starts": gs,
+            "ip_per_start": ip_per_start,
+            "k9": k / ip * 9.0,
+            "bb9": bb / ip * 9.0,
+            "h9": h / ip * 9.0,
+            "hr9": hr / ip * 9.0,
+            "er9": er / ip * 9.0,
+        }
+        _cache_put("pitchprof", f"{mlb_id}_{year}", prof)
+        return prof
+    except Exception as e:
+        print(f"      (pitcher profile fetch failed for {mlb_id}: {e})", file=sys.stderr)
+        return {}
+
+
 def search_mlb_player_by_name(name: str, year: int) -> int | None:
     """Map a BDL player name -> MLB StatsAPI player id via /people/search."""
     cached = _cache_get("player_id", name.replace(" ", "_"), ttl_hours=24*30)
@@ -993,11 +1053,14 @@ def _mean(xs) -> float:
     return sum(xs) / len(xs) if xs else 0.0
 
 
-def build_projected_boxscore(sim: dict, away_ctx: dict, home_ctx: dict) -> dict:
-    """Compute expected per-player lines from the sim. Uses simple proxies for
-    R and RBI (proportional to OBP/SLG contribution × team runs)."""
+def build_projected_boxscore(sim: dict, away_ctx: dict, home_ctx: dict,
+                             year: int = 0, park_mult: float = 1.0) -> dict:
+    """Compute expected per-player lines from the sim. The starter line is built
+    from the pitcher's OWN season per-start averages (innings, K, BB, H, HR),
+    lightly adjusted for the opposing offense and park — not a generic number."""
 
-    def team_box(side: str, ctx: dict, opp_pitcher: dict) -> dict:
+    def team_box(side: str, ctx: dict, opp_ctx: dict) -> dict:
+        opp_pitcher = opp_ctx.get("pitcher", {})
         props_by_id = sim[f"{side}_batter_props"]
         team_runs_mean = _mean(sim[f"{side}_runs"])
         # OBP / SLG totals for proportional R/RBI allocation
@@ -1039,37 +1102,49 @@ def build_projected_boxscore(sim: dict, away_ctx: dict, home_ctx: dict) -> dict:
         totals_row = {k: round(v, 1) if k != "hr" else round(v, 2) for k, v in totals.items()}
         totals_row["r"] = round(team_runs_mean, 1)
 
-        # Starter pitching line
+        # Starter pitching line — from THIS pitcher's own season per-start averages.
         pit = ctx["pitcher"]
-        starter_ks = _mean(sim[f"{side}_pitcher_ks"])
-        # Expected BF ~24 (matches sim triangular). IP = BF/3 (approx).
-        exp_bf = 24
-        exp_ip = round(exp_bf / 3.0, 1)
-        pit_bb = pit.get("bb_pct") or 8.0
-        exp_bb_p = exp_bf * (pit_bb / 100.0)
-        # Hits allowed ~ BF * league contact_rate * quality adj (proxy via ERA vs lg)
-        era = pit.get("blend_era") or LEAGUE_AVG_ERA
-        exp_h_allowed = exp_bf * 0.235 * (era / LEAGUE_AVG_ERA)
-        # Earned runs allowed = era * ip / 9
-        exp_er = era * exp_ip / 9.0
-        # HR allowed ~ 1.15 HR / 9 IP, scaled by park run env
-        exp_hr_allowed = 1.15 * exp_ip / 9.0
+        era = pit.get("blend_era") or LG_ERA
+        # Opposing offense strength (this team is batting vs the OTHER team's starter;
+        # for the starter line we want the offense THIS starter faces = the opponent).
+        opp_rpg = opp_ctx.get("off_rpg") or LG_RPG
+        opp_factor = opp_rpg / LG_RPG            # >1 = tougher lineup → more runs/hits
+
+        prof = get_pitcher_start_profile(pit.get("bdl_id") or pit.get("mlb_id"), year) if year else {}
+        if prof:
+            exp_ip = round(prof["ip_per_start"], 1)
+            ip9 = exp_ip / 9.0                                  # scale per-9 rates to the start
+            exp_k = prof["k9"] * ip9 * opp_factor ** 0.3        # slight matchup nudge
+            exp_bb = prof["bb9"] * ip9 * opp_factor ** 0.2
+            exp_h = prof["h9"] * ip9 * opp_factor * park_mult
+            exp_hr = prof["hr9"] * ip9 * opp_factor * park_mult
+            exp_er = prof["er9"] * ip9 * opp_factor * park_mult
+        else:
+            # Fallback when the pitcher has no season starts yet (rookie/TBD/opener).
+            exp_ip = round(max(3.5, min(7.0, STARTER_IP * (LG_ERA / max(era, 2.5)) ** 0.5)), 1)
+            exp_bf = exp_ip * 4.25
+            exp_k = _mean(sim[f"{side}_pitcher_ks"]) * (exp_bf / 24.0)
+            exp_bb = exp_bf * ((pit.get("bb_pct") or 8.0) / 100.0)
+            exp_h = exp_bf * 0.235 * (era / LG_ERA) * opp_factor
+            exp_er = era * exp_ip / 9.0 * opp_factor
+            exp_hr = 1.15 * exp_ip / 9.0 * park_mult
 
         starter = {
             "name": pit.get("name", ""),
             "ip": exp_ip,
-            "h": round(exp_h_allowed, 1),
+            "h": round(exp_h, 1),
             "r": round(exp_er, 1),
             "er": round(exp_er, 1),
-            "bb": round(exp_bb_p, 1),
-            "k": round(starter_ks, 1),
-            "hr": round(exp_hr_allowed, 2),
+            "bb": round(exp_bb, 1),
+            "k": round(exp_k, 1),
+            "hr": round(exp_hr, 2),
+            "starts": prof.get("starts") if prof else None,
         }
         return {"batters": batters, "totals": totals_row, "starter": starter}
 
     return {
-        "away": team_box("away", away_ctx, home_ctx["pitcher"]),
-        "home": team_box("home", home_ctx, away_ctx["pitcher"]),
+        "away": team_box("away", away_ctx, home_ctx),
+        "home": team_box("home", home_ctx, away_ctx),
     }
 
 
@@ -1374,7 +1449,9 @@ def run_for_date(date_str: str, game_lines_only: bool = False) -> Path:
             picks = []
 
         try:
-            proj_box = build_projected_boxscore(sim, away_ctx, home_ctx)
+            proj_box = build_projected_boxscore(
+                sim, away_ctx, home_ctx, year=year,
+                park_mult=(park_factor / 100.0 if park_factor else 1.0))
         except Exception as e:
             print(f"    boxscore error: {e}", file=sys.stderr)
             proj_box = {}
