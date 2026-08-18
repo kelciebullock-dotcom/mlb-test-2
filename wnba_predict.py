@@ -358,10 +358,22 @@ def fetch_team_scoring(espn_team_id, season: int) -> dict:
 
 
 def fetch_all_player_stats(season: int) -> list[dict]:
-    """All WNBA players' per-game season stats from the official stats API.
-    One call, cached. Returns list of dicts keyed by our internal stat names."""
+    """All WNBA players' per-game season stats from the official stats API. stats.wnba.com
+    is flaky (intermittent timeouts), so the result is cached to DISK — a good fetch
+    persists across runs and covers runs where the API times out (otherwise box scores
+    come back empty). Committed by the workflow so CI runs share it too."""
     if season in _players_cache:
         return _players_cache[season]
+    disk = DATA_DIR / f"wnba_players_{season}.json"
+    # Serve a fresh-enough disk cache without hitting the API.
+    if disk.exists():
+        try:
+            c = json.load(open(disk))
+            if c.get("data") and (time.time() - float(c.get("_fetched_at", 0))) < 24 * 3600:
+                _players_cache[season] = c["data"]
+                return c["data"]
+        except Exception:
+            pass
     params = {
         "College": "", "Conference": "", "Country": "", "DateFrom": "", "DateTo": "",
         "Division": "", "DraftPick": "", "DraftYear": "", "GameScope": "",
@@ -396,6 +408,21 @@ def fetch_all_player_stats(season: int) -> list[dict]:
             })
     except Exception as e:
         print(f"  (WNBA player stats fetch failed: {e})", file=sys.stderr)
+
+    if players:
+        # Persist a good fetch to disk for future/flaky runs.
+        try:
+            with open(disk, "w") as f:
+                json.dump({"_fetched_at": time.time(), "data": players}, f)
+        except Exception:
+            pass
+    elif disk.exists():
+        # Fetch failed — fall back to the last good disk cache (even if stale).
+        try:
+            players = json.load(open(disk)).get("data") or []
+            print(f"  (using cached WNBA player stats — {len(players)} players)", file=sys.stderr)
+        except Exception:
+            pass
     _players_cache[season] = players
     return players
 
