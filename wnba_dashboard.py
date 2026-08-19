@@ -40,49 +40,52 @@ def load_predictions() -> dict[str, dict]:
 
 
 def render_performance() -> str:
-    """Sidebar panel: the model's realized record + closing-line value (from
-    data/wnba_performance.json, written by wnba_backtest.py). CLV leads."""
+    """Sidebar panel leading with the model's WINNER and TOTAL (over/under)
+    prediction accuracy + ROI (from data/wnba_performance.json)."""
     p = DATA_DIR / "wnba_performance.json"
     if not p.exists():
         return ""
     try:
-        with open(p) as f:
-            perf = json.load(f)
+        perf = json.load(open(p))
     except Exception:
         return ""
-    rec = perf.get("recommended", {}) or {}
-    clv = perf.get("clv_recommended", {}) or {}
     if not perf.get("graded_games"):
         return ""
+    winner = perf.get("winner") or {}
+    totals = perf.get("totals") or {}
+
+    def acc_color(pct):
+        if pct is None: return "perf-na"
+        if pct >= 55: return "perf-good"
+        if pct >= 50: return "perf-mid"
+        return "perf-bad"
+
+    def hero(label, blk):
+        acc = blk.get("accuracy_pct")
+        txt = f"{acc:.0f}%" if isinstance(acc, (int, float)) else "—"
+        roi = blk.get("roi_pct")
+        roi_txt = f"{roi:+.1f}%" if isinstance(roi, (int, float)) else "—"
+        rec = blk.get("record") or "—"
+        return ('<div class="perf-hero">'
+                f'<div class="perf-hero-val {acc_color(acc)}">{txt}</div>'
+                f'<div class="perf-hero-lab">{label} correct<br>{rec} · ROI {roi_txt}</div>'
+                '</div>')
+
+    n = max(winner.get("n", 0), totals.get("n", 0))
+    clv = perf.get("clv_recommended") or {}
     beat = clv.get("beat_close_pct")
-    n_clv = clv.get("n", 0)
-    avg_clv = clv.get("avg_clv")
-    if beat is None:
-        cls, txt = "perf-na", "—"
-    elif beat >= 55:
-        cls, txt = "perf-good", f"{beat:.0f}%"
-    elif beat >= 50:
-        cls, txt = "perf-mid", f"{beat:.0f}%"
-    else:
-        cls, txt = "perf-bad", f"{beat:.0f}%"
-    wl = f'{rec.get("wins","–")}-{rec.get("losses","–")}'
-    roi = rec.get("roi_pct")
-    roi_txt = f'{roi:+.1f}%' if isinstance(roi, (int, float)) else "—"
-    avg_txt = f'{avg_clv:+.2f}' if isinstance(avg_clv, (int, float)) else "—"
-    note = ('<div class="perf-note">Small sample — CLV needs ~50+ graded picks to '
-            'trust. Building daily.</div>') if n_clv < 40 else (
-            '<div class="perf-note">CLV &gt; 52% = real edge vs the market.</div>')
+    clv_txt = f"{beat:.0f}%" if isinstance(beat, (int, float)) else "—"
+    note = ('<div class="perf-note">Small sample — needs ~40+ games to trust. '
+            'Building daily.</div>') if n < 40 else (
+            '<div class="perf-note">Winner &gt;53% and Totals &gt;53% = the model '
+            'is genuinely predictive.</div>')
     return (
         '<div class="perf-panel">'
         '<div class="perf-title">MODEL PERFORMANCE</div>'
-        '<div class="perf-hero">'
-        f'<div class="perf-hero-val {cls}">{txt}</div>'
-        '<div class="perf-hero-lab">beat the close<br>(recommended picks)</div>'
-        '</div>'
-        f'<div class="perf-row"><span>Avg CLV</span><b>{avg_txt}</b></div>'
-        f'<div class="perf-row"><span>Record</span><b>{wl}</b></div>'
-        f'<div class="perf-row"><span>ROI (flat)</span><b>{roi_txt}</b></div>'
-        f'<div class="perf-row"><span>Graded picks</span><b>{n_clv}</b></div>'
+        f'{hero("Winner", winner)}'
+        f'{hero("Total O/U", totals)}'
+        f'<div class="perf-row"><span>Games graded</span><b>{n}</b></div>'
+        f'<div class="perf-row"><span>Beat close (CLV)</span><b>{clv_txt}</b></div>'
         f'{note}'
         '</div>'
     )

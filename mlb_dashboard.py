@@ -44,62 +44,68 @@ def load_predictions() -> dict[str, dict]:
     return out
 
 
+def _perf_panel_html(perf: dict) -> str:
+    """Model-performance sidebar panel — leads with how often the model correctly
+    predicts the WINNER and the TOTAL (over/under), with flat-bet ROI on each."""
+    if not perf.get("graded_games"):
+        return ""
+    winner = perf.get("winner") or {}
+    totals = perf.get("totals") or {}
+
+    def acc_color(pct):
+        if pct is None:
+            return "perf-na"
+        if pct >= 55:
+            return "perf-good"
+        if pct >= 50:
+            return "perf-mid"
+        return "perf-bad"
+
+    def hero(label, blk):
+        acc = blk.get("accuracy_pct")
+        txt = f"{acc:.0f}%" if isinstance(acc, (int, float)) else "—"
+        roi = blk.get("roi_pct")
+        roi_txt = f"{roi:+.1f}%" if isinstance(roi, (int, float)) else "—"
+        rec = blk.get("record") or "—"
+        return (
+            '<div class="perf-hero">'
+            f'<div class="perf-hero-val {acc_color(acc)}">{txt}</div>'
+            f'<div class="perf-hero-lab">{label} correct<br>{rec} · ROI {roi_txt}</div>'
+            '</div>'
+        )
+
+    n = max(winner.get("n", 0), totals.get("n", 0))
+    # Secondary line: CLV vs the market (still the sharpest edge signal).
+    clv = perf.get("clv_recommended") or {}
+    beat = clv.get("beat_close_pct")
+    clv_txt = f"{beat:.0f}%" if isinstance(beat, (int, float)) else "—"
+    note = ('<div class="perf-note">Small sample — needs ~40+ games to trust. '
+            'Building daily.</div>') if n < 40 else (
+            '<div class="perf-note">Winner &gt;53% and Totals &gt;53% = the model '
+            'is genuinely predictive.</div>')
+
+    return (
+        '<div class="perf-panel">'
+        '<div class="perf-title">MODEL PERFORMANCE</div>'
+        f'{hero("Winner", winner)}'
+        f'{hero("Total O/U", totals)}'
+        f'<div class="perf-row"><span>Games graded</span><b>{n}</b></div>'
+        f'<div class="perf-row"><span>Beat close (CLV)</span><b>{clv_txt}</b></div>'
+        f'{note}'
+        '</div>'
+    )
+
+
 def render_performance() -> str:
-    """Sidebar panel showing the model's realized record + closing-line value.
-    Reads data/performance.json (written by mlb_backtest.py). CLV is the headline
-    metric — whether the market moves toward our picks — so it leads."""
+    """Reads data/performance.json (written by mlb_backtest.py) and renders the panel."""
     p = DATA_DIR / "performance.json"
     if not p.exists():
         return ""
     try:
         with open(p) as f:
-            perf = json.load(f)
+            return _perf_panel_html(json.load(f))
     except Exception:
         return ""
-
-    rec = perf.get("recommended", {}) or {}
-    clv = perf.get("clv_recommended", {}) or {}
-    games = perf.get("graded_games", 0)
-    if not games:
-        return ""
-
-    beat = clv.get("beat_close_pct")
-    avg_clv = clv.get("avg_clv")
-    n_clv = clv.get("n", 0)
-    # CLV verdict color: >52% beat-close is the edge threshold
-    if beat is None:
-        clv_cls, clv_txt = "perf-na", "—"
-    elif beat >= 55:
-        clv_cls, clv_txt = "perf-good", f"{beat:.0f}%"
-    elif beat >= 50:
-        clv_cls, clv_txt = "perf-mid", f"{beat:.0f}%"
-    else:
-        clv_cls, clv_txt = "perf-bad", f"{beat:.0f}%"
-
-    wl = f'{rec.get("wins","–")}-{rec.get("losses","–")}'
-    roi = rec.get("roi_pct")
-    roi_txt = f'{roi:+.1f}%' if isinstance(roi, (int, float)) else "—"
-    avg_clv_txt = f'{avg_clv:+.2f}' if isinstance(avg_clv, (int, float)) else "—"
-
-    small = n_clv < 40
-    note = ('<div class="perf-note">Small sample — CLV needs ~50+ graded picks '
-            'to trust. Building daily.</div>') if small else (
-            '<div class="perf-note">CLV &gt; 52% = real edge vs the market.</div>')
-
-    return (
-        '<div class="perf-panel">'
-        '<div class="perf-title">MODEL PERFORMANCE</div>'
-        '<div class="perf-hero">'
-        f'<div class="perf-hero-val {clv_cls}">{clv_txt}</div>'
-        '<div class="perf-hero-lab">beat the close<br>(recommended picks)</div>'
-        '</div>'
-        '<div class="perf-row"><span>Avg CLV</span><b>{}</b></div>'.format(avg_clv_txt) +
-        f'<div class="perf-row"><span>Record</span><b>{wl}</b></div>'
-        f'<div class="perf-row"><span>ROI (flat)</span><b>{roi_txt}</b></div>'
-        f'<div class="perf-row"><span>Graded picks</span><b>{n_clv}</b></div>'
-        f'{note}'
-        '</div>'
-    )
 
 
 def load_scraper_csv() -> list[dict]:

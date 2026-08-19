@@ -271,6 +271,33 @@ def recommended_pick(game):
     return max(pool, key=lambda p: p.get("ev_pct") or -100) if pool else None
 
 
+def model_winner_pick(game):
+    """Moneyline pick on the model's predicted winner (higher win %)."""
+    m = game.get("model") or {}
+    aw, hw = m.get("away_win_pct", 0), m.get("home_win_pct", 0)
+    if aw == 0 and hw == 0:
+        return None
+    want = game.get("home_team", "") if hw >= aw else game.get("away_team", "")
+    for p in (game.get("picks") or []):
+        if p.get("market") == "Moneyline" and _slug(p.get("side", "").replace(" ML", "")) == _slug(want):
+            return p
+    return None
+
+
+def model_total_pick(game):
+    """Total pick on the model's over/under lean vs the market line."""
+    m = game.get("model") or {}
+    mt = m.get("mean_total")
+    totals = [p for p in (game.get("picks") or []) if p.get("market") == "Total"]
+    if mt is None or not totals or totals[0].get("line") is None:
+        return None
+    over = mt > totals[0]["line"]
+    for p in totals:
+        if p.get("side", "").startswith("Over" if over else "Under"):
+            return p
+    return None
+
+
 class Ledger:
     def __init__(self):
         self.w = self.l = self.p = 0
@@ -294,6 +321,7 @@ class Ledger:
 
 def run(dates):
     rec_led, all_led = Ledger(), Ledger()
+    winner_led, total_led = Ledger(), Ledger()
     rec_clv, all_clv = [], []
     gdates = games = 0
     for ds in dates:
@@ -323,6 +351,14 @@ def run(dates):
                 if gr: rec_led.add(gr)
                 c = clv_for_pick(rec, closing, actual)
                 if c is not None: rec_clv.append(c)
+            wp = model_winner_pick(g)
+            if wp:
+                gr = grade_pick(wp, actual)
+                if gr: winner_led.add(gr)
+            tp = model_total_pick(g)
+            if tp:
+                gr = grade_pick(tp, actual)
+                if gr: total_led.add(gr)
             for pk in gl:
                 gr = grade_pick(pk, actual)
                 if not gr: continue
@@ -341,17 +377,25 @@ def run(dates):
         return {"n": n, "beat_close_pct": round(sum(1 for x in s if x > 0) / n * 100, 0),
                 "avg_clv": round(sum(s) / n, 2)}
 
+    def acc_block(led):
+        dec = led.w + led.l
+        return {"n": dec,
+                "accuracy_pct": round(led.w / dec * 100, 1) if dec else None,
+                "record": f"{led.w}-{led.l}" + (f"-{led.p}" if led.p else ""),
+                "roi_pct": round(led.profit / led.staked * 100, 1) if led.staked else None}
+
     rc, ac = clv_block(rec_clv), clv_block(all_clv)
+    win, tot = acc_block(winner_led), acc_block(total_led)
+    print(f"WINNER   {win['record']}  acc {win['accuracy_pct']}%  ROI {win['roi_pct']}% (n={win['n']})")
+    print(f"TOTALS   {tot['record']}  acc {tot['accuracy_pct']}%  ROI {tot['roi_pct']}% (n={tot['n']})")
     r = rec_led.summary()
     print(f"RECOMMENDED  {r['wins']}-{r['losses']}  ROI {r['roi_pct']}%   "
           f"beat-close {rc['beat_close_pct']}% (n={rc['n']}) avgCLV {rc['avg_clv']}")
-    a = all_led.summary()
-    print(f"ALL LINES    {a['wins']}-{a['losses']}  ROI {a['roi_pct']}%   "
-          f"beat-close {ac['beat_close_pct']}% (n={ac['n']})")
 
     out = {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "graded_dates": gdates, "graded_games": games,
+        "winner": win, "totals": tot,
         "recommended": rec_led.summary(), "all_lines": all_led.summary(),
         "clv_recommended": rc, "clv_all": ac,
     }

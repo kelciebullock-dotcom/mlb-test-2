@@ -338,6 +338,35 @@ def recommended_pick(game: dict) -> dict | None:
     return max(pool, key=lambda p: p.get("ev_pct") or -100)
 
 
+def model_winner_pick(game: dict) -> dict | None:
+    """The moneyline pick on the model's predicted WINNER (the team with the higher
+    model win %). Straight-up prediction, independent of EV / the market."""
+    m = game.get("model") or {}
+    aw, hw = m.get("away_win_pct", 0), m.get("home_win_pct", 0)
+    if aw == 0 and hw == 0:
+        return None
+    want = game.get("home_team", "") if hw >= aw else game.get("away_team", "")
+    for p in (game.get("picks") or []):
+        if p.get("market") == "Moneyline" and _slug(p.get("side", "").replace(" ML", "")) == _slug(want):
+            return p
+    return None
+
+
+def model_total_pick(game: dict) -> dict | None:
+    """The total pick on the model's OVER/UNDER lean: whether the model's projected
+    total (mean_total) is above or below the market total line."""
+    m = game.get("model") or {}
+    mt = m.get("mean_total")
+    totals = [p for p in (game.get("picks") or []) if p.get("market") == "Total"]
+    if mt is None or not totals or totals[0].get("line") is None:
+        return None
+    over = mt > totals[0]["line"]
+    for p in totals:
+        if p.get("side", "").startswith("Over" if over else "Under"):
+            return p
+    return None
+
+
 # ---- Aggregation ------------------------------------------------------------
 
 class Ledger:
@@ -425,6 +454,8 @@ def run_backtest(dates: list[str]) -> None:
     rec_ledger = Ledger("RECOMMENDED (1 pick/game — the dashboard headline)")
     ev_ledger = Ledger("POSITIVE-EV (every +EV game-line pick)")
     all_ledger = Ledger("ALL GAME-LINE PICKS (calibration sample)")
+    winner_ledger = Ledger("WINNER (model's predicted winner, every game)")
+    total_ledger = Ledger("TOTAL (model's over/under lean, every game)")
     calib_rows: list[tuple[float, bool]] = []
     rec_clv: list[float] = []   # CLV (pts) for recommended picks
     all_clv: list[float] = []   # CLV (pts) for every graded game-line pick
@@ -468,6 +499,18 @@ def run_backtest(dates: list[str]) -> None:
                 if clv is not None:
                     rec_clv.append(clv)
 
+            # WINNER (predicted winner) and TOTAL (O/U lean) — straight prediction accuracy
+            wp = model_winner_pick(g)
+            if wp:
+                gr = grade_pick(wp, actual)
+                if gr:
+                    winner_ledger.add(wp, gr)
+            tp = model_total_pick(g)
+            if tp:
+                gr = grade_pick(tp, actual)
+                if gr:
+                    total_ledger.add(tp, gr)
+
             # POSITIVE-EV + ALL + calibration + CLV
             for p in gl:
                 graded = grade_pick(p, actual)
@@ -492,9 +535,12 @@ def run_backtest(dates: list[str]) -> None:
         print("No completed games with predictions found in the given range.")
         print("(Predictions exist only for dates you've run mlb_predict.py on, and")
         print(" games must be Final. Use --backfill to generate a historical sample.)")
-        _write_performance({}, {}, 0, 0)
+        _write_performance(None, None, 0, 0)
         return
 
+    print("MODEL PREDICTION ACCURACY (straight up, every game):")
+    print(winner_ledger.report()); print()
+    print(total_ledger.report()); print()
     print(rec_ledger.report()); print()
     print(ev_ledger.report()); print()
     print(all_ledger.report()); print()
@@ -525,7 +571,8 @@ def run_backtest(dates: list[str]) -> None:
     _write_performance(rec_ledger, all_ledger, len(rec_clv), len(all_clv),
                        rec_clv=rec_clv, all_clv=all_clv, calib_rows=calib_rows,
                        graded_dates=graded_dates, total_games=total_games,
-                       ev_ledger=ev_ledger)
+                       ev_ledger=ev_ledger, winner_ledger=winner_ledger,
+                       total_ledger=total_ledger)
 
 
 def _ledger_summary(led) -> dict:
@@ -538,9 +585,23 @@ def _ledger_summary(led) -> dict:
     }
 
 
+def _acc_block(led) -> dict:
+    """Straight-up accuracy + ROI for a winner/total ledger."""
+    if not led:
+        return {"n": 0, "accuracy_pct": None, "record": None, "roi_pct": None}
+    dec = led.wins + led.losses
+    return {
+        "n": dec,
+        "accuracy_pct": round(led.wins / dec * 100, 1) if dec else None,
+        "record": f"{led.wins}-{led.losses}" + (f"-{led.pushes}" if led.pushes else ""),
+        "roi_pct": round(led.profit / led.staked * 100, 1) if led.staked else None,
+    }
+
+
 def _write_performance(rec_ledger, all_ledger, n_rec_clv, n_all_clv,
                        rec_clv=None, all_clv=None, calib_rows=None,
-                       graded_dates=0, total_games=0, ev_ledger=None) -> None:
+                       graded_dates=0, total_games=0, ev_ledger=None,
+                       winner_ledger=None, total_ledger=None) -> None:
     """Write data/performance.json for the dashboard's model-performance panel."""
     def clv_block(samples):
         if not samples:
@@ -554,6 +615,8 @@ def _write_performance(rec_ledger, all_ledger, n_rec_clv, n_all_clv,
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "graded_dates": graded_dates,
         "graded_games": total_games,
+        "winner": _acc_block(winner_ledger),      # model's predicted winner accuracy + ROI
+        "totals": _acc_block(total_ledger),       # model's over/under lean accuracy + ROI
         "recommended": _ledger_summary(rec_ledger) if rec_ledger else {},
         "positive_ev": _ledger_summary(ev_ledger) if ev_ledger else {},
         "all_lines": _ledger_summary(all_ledger) if all_ledger else {},
