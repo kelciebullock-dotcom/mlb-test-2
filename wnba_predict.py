@@ -72,6 +72,36 @@ def _odds_api_key() -> str:
 LEAGUE_AVG_PTS = 81.5
 N_SIMS = 10_000
 
+# Regression: games at which a per-game average is ~half-stabilized. WNBA seasons
+# are short (~40 games), so early-season averages are noisy — regress each rate
+# toward what the player's MINUTES imply (league per-minute rate × minutes).
+WNBA_REG_GAMES = 6.0
+# League per-minute rates among rotation players, computed once from the season
+# pool (self-calibrating); these fallbacks are used only before that runs.
+_WNBA_LG_PERMIN = {"pts": 0.42, "reb": 0.185, "ast": 0.105,
+                   "stl": 0.033, "blk": 0.022, "fg3m": 0.046}
+
+
+def _compute_league_per_min(all_players: list[dict]) -> None:
+    """Minutes-weighted league per-minute rates from rotation players (min ≥ 15,
+    gp ≥ 3). Stored globally so the prop model can regress each player toward the
+    production their minutes imply, instead of reading small-sample noise."""
+    global _WNBA_LG_PERMIN
+    acc = {k: 0.0 for k in _WNBA_LG_PERMIN}
+    tot_min = 0.0
+    for p in all_players:
+        s = p.get("stats", {})
+        gp = s.get("games_played") or 0
+        mn = s.get("min") or 0
+        if gp < 3 or mn < 15:
+            continue
+        pm = gp * mn
+        tot_min += pm
+        for k in acc:
+            acc[k] += (s.get(k) or 0) / mn * pm  # per-min rate weighted by total minutes
+    if tot_min > 0:
+        _WNBA_LG_PERMIN = {k: acc[k] / tot_min for k in acc}
+
 # Shrink model probs toward the devigged market (raw sim is overconfident).
 MODEL_TRUST = 0.35
 
@@ -566,53 +596,70 @@ def sim_game(away_ctx: dict, home_ctx: dict, n_sims: int = N_SIMS) -> dict:
     away_scores = [max(30, int(round(rng.gauss(away_mean, 10.5)))) for _ in range(n_sims)]
     home_scores = [max(30, int(round(rng.gauss(home_mean, 10.5)))) for _ in range(n_sims)]
 
-    # Player props — simulate top rotation players
+    # Game pace factor: a faster/higher-scoring game gives EVERY player more
+    # possessions → more counting stats. Proxy pace by the projected game total
+    # relative to the league-average total, capped so it can't run away.
+    pace_factor = max(0.90, min(1.12,
+                                (away_mean + home_mean) / (2.0 * LEAGUE_AVG_PTS)))
+
+    def _reg(stat_key, val, gp, minutes):
+        """Regress a per-game average toward what the player's minutes imply."""
+        prior = _WNBA_LG_PERMIN.get(stat_key, 0.0) * (minutes or 0)
+        return (val * gp + prior * WNBA_REG_GAMES) / (gp + WNBA_REG_GAMES)
+
+    # Player props — simulate top rotation players.
     def player_samples(players: list[dict], opp_def_factor: float) -> dict:
         out = {}
+        # Scoring defense scaler: leaky defense (>1) lifts scoring, tough (<1) cuts it.
+        # Damped (0.5 exponent) so one team's PPG-against doesn't swing props wildly.
+        score_adj = opp_def_factor ** 0.5
         for p in players:
             stats = p.get("stats", {})
             gp = stats.get("games_played") or 1
-            if gp < 5:
+            if gp < 3:
                 continue  # too little data
             min_played = stats.get("min") or 0
             if min_played < 12:
                 continue  # deep bench, skip
-            pts = stats.get("pts") or 0
-            reb = stats.get("reb") or 0
-            ast = stats.get("ast") or 0
-            stl = stats.get("stl") or 0
-            blk = stats.get("blk") or 0
-            fg3m = stats.get("fg3m") or 0
+
+            # Regress each rate toward its minutes-implied prior (small samples pull
+            # toward league), then apply pace to all and defense to scoring only.
+            pts = _reg("pts", stats.get("pts") or 0, gp, min_played) * pace_factor * score_adj
+            reb = _reg("reb", stats.get("reb") or 0, gp, min_played) * pace_factor
+            ast = _reg("ast", stats.get("ast") or 0, gp, min_played) * pace_factor
+            stl = _reg("stl", stats.get("stl") or 0, gp, min_played) * pace_factor
+            blk = _reg("blk", stats.get("blk") or 0, gp, min_played) * pace_factor
+            fg3m = _reg("fg3m", stats.get("fg3m") or 0, gp, min_played) * pace_factor * score_adj
             fgm = stats.get("fgm") or 0
             fga = stats.get("fga") or 0
             ftm = stats.get("ftm") or 0
             fta = stats.get("fta") or 0
 
-            # Opponent defense scaling: better defense reduces scoring
-            adj = 1.0 / opp_def_factor  # if opp_def_factor > 1 (bad defense), we go UP
-            adj_pts = pts * adj
-            adj_reb = reb
-            adj_ast = ast
-            adj_3s = fg3m * adj
-
-            # Sample independently
-            pts_samples = [max(0, rng.gauss(adj_pts, max(3, adj_pts * 0.38))) for _ in range(n_sims)]
-            reb_samples = [max(0, rng.gauss(adj_reb, max(1.5, adj_reb * 0.4))) for _ in range(n_sims)]
-            ast_samples = [max(0, rng.gauss(adj_ast, max(1.2, adj_ast * 0.45))) for _ in range(n_sims)]
-            threes_samples = [max(0, rng.gauss(adj_3s, max(0.8, adj_3s * 0.55))) for _ in range(n_sims)]
-            stl_samples = [max(0, rng.gauss(stl, max(0.8, stl * 0.5))) for _ in range(n_sims)]
-            blk_samples = [max(0, rng.gauss(blk, max(0.6, blk * 0.55))) for _ in range(n_sims)]
+            # Shared per-game "game-script" multiplier (minutes/usage swings — foul
+            # trouble, blowouts, hot nights) drawn ONCE per sim and applied to all of
+            # a player's lines, so pts/reb/ast rise and fall together. This gives
+            # realistic correlation for combo props (PRA, P+R) and fatter, truer tails
+            # than independent draws — the tier-1 stand-in for full minutes projection.
+            pts_s, reb_s, ast_s, thr_s, stl_s, blk_s = [], [], [], [], [], []
+            for _ in range(n_sims):
+                gs = max(0.45, rng.gauss(1.0, 0.13))
+                pts_s.append(max(0, rng.gauss(pts * gs, max(2.6, pts * 0.30))))
+                reb_s.append(max(0, rng.gauss(reb * gs, max(1.4, reb * 0.34))))
+                ast_s.append(max(0, rng.gauss(ast * gs, max(1.1, ast * 0.40))))
+                thr_s.append(max(0, rng.gauss(fg3m * gs, max(0.8, fg3m * 0.50))))
+                stl_s.append(max(0, rng.gauss(stl * gs, max(0.8, stl * 0.45))))
+                blk_s.append(max(0, rng.gauss(blk * gs, max(0.6, blk * 0.50))))
 
             out[p["bdl_id"]] = {
                 "name": p["name"],
                 "pos": p.get("pos", ""),
                 "min": min_played,
-                "pts": pts_samples,
-                "reb": reb_samples,
-                "ast": ast_samples,
-                "threes": threes_samples,
-                "stl": stl_samples,
-                "blk": blk_samples,
+                "pts": pts_s,
+                "reb": reb_s,
+                "ast": ast_s,
+                "threes": thr_s,
+                "stl": stl_s,
+                "blk": blk_s,
                 "fgm_avg": fgm, "fga_avg": fga,
                 "ftm_avg": ftm, "fta_avg": fta,
                 "fg3m_avg": fg3m,
@@ -893,6 +940,7 @@ def build_game_context(game: dict, season: int) -> tuple[dict, dict]:
     away_team = game["visitor_team"]
 
     all_players = fetch_all_player_stats(season)
+    _compute_league_per_min(all_players)   # self-calibrate regression priors
     # Index players by normalized team abbreviation.
     by_abbr: dict[str, list[dict]] = {}
     for p in all_players:

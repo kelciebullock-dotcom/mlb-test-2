@@ -451,6 +451,17 @@ def get_batter_season_stats(mlb_id: int, year: int) -> dict:
             return {}
         s = splits[0].get("stat", {})
         pa = int(s.get("plateAppearances", 0) or 0)
+        hits = int(s.get("hits", 0) or 0)
+        dbl = int(s.get("doubles", 0) or 0)
+        tpl = int(s.get("triples", 0) or 0)
+        hr = int(s.get("homeRuns", 0) or 0)
+        # Extra-base shares OF NON-HR HITS, regressed toward league (singles ~0.79,
+        # doubles ~0.185, triples ~0.025), so we can split hits into 1B/2B/3B/HR for
+        # a coherent total-bases model. Small samples pull toward league.
+        nonhr = max(0, hits - hr)
+        REG_XBH = 120.0
+        d_share = (dbl + 0.185 * REG_XBH) / (nonhr + REG_XBH)
+        t_share = (tpl + 0.025 * REG_XBH) / (nonhr + REG_XBH)
         result = {
             "avg": float(s.get("avg", 0) or 0),
             "obp": float(s.get("obp", 0) or 0),
@@ -458,8 +469,10 @@ def get_batter_season_stats(mlb_id: int, year: int) -> dict:
             "ops": float(s.get("ops", 0) or 0),
             "k_pct": (int(s.get("strikeOuts", 0) or 0) / pa * 100) if pa else 0.0,
             "bb_pct": (int(s.get("baseOnBalls", 0) or 0) / pa * 100) if pa else 0.0,
-            "hr_pa": (int(s.get("homeRuns", 0) or 0) / pa) if pa else 0.0,
-            "hits_pa": (int(s.get("hits", 0) or 0) / pa) if pa else 0.0,
+            "hr_pa": (hr / pa) if pa else 0.0,
+            "hits_pa": (hits / pa) if pa else 0.0,
+            "dbl_share": d_share,      # fraction of non-HR hits that are doubles
+            "tpl_share": t_share,      # fraction of non-HR hits that are triples
             "pa": pa,
         }
         _cache_put("batter", f"{mlb_id}_{year}", result)
@@ -1179,14 +1192,56 @@ def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
             bb_p = _clamp(_odds_ratio(bat_bb, pit_bb, LG_BB_PA), 0.01, 0.32)
             k_p = _clamp(_odds_ratio(bat_k, pit_k, LG_K_PA), 0.03, 0.60)
 
-            samples_h, samples_hr, samples_bb, samples_k, samples_pa = [], [], [], [], []
+            # Split the per-PA hit probability into 1B/2B/3B/HR so each plate
+            # appearance resolves to ONE coherent outcome — hits, HR and total bases
+            # then agree in every sim (independent binomials could give HR > hits).
+            nonhr_hit_p = max(0.0, hit_p - hr_p)
+            d_share = stats.get("dbl_share", 0.185)
+            t_share = stats.get("tpl_share", 0.025)
+            p2b = nonhr_hit_p * d_share
+            p3b = nonhr_hit_p * t_share
+            p1b = max(0.0, nonhr_hit_p - p2b - p3b)
+            # Renormalise if the per-PA outcome probs would exceed 1 (rare, extreme
+            # high-contact profiles): scale walks/K/hits down together, keep ratios.
+            tot = bb_p + k_p + hr_p + p1b + p2b + p3b
+            if tot > 0.98:
+                sc_f = 0.98 / tot
+                bb_p *= sc_f; k_p *= sc_f; hr_p *= sc_f
+                p1b *= sc_f; p2b *= sc_f; p3b *= sc_f
+
+            c_bb = bb_p
+            c_k = c_bb + k_p
+            c_hr = c_k + hr_p
+            c_2b = c_hr + p2b
+            c_3b = c_2b + p3b
+            c_1b = c_3b + p1b
+
+            samples_h, samples_hr, samples_bb, samples_k, samples_pa, samples_tb = \
+                [], [], [], [], [], []
             for _ in range(n_sims):
                 pa = int(round(rng.triangular(3, 6, pa_mean)))
+                h = hr = bb = k = tb = 0
+                for _pa in range(pa):
+                    r = rng.random()
+                    if r < c_bb:
+                        bb += 1
+                    elif r < c_k:
+                        k += 1
+                    elif r < c_hr:
+                        hr += 1; h += 1; tb += 4
+                    elif r < c_2b:
+                        h += 1; tb += 2
+                    elif r < c_3b:
+                        h += 1; tb += 3
+                    elif r < c_1b:
+                        h += 1; tb += 1
+                    # else: out in play (no counting stat)
                 samples_pa.append(pa)
-                samples_h.append(binomial(pa, hit_p))
-                samples_hr.append(binomial(pa, hr_p))
-                samples_bb.append(binomial(pa, bb_p))
-                samples_k.append(binomial(pa, k_p))
+                samples_h.append(h)
+                samples_hr.append(hr)
+                samples_bb.append(bb)
+                samples_k.append(k)
+                samples_tb.append(tb)
             out[b["mlb_id"]] = {
                 "name": b["name"],
                 "slot": slot,
@@ -1195,6 +1250,7 @@ def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
                 "hrs": samples_hr,
                 "walks": samples_bb,
                 "ks": samples_k,
+                "total_bases": samples_tb,
                 "pas": samples_pa,
                 "slg": stats.get("slg") or 0.400,
                 "obp": stats.get("obp") or 0.320,
@@ -1447,19 +1503,28 @@ def build_projected_boxscore(sim: dict, away_ctx: dict, home_ctx: dict,
     from the pitcher's OWN season per-start averages (innings, K, BB, H, HR),
     lightly adjusted for the opposing offense and park — not a generic number."""
 
+    # Batting-order weights: leadoff/top-of-order score more runs; the 3-5 hitters
+    # collect more RBI. Applied on top of OBP (runs) / SLG (RBI) so the allocation
+    # of the team's projected runs reflects lineup role, not just rate stats.
+    RUN_SLOT_W = {1: 1.26, 2: 1.20, 3: 1.11, 4: 1.04, 5: 0.97,
+                  6: 0.91, 7: 0.87, 8: 0.83, 9: 0.86}
+    RBI_SLOT_W = {1: 0.80, 2: 0.92, 3: 1.15, 4: 1.25, 5: 1.17,
+                  6: 1.02, 7: 0.92, 8: 0.83, 9: 0.78}
+
     def team_box(side: str, ctx: dict, opp_ctx: dict) -> dict:
         opp_pitcher = opp_ctx.get("pitcher", {})
         props_by_id = sim[f"{side}_batter_props"]
         team_runs_mean = _mean(sim[f"{side}_runs"])
-        # OBP / SLG totals for proportional R/RBI allocation
-        obp_sum = sum(props_by_id[b["mlb_id"]]["obp"] for b in ctx["lineup"]
-                      if b["mlb_id"] in props_by_id) or 1.0
-        slg_sum = sum(props_by_id[b["mlb_id"]]["slg"] for b in ctx["lineup"]
-                      if b["mlb_id"] in props_by_id) or 1.0
+        # Slot-weighted OBP / SLG totals for R / RBI allocation across the order.
+        def _w(prop_key, slot_w):
+            return sum(props_by_id[b["mlb_id"]][prop_key] * slot_w.get(b["slot"], 1.0)
+                       for b in ctx["lineup"] if b["mlb_id"] in props_by_id)
+        run_wsum = _w("obp", RUN_SLOT_W) or 1.0
+        rbi_wsum = _w("slg", RBI_SLOT_W) or 1.0
 
         batters = []
         totals = {"ab": 0.0, "r": 0.0, "h": 0.0, "hr": 0.0, "rbi": 0.0,
-                  "bb": 0.0, "k": 0.0}
+                  "bb": 0.0, "k": 0.0, "tb": 0.0}
         for b in ctx["lineup"]:
             samples = props_by_id.get(b["mlb_id"])
             if not samples:
@@ -1467,7 +1532,7 @@ def build_projected_boxscore(sim: dict, away_ctx: dict, home_ctx: dict,
                 batters.append({
                     "slot": b["slot"], "pos": b.get("pos", ""), "name": b["name"],
                     "ab": None, "r": None, "h": None, "hr": None,
-                    "rbi": None, "bb": None, "k": None,
+                    "rbi": None, "bb": None, "k": None, "tb": None,
                 })
                 continue
             pa = _mean(samples["pas"])
@@ -1475,13 +1540,14 @@ def build_projected_boxscore(sim: dict, away_ctx: dict, home_ctx: dict,
             hr = _mean(samples["hrs"])
             bb = _mean(samples["walks"])
             k  = _mean(samples["ks"])
+            tb = _mean(samples.get("total_bases") or [0])
             ab = max(0.0, pa - bb - 0.02 * pa)  # ~2% HBP/SF
-            r  = team_runs_mean * (samples["obp"] / obp_sum)
-            rbi = team_runs_mean * (samples["slg"] / slg_sum)
+            r  = team_runs_mean * (samples["obp"] * RUN_SLOT_W.get(b["slot"], 1.0) / run_wsum)
+            rbi = team_runs_mean * (samples["slg"] * RBI_SLOT_W.get(b["slot"], 1.0) / rbi_wsum)
             row = {"slot": b["slot"], "pos": b.get("pos", ""), "name": b["name"],
                    "ab": round(ab, 1), "r": round(r, 1), "h": round(h, 1),
                    "hr": round(hr, 2), "rbi": round(rbi, 1),
-                   "bb": round(bb, 1), "k": round(k, 1)}
+                   "bb": round(bb, 1), "k": round(k, 1), "tb": round(tb, 1)}
             batters.append(row)
             for f in totals:
                 if row[f] is not None:

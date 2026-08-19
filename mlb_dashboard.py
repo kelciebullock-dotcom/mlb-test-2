@@ -465,6 +465,7 @@ def render_boxscore(game: dict) -> str:
             f'<td>{cell(row.get("ab"))}</td>'
             f'<td>{cell(row.get("r"))}</td>'
             f'<td>{cell(row.get("h"))}</td>'
+            f'<td>{cell(row.get("tb"))}</td>'
             f'<td>{cell(row.get("hr"), ".2f")}</td>'
             f'<td>{cell(row.get("rbi"))}</td>'
             f'<td>{cell(row.get("bb"))}</td>'
@@ -485,6 +486,7 @@ def render_boxscore(game: dict) -> str:
             f'<td>{totals.get("ab", 0):.1f}</td>'
             f'<td>{totals.get("r", 0):.1f}</td>'
             f'<td>{totals.get("h", 0):.1f}</td>'
+            f'<td>{totals.get("tb", 0):.1f}</td>'
             f'<td>{totals.get("hr", 0):.2f}</td>'
             f'<td>{totals.get("rbi", 0):.1f}</td>'
             f'<td>{totals.get("bb", 0):.1f}</td>'
@@ -509,7 +511,7 @@ def render_boxscore(game: dict) -> str:
             f'<div class="box-team-label">{escape(label)}</div>'
             '<table class="boxscore"><thead><tr>'
             '<th>#</th><th>Pos</th><th>Batter</th>'
-            '<th>AB</th><th>R</th><th>H</th><th>HR</th><th>RBI</th><th>BB</th><th>K</th>'
+            '<th>AB</th><th>R</th><th>H</th><th>TB</th><th>HR</th><th>RBI</th><th>BB</th><th>K</th>'
             '</tr></thead><tbody>'
             f'{rows}{tot}'
             '</tbody></table>'
@@ -526,7 +528,7 @@ def render_boxscore(game: dict) -> str:
         f'{team_block("away", away_label)}'
         f'{team_block("home", home_label)}'
         '</div>'
-        '<div class="box-note">Projected values, mean of 10,000 sims. R and RBI proportional to OBP/SLG contribution. Starter line: expected ≈ 24 BF (6 IP).</div>'
+        '<div class="box-note">Projected values, mean of 10,000 sims. TB = total bases (each plate appearance resolves to a coherent 1B/2B/3B/HR, so H, TB and HR always agree). R/RBI allocate the team\'s projected runs by on-base/slugging weighted for batting-order role. Starter line built from the pitcher\'s own per-start workload.</div>'
         '</details>'
     )
 
