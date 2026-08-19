@@ -40,6 +40,23 @@ jobs:
 
       # No pip install — everything is stdlib. That keeps this workflow fast + hermetic.
 
+      - name: Compute cache day (ET)
+        id: cacheday
+        run: echo "day=$(TZ='America/New_York' date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+
+      # Persist the API-response cache (Statcast leaderboards, platoon splits,
+      # handedness, pitcher profiles) across the day's 11 scheduled runs so we
+      # re-pull each player's splits once per day, not once per run.
+      - name: Cache player data (per ET day)
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/cache
+            data/cache_wnba
+          key: playerdata-${{ steps.cacheday.outputs.day }}
+          restore-keys: |
+            playerdata-
+
       - name: Compute target dates (today + tomorrow in ET)
         id: target
         run: |

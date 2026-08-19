@@ -27,7 +27,9 @@ Usage:
 from __future__ import annotations
 
 import csv
+import io
 import json
+import math
 import os
 import random
 import statistics
@@ -67,6 +69,53 @@ RUN_DISPERSION = 1.15    # negative-binomial theta: var ≈ mean × (1 + theta) 
 STARTER_IP = 5.2         # league-avg innings per start (rest goes to the bullpen)
 UNEARNED_FACTOR = 0.92   # earned runs ≈ 92% of total runs (converts ERA → total run rate)
 LG_HR9 = 1.20            # league HR allowed per 9 IP (for the HR projection model)
+
+# ---- Player-prop model constants (accuracy rebuild) -------------------------
+# League per-PA baselines (recent seasons) — used as regression targets so small
+# samples pull toward league instead of reading noise as talent.
+LG_HR_PA = 0.032         # league HR per plate appearance
+LG_HITS_PA = 0.222       # league hits per PA (≈ .243 BA over ~0.915 AB/PA)
+LG_BB_PA = 0.082         # league walks per PA
+LG_K_PA = 0.223          # league strikeouts per PA
+LG_BABIP = 0.292         # league batting avg on balls in play
+LG_XWOBA = 0.318         # league expected wOBA (Statcast)
+LG_BARREL_PCT = 8.0      # league barrel rate (% of batted balls)
+
+# Regression constants: PA at which a rate is ~50% stabilized (from published
+# stabilization points — HR/PA ~170, K% ~60, BB% ~120, BABIP ~820).
+REG_HR = 170.0
+REG_K = 60.0
+REG_BB = 120.0
+REG_BABIP = 350.0        # capped below full stabilization; xBA does the heavy lifting
+REG_PLATOON = 250.0      # platoon splits are very noisy — regress hard
+
+# League-average platoon OPS multipliers (batter hand vs pitcher hand), relative
+# to the batter's own overall. Same-handed hurts; opposite-handed helps. Splits
+# regress toward these, not toward 1.0, so a batter with no personal split still
+# gets the correct structural platoon edge. (L vs L worst; L vs R best.)
+LG_PLATOON = {
+    ("L", "L"): 0.91, ("L", "R"): 1.05,
+    ("R", "L"): 1.06, ("R", "R"): 0.97,
+    ("S", "L"): 1.03, ("S", "R"): 1.03,   # switch hitters bat opposite → near-neutral
+}
+
+# HR park factors (100 = neutral), 3-yr Statcast, handedness-neutral. Keyed by the
+# venue names the scraper emits. These replace the old runs-factor amplification.
+# Source: Statcast park factors (baseballsavant), rounded; refresh yearly.
+HR_PARK_FACTORS = {
+    "Coors Field": 112, "Great American Ball Park": 121, "Yankee Stadium": 116,
+    "Citizens Bank Park": 110, "Fenway Park": 96, "Camden Yards": 104,
+    "Oriole Park at Camden Yards": 104, "Truist Park": 103, "Wrigley Field": 103,
+    "Dodger Stadium": 106, "Rogers Centre": 103, "Globe Life Field": 101,
+    "Chase Field": 102, "Minute Maid Park": 99, "Daikin Park": 99,
+    "American Family Field": 108, "Nationals Park": 101, "Progressive Field": 99,
+    "Angel Stadium": 101, "Angel Stadium of Anaheim": 101, "Guaranteed Rate Field": 106,
+    "Rate Field": 106, "Citi Field": 96, "Busch Stadium": 92, "Petco Park": 96,
+    "Oracle Park": 90, "T-Mobile Park": 94, "Kauffman Stadium": 93,
+    "PNC Park": 92, "Comerica Park": 93, "Target Field": 100, "loanDepot park": 97,
+    "Sutter Health Park": 100, "George M. Steinbrenner Field": 108,
+    "Tropicana Field": 98, "Nationals Park ": 101,
+}
 
 # Probability shrinkage toward the market. The raw sim is systematically
 # overconfident (backtest: it says 92% when reality is ~50%), so every reported
@@ -420,6 +469,153 @@ def get_batter_season_stats(mlb_id: int, year: int) -> dict:
         return {}
 
 
+# ---- Statcast bulk leaderboards (batted-ball quality) -----------------------
+# One CSV pull covers every qualified hitter/pitcher; cached to disk for the day.
+# Batted-ball quality (barrel%, xwOBA, xISO, xBA) stabilizes far faster than
+# results, so it anchors the prop projections and catches over/under-performers.
+
+_SC_BATTER_SEL = ("player_id,barrel_batted_rate,hard_hit_percent,xwoba,xba,xslg,"
+                  "xiso,launch_angle_avg,k_percent,bb_percent,pa,home_run")
+_SC_PITCHER_SEL = ("player_id,barrel_batted_rate,hard_hit_percent,xwoba,xba,xslg,"
+                   "launch_angle_avg,k_percent,bb_percent,groundballs_percent,"
+                   "flyballs_percent,pa,home_run")
+_STATCAST_MEM: dict[str, dict] = {}
+
+
+def _num(v, default=None):
+    try:
+        s = str(v).strip()
+        return float(s) if s not in ("", "--", "null") else default
+    except (TypeError, ValueError):
+        return default
+
+
+def _load_statcast(kind: str, year: int) -> dict:
+    """kind = 'batter' | 'pitcher'. Returns {player_id(str): {metrics...}} for all
+    qualified players (min 30 PA), disk-cached 24h. Also stashes '_league' means."""
+    memkey = f"{kind}_{year}"
+    if memkey in _STATCAST_MEM:
+        return _STATCAST_MEM[memkey]
+    cached = _cache_get("statcast", memkey, ttl_hours=24)
+    if cached is not None:
+        _STATCAST_MEM[memkey] = cached
+        return cached
+    sel = _SC_BATTER_SEL if kind == "batter" else _SC_PITCHER_SEL
+    url = ("https://baseballsavant.mlb.com/leaderboard/custom"
+           f"?year={year}&type={kind}&min=30&selections={sel}&csv=true")
+    out: dict[str, dict] = {}
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (mlb-tonight)"})
+        with urllib.request.urlopen(req, timeout=45) as resp:
+            txt = resp.read().decode("utf-8-sig")
+        rows = list(csv.DictReader(io.StringIO(txt)))
+        for r in rows:
+            pid = str(r.get("player_id") or "").strip()
+            if not pid:
+                continue
+            out[pid] = {
+                "barrel_pct": _num(r.get("barrel_batted_rate")),
+                "hard_hit_pct": _num(r.get("hard_hit_percent")),
+                "xwoba": _num(r.get("xwoba")),
+                "xba": _num(r.get("xba")),
+                "xslg": _num(r.get("xslg")),
+                "xiso": _num(r.get("xiso")),
+                "la": _num(r.get("launch_angle_avg")),
+                "k_pct": _num(r.get("k_percent")),
+                "bb_pct": _num(r.get("bb_percent")),
+                "gb_pct": _num(r.get("groundballs_percent")),
+                "fb_pct": _num(r.get("flyballs_percent")),
+                "pa": _num(r.get("pa"), 0),
+                "hr": _num(r.get("home_run"), 0),
+            }
+        # League means (PA-weighted where it matters) for self-calibration.
+        def wmean(field):
+            num = sum((v[field] or 0) * (v["pa"] or 0) for v in out.values() if v.get(field) is not None)
+            den = sum((v["pa"] or 0) for v in out.values() if v.get(field) is not None)
+            return (num / den) if den else None
+        out["_league"] = {
+            "barrel_pct": wmean("barrel_pct"), "xwoba": wmean("xwoba"),
+            "xiso": wmean("xiso"), "xba": wmean("xba"),
+            "hr_per_pa": (sum((v["hr"] or 0) for v in out.values()) /
+                          max(1, sum((v["pa"] or 0) for v in out.values()))),
+        }
+        _cache_put("statcast", memkey, out)
+        _STATCAST_MEM[memkey] = out
+        print(f"    Statcast {kind}s loaded: {len(out)-1} players", file=sys.stderr)
+    except Exception as e:
+        print(f"    (Statcast {kind} load failed: {e})", file=sys.stderr)
+        out = {"_league": {}}
+        _STATCAST_MEM[memkey] = out
+    return out
+
+
+def statcast_batter(mlb_id, year: int) -> dict:
+    return _load_statcast("batter", year).get(str(mlb_id), {})
+
+
+def statcast_pitcher(mlb_id, year: int) -> dict:
+    return _load_statcast("pitcher", year).get(str(mlb_id), {})
+
+
+def statcast_league(kind: str, year: int) -> dict:
+    return _load_statcast(kind, year).get("_league", {})
+
+
+# ---- Handedness + platoon splits (StatsAPI, one call/player) -----------------
+
+def get_player_hand(mlb_id, is_pitcher: bool = False) -> str | None:
+    """'L' / 'R' (batters) or pitchHand code, cached 30 days. Switch batters → 'S'."""
+    if not mlb_id:
+        return None
+    cached = _cache_get("hand", str(mlb_id), ttl_hours=24 * 30)
+    if cached is not None:
+        return cached.get("hand")
+    try:
+        d = mlb_get(f"/people/{mlb_id}")
+        p = (d.get("people") or [{}])[0]
+        key = "pitchHand" if is_pitcher else "batSide"
+        hand = (p.get(key) or {}).get("code")
+        _cache_put("hand", str(mlb_id), {"hand": hand})
+        return hand
+    except Exception:
+        return None
+
+
+def get_batter_platoon(mlb_id, year: int) -> dict:
+    """Batter's vs-LHP (vl) and vs-RHP (vr) splits + batSide, from StatsAPI
+    statSplits in one call. Returns {'bat_side','vl':{...},'vr':{...}} or {}."""
+    if not mlb_id:
+        return {}
+    cached = _cache_get("platoon", f"{mlb_id}_{year}", ttl_hours=24)
+    if cached is not None:
+        return cached
+    try:
+        url = (f"/people/{mlb_id}?hydrate=stats(group=[hitting],type=[statSplits],"
+               f"sitCodes=[vl,vr],season={year})")
+        d = mlb_get(url)
+        p = (d.get("people") or [{}])[0]
+        res = {"bat_side": (p.get("batSide") or {}).get("code")}
+        for st in p.get("stats", []):
+            for sp in st.get("splits", []):
+                code = (sp.get("split") or {}).get("code")
+                s = sp.get("stat", {})
+                pa = int(s.get("plateAppearances", 0) or 0)
+                if code in ("vl", "vr") and pa:
+                    res[code] = {
+                        "pa": pa,
+                        "ops": _num(s.get("ops"), 0.0),
+                        "hr_pa": (int(s.get("homeRuns", 0) or 0) / pa),
+                        "hits_pa": (int(s.get("hits", 0) or 0) / pa),
+                        "k_pa": (int(s.get("strikeOuts", 0) or 0) / pa),
+                        "bb_pa": (int(s.get("baseOnBalls", 0) or 0) / pa),
+                    }
+        _cache_put("platoon", f"{mlb_id}_{year}", res)
+        return res
+    except Exception as e:
+        print(f"      (platoon fetch failed for {mlb_id}: {e})", file=sys.stderr)
+        return {}
+
+
 def _ip_to_float(ip) -> float:
     """Baseball IP notation to decimal: '120.1' = 120 + 1/3, '.2' = 2/3."""
     try:
@@ -660,6 +856,98 @@ def _weather_mult(weather: dict) -> float:
     return m
 
 
+# ---- Player-prop math (sabermetric) -----------------------------------------
+
+def _regress(rate: float, pa, lg_rate: float, reg_pa: float) -> float:
+    """Regress an observed per-PA rate toward the league mean by sample size.
+    reg_pa = the PA count at which the stat is ~50% stabilized."""
+    pa = pa or 0
+    return (rate * pa + lg_rate * reg_pa) / (pa + reg_pa)
+
+
+def _odds_ratio(p_bat: float, p_pit: float, p_lg: float) -> float:
+    """log5 / odds-ratio: expected event probability when a batter with rate p_bat
+    faces a pitcher with allowed-rate p_pit, given league rate p_lg. Stays in (0,1)."""
+    e = 1e-6
+    a = min(1 - e, max(e, p_bat)); b = min(1 - e, max(e, p_pit)); l = min(1 - e, max(e, p_lg))
+    num = (a / (1 - a)) * (b / (1 - b)) / (l / (1 - l))
+    return num / (1 + num)
+
+
+def _clamp(x, lo, hi):
+    return max(lo, min(hi, x))
+
+
+# Compass abbreviation → degrees the wind blows FROM (meteorological convention).
+_COMPASS = {"N": 0, "NNE": 22.5, "NE": 45, "ENE": 67.5, "E": 90, "ESE": 112.5,
+            "SE": 135, "SSE": 157.5, "S": 180, "SSW": 202.5, "SW": 225,
+            "WSW": 247.5, "W": 270, "WNW": 292.5, "NW": 315, "NNW": 337.5}
+
+# Home-plate → center-field compass bearing (deg from N) for OPEN-AIR parks.
+# Best-effort published orientations; used only for a small, capped wind term, and
+# domes / retractable-roof parks are intentionally omitted (treated as no wind).
+CF_BEARING = {
+    "Fenway Park": 45, "Yankee Stadium": 24, "Oriole Park at Camden Yards": 32,
+    "Camden Yards": 32, "Progressive Field": 3, "Comerica Park": 20,
+    "Kauffman Stadium": 0, "Target Field": 20, "Angel Stadium": 45,
+    "Angel Stadium of Anaheim": 45, "Sutter Health Park": 60, "Truist Park": 25,
+    "Citi Field": 25, "Nationals Park": 30, "Citizens Bank Park": 15,
+    "Wrigley Field": 31, "Great American Ball Park": 40, "PNC Park": 100,
+    "Busch Stadium": 60, "Coors Field": 0, "Dodger Stadium": 25, "Petco Park": 0,
+    "Oracle Park": 65, "Guaranteed Rate Field": 135, "Rate Field": 135,
+    "George M. Steinbrenner Field": 45,
+}
+
+
+def hr_park_mult(venue: str) -> float:
+    """HR park factor (1.0 = neutral) from the static HR park-factor table."""
+    return HR_PARK_FACTORS.get((venue or "").strip(), 100) / 100.0
+
+
+def temp_hr_mult(weather: dict) -> float:
+    """Warm, thin air carries fly balls. ~0.5%/°F around 70°F (Alan Nathan's
+    physics-of-baseball work: ~2–3% more HR per +10°F), capped ±12%."""
+    t = weather.get("temp_f")
+    if not isinstance(t, (int, float)):
+        return 1.0
+    return _clamp(1.0 + 0.005 * (t - 70.0), 0.88, 1.15)
+
+
+def wind_hr_mult(weather: dict) -> float:
+    """Directional wind: project wind onto the home→CF axis and boost/suppress HR
+    by the out-blowing component (~0.8%/mph), capped ±15%. Neutral if dome, no
+    orientation on file, or missing wind — never a blind bump."""
+    if weather.get("is_dome"):
+        return 1.0
+    spd = weather.get("wind_mph")
+    vdir = weather.get("wind_dir")
+    bearing = CF_BEARING.get((weather.get("venue") or "").strip())
+    frm = _COMPASS.get(vdir) if vdir else None
+    if not isinstance(spd, (int, float)) or bearing is None or frm is None:
+        return 1.0
+    blow_to = (frm + 180) % 360                       # wind blows toward here
+    out_comp = spd * math.cos(math.radians(blow_to - bearing))  # + = out to CF
+    return _clamp(1.0 + 0.008 * out_comp, 0.85, 1.15)
+
+
+def platoon_mult(platoon: dict, bat_side: str, pit_hand: str,
+                 metric: str, overall_rate) -> float:
+    """Multiplier on a batter's per-PA rate for the platoon matchup vs the
+    opposing pitcher's hand. Uses the batter's own vs-hand split, regressed hard
+    toward the league structural platoon factor (splits are very noisy)."""
+    if not pit_hand or not bat_side:
+        return 1.0
+    lg = LG_PLATOON.get((bat_side, pit_hand), 1.0)
+    split = (platoon or {}).get("vl" if pit_hand == "L" else "vr")
+    if split and split.get("pa") and overall_rate and overall_rate > 0:
+        obs = split.get(metric)
+        if obs is not None and obs > 0:
+            ratio = obs / overall_rate
+            w = split["pa"] / (split["pa"] + REG_PLATOON)
+            return _clamp(w * ratio + (1 - w) * lg, 0.55, 1.75)
+    return lg
+
+
 def _starter_run_rate(pit: dict) -> float:
     """Starter's expected TOTAL runs allowed per 9, from xERA (primary, Statcast)
     blended with ERA, regressed toward league for stability."""
@@ -735,7 +1023,8 @@ def game_run_means(away_ctx: dict, home_ctx: dict, park_factor: float,
 # ---- Simulator --------------------------------------------------------------
 
 def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
-             weather: dict, n_sims: int = N_SIMS, run_scale: float = 1.0) -> dict:
+             weather: dict, n_sims: int = N_SIMS, run_scale: float = 1.0,
+             year: int = 0) -> dict:
     """Return arrays of length n_sims: away_runs, home_runs, plus per-player samples.
 
     Team scoring uses a sabermetric run model (odds-ratio offense×pitching,
@@ -751,15 +1040,17 @@ def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
     away_mean = max(1.5, away_mean * run_scale)
     home_mean = max(1.5, home_mean * run_scale)
 
-    # HR-specific weather: warm, thin air carries the ball — ~2%/°F above 70°F
-    # (much stronger for home runs than for total runs), capped. Dome → neutral.
-    hr_weather_mult = 1.0
-    _t = weather.get("temp_f")
-    if isinstance(_t, (int, float)):
-        hr_weather_mult = max(0.85, min(1.20, 1.0 + 0.02 * (_t - 70.0)))
-    _w = weather.get("wind_mph")
-    if isinstance(_w, (int, float)) and _w > 12:
-        hr_weather_mult *= 1.03  # windy (direction unknown) → mild HR bump
+    # HR-specific weather: temperature (physics) × directional wind (park-oriented),
+    # both capped. Domes / unknown orientation → neutral, never a blind bump.
+    hr_weather_mult = temp_hr_mult(weather) * wind_hr_mult(weather)
+    venue = weather.get("venue") or away_ctx.get("venue") or ""
+
+    # Statcast league baselines for this season, for self-calibrated prop rates.
+    lg_bat_sc = statcast_league("batter", year) if year else {}
+    lg_pit_sc = statcast_league("pitcher", year) if year else {}
+    lg_barrel = lg_bat_sc.get("barrel_pct") or LG_BARREL_PCT
+    lg_bat_xba = lg_bat_sc.get("xba") or 0.244
+    lg_pit_barrel = lg_pit_sc.get("barrel_pct") or LG_BARREL_PCT
 
     rng = random.Random(42)
 
@@ -796,53 +1087,106 @@ def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
     away_runs = [sample_runs(away_mean) for _ in range(n_sims)]
     home_runs = [sample_runs(home_mean) for _ in range(n_sims)]
 
-    # Pitcher K props: sample BF ~ triangular(18,24,30), then Binomial(BF, K%)
-    def pitcher_ks(pit: dict) -> list[int]:
-        k_pct = pit.get("k_pct")
-        if not k_pct:
-            k_pct = LEAGUE_AVG_K_PCT
-        p = k_pct / 100.0
+    # Pitcher K props: expected batters faced from the pitcher's REAL workload
+    # (ip/start × ~4.3 BF/inning), and K rate via odds-ratio of the pitcher's K%
+    # against the SPECIFIC opposing lineup's aggregate K% (vs league).
+    def pitcher_ks(pit: dict, opp_lineup: list[dict]) -> list[int]:
+        pit_k = (pit.get("k_pct") or LEAGUE_AVG_K_PCT) / 100.0
+        ip = pit.get("ip_per_start") or STARTER_IP
+        bf_mean = max(12.0, ip * 4.3)
+        krates = []
+        for b in opp_lineup:
+            kp = (b.get("stats") or {}).get("k_pct")
+            if isinstance(kp, (int, float)) and kp > 0:
+                krates.append(kp / 100.0)
+        lineup_k = (sum(krates) / len(krates)) if krates else LG_K_PA
+        k_eff = _odds_ratio(pit_k, lineup_k, LG_K_PA)
         out = []
         for _ in range(n_sims):
-            bf = int(rng.triangular(16, 30, 24))
-            out.append(binomial(bf, p))
+            bf = max(6, int(round(rng.gauss(bf_mean, 3.4))))
+            out.append(binomial(bf, k_eff))
         return out
 
-    away_pitcher_ks = pitcher_ks(away_ctx["pitcher"])
-    home_pitcher_ks = pitcher_ks(home_ctx["pitcher"])
+    away_pitcher_ks = pitcher_ks(away_ctx["pitcher"], home_ctx["lineup"])
+    home_pitcher_ks = pitcher_ks(home_ctx["pitcher"], away_ctx["lineup"])
 
-    # Batter props: for each batter, sample PA + hit + hr + walk + K per PA
-    def batter_props(lineup: list[dict], opp_pitcher: dict, park_hr_factor: float) -> dict:
-        p_pit_k = (opp_pitcher.get("k_pct") or LEAGUE_AVG_K_PCT) / 100.0
-        p_pit_bb = (opp_pitcher.get("bb_pct") or 8.0) / 100.0
-        # Opposing starter's HR-suppression: their HR/9 relative to league.
-        opp_hr9 = opp_pitcher.get("hr9")
-        pit_hr_factor = (opp_hr9 / LG_HR9) if isinstance(opp_hr9, (int, float)) and opp_hr9 > 0 else 1.0
-        pit_hr_factor = max(0.6, min(1.7, pit_hr_factor))
+    # Batter props: per-PA HR / hit / walk / K rates, each built from the batter's
+    # results blended with Statcast batted-ball quality, regressed for sample size,
+    # matched up against the opposing starter (odds-ratio), and platoon-adjusted.
+    park_hr = hr_park_mult(venue)
+
+    def batter_props(lineup: list[dict], opp_pitcher: dict) -> dict:
+        pit_hand = opp_pitcher.get("hand")
+        pit_sc = opp_pitcher.get("statcast") or {}
+        pit_k = (opp_pitcher.get("k_pct") or LEAGUE_AVG_K_PCT) / 100.0
+        pit_bb = (opp_pitcher.get("bb_pct") or 8.2) / 100.0
+
+        # Pitcher HR-allowed factor: HR/9 vs league blended with barrel%-allowed.
+        hr9 = opp_pitcher.get("hr9")
+        hr9_factor = _clamp(hr9 / LG_HR9, 0.6, 1.6) if isinstance(hr9, (int, float)) and hr9 > 0 else 1.0
+        p_barrel = pit_sc.get("barrel_pct")
+        barrel_factor = _clamp(p_barrel / lg_pit_barrel, 0.6, 1.6) if (p_barrel and lg_pit_barrel) else hr9_factor
+        pit_hr_factor = 0.5 * hr9_factor + 0.5 * barrel_factor
+
+        # Pitcher hits-allowed factor: xBA-allowed (or HR/9's sibling h9→per-PA) vs lg.
+        pit_xba = pit_sc.get("xba")
+        pit_hits_pa = (pit_xba * 0.90) if pit_xba else LG_HITS_PA
+
         out = {}
         for b in lineup:
             slot = b.get("slot") or 5
             pa_mean = {1: 4.7, 2: 4.6, 3: 4.5, 4: 4.4, 5: 4.3,
                        6: 4.2, 7: 4.1, 8: 4.0, 9: 3.9}.get(slot, 4.2)
             stats = b.get("stats", {})
-            bat_k = (stats.get("k_pct") or 22.0) / 100.0
-            bat_bb = (stats.get("bb_pct") or 8.0) / 100.0
-            eff_k = min(0.6, max(0.05, bat_k * (p_pit_k / (LEAGUE_AVG_K_PCT / 100.0))))
-            eff_bb = min(0.3, max(0.02, bat_bb * (p_pit_bb / 0.08)))
-            hit_p = max(0.05, min(0.55,
-                (stats.get("hits_pa") or 0.240) * (1.0 - (eff_k - 0.22))))
-            # HR model: batter HR/PA × park × opposing-pitcher HR/9 × warm-weather.
-            hr_p = max(0.002, min(0.15,
-                (stats.get("hr_pa") or 0.028) * park_hr_factor * pit_hr_factor * hr_weather_mult))
+            sc = b.get("statcast", {})
+            plat = b.get("platoon", {})
+            bat_side = b.get("bat_side")
+            pa_season = stats.get("pa") or 0
+
+            # --- HR per PA: regressed results blended with barrel-based expectation ---
+            hr_res = _regress(stats.get("hr_pa") or LG_HR_PA, pa_season, LG_HR_PA, REG_HR)
+            barrel = sc.get("barrel_pct")
+            if barrel and lg_barrel:
+                hr_sc = LG_HR_PA * (barrel / lg_barrel)      # barrels scale HR ~linearly
+                hr_base = 0.55 * hr_res + 0.45 * hr_sc
+            else:
+                hr_base = hr_res
+            plat_hr = platoon_mult(plat, bat_side, pit_hand, "hr_pa", stats.get("hr_pa"))
+            # Combined environment/matchup multiplier, dampened by a 0.85 exponent:
+            # park, pitcher, platoon and weather are all "favorable" signals that do
+            # NOT compound fully independently, so raw multiplication overshoots the
+            # tail. The exponent leaves neutral (1.0) untouched and shrinks extremes
+            # toward 1 in both directions — a standard regularizer against stacking.
+            matchup = (plat_hr * park_hr * pit_hr_factor * hr_weather_mult) ** 0.85
+            hr_p = _clamp(hr_base * matchup, 0.002, 0.12)
+
+            # --- Hits per PA: xBA-blended AVG vs pitcher-allowed (odds-ratio), platooned ---
+            avg = stats.get("avg")
+            xba = sc.get("xba")
+            hits_pa_res = _regress(stats.get("hits_pa") or LG_HITS_PA, pa_season, LG_HITS_PA, REG_BABIP)
+            if xba:
+                hits_pa_xba = xba * 0.90                     # xBA is per-AB → per-PA
+                hit_base = 0.5 * hits_pa_res + 0.5 * hits_pa_xba
+            else:
+                hit_base = hits_pa_res
+            hit_p = _odds_ratio(hit_base, pit_hits_pa, LG_HITS_PA)
+            plat_hit = platoon_mult(plat, bat_side, pit_hand, "hits_pa", stats.get("hits_pa"))
+            hit_p = _clamp(hit_p * plat_hit, 0.05, 0.55)
+
+            # --- Walks & strikeouts per PA: regressed, odds-ratio vs this pitcher ---
+            bat_bb = _regress((stats.get("bb_pct") or 8.2) / 100.0, pa_season, LG_BB_PA, REG_BB)
+            bat_k = _regress((stats.get("k_pct") or 22.0) / 100.0, pa_season, LG_K_PA, REG_K)
+            bb_p = _clamp(_odds_ratio(bat_bb, pit_bb, LG_BB_PA), 0.01, 0.32)
+            k_p = _clamp(_odds_ratio(bat_k, pit_k, LG_K_PA), 0.03, 0.60)
 
             samples_h, samples_hr, samples_bb, samples_k, samples_pa = [], [], [], [], []
             for _ in range(n_sims):
-                pa = int(rng.triangular(3, 6, pa_mean))
+                pa = int(round(rng.triangular(3, 6, pa_mean)))
                 samples_pa.append(pa)
                 samples_h.append(binomial(pa, hit_p))
                 samples_hr.append(binomial(pa, hr_p))
-                samples_bb.append(binomial(pa, eff_bb))
-                samples_k.append(binomial(pa, eff_k))
+                samples_bb.append(binomial(pa, bb_p))
+                samples_k.append(binomial(pa, k_p))
             out[b["mlb_id"]] = {
                 "name": b["name"],
                 "slot": slot,
@@ -857,10 +1201,8 @@ def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
             }
         return out
 
-    # Park HR factor: rough proxy of park factor amplified
-    park_hr = 0.7 + 0.6 * park_mult  # PF 100 -> 1.3, PF 90 -> 1.24, PF 112 -> 1.37
-    away_props = batter_props(away_ctx["lineup"], home_ctx["pitcher"], park_hr)
-    home_props = batter_props(home_ctx["lineup"], away_ctx["pitcher"], park_hr)
+    away_props = batter_props(away_ctx["lineup"], home_ctx["pitcher"])
+    home_props = batter_props(home_ctx["lineup"], away_ctx["pitcher"])
 
     return {
         "away_runs": away_runs,
@@ -1323,10 +1665,13 @@ def build_game_context(bdl_game: dict, scraper_row: dict, year: int,
     away_batters, away_pitcher = side_pieces("away")
     home_batters, home_pitcher = side_pieces("home")
 
-    # Enrich batters with MLB StatsAPI season stats (player id already known — no name search)
+    # Enrich batters: season stats + platoon splits + Statcast batted-ball quality.
     for b in away_batters + home_batters:
         if b["mlb_id"]:
             b["stats"] = get_batter_season_stats(b["mlb_id"], year)
+            b["platoon"] = get_batter_platoon(b["mlb_id"], year)
+            b["statcast"] = statcast_batter(b["mlb_id"], year)
+            b["bat_side"] = b["platoon"].get("bat_side") or get_player_hand(b["mlb_id"])
 
     # Enrich pitchers from scraper CSV (already has ERA/xERA/K%)
     def enrich_pitcher(pit: dict, side_key: str) -> None:
@@ -1372,11 +1717,24 @@ def build_game_context(bdl_game: dict, scraper_row: dict, year: int,
     enrich_pitcher(away_pitcher, "away")
     enrich_pitcher(home_pitcher, "home")
 
-    # Attach each starter's HR/9 allowed (for the batter-HR projection model).
+    # Attach each starter's workload profile, throwing hand, and Statcast quality
+    # allowed (barrel%, xwOBA, GB/FB) — drives the batter prop matchup adjustments.
     for pit in (away_pitcher, home_pitcher):
-        prof = get_pitcher_start_profile(pit.get("bdl_id") or pit.get("mlb_id"), year)
+        pid = pit.get("bdl_id") or pit.get("mlb_id")
+        prof = get_pitcher_start_profile(pid, year)
         if prof:
             pit["hr9"] = prof.get("hr9")
+            pit["k9"] = prof.get("k9")
+            pit["bb9"] = prof.get("bb9")
+            pit["ip_per_start"] = prof.get("ip_per_start")
+        pit["hand"] = get_player_hand(pid, is_pitcher=True)
+        pit["statcast"] = statcast_pitcher(pid, year)
+        # Fall back to Statcast K%/BB% if the scraper didn't supply them.
+        sc = pit["statcast"]
+        if not pit.get("k_pct") and sc.get("k_pct"):
+            pit["k_pct"] = sc["k_pct"]
+        if sc.get("bb_pct"):
+            pit["bb_pct"] = sc["bb_pct"]
 
     # Team offense OPS vs opposing hand — from scraper CSV
     def team_ops_vs(side_key: str, opp_hand: str | None) -> float | None:
@@ -1408,6 +1766,11 @@ def build_game_context(bdl_game: dict, scraper_row: dict, year: int,
 
     park_factor = None
     weather = {}
+    venue_name = (bdl_game.get("venue") if isinstance(bdl_game.get("venue"), str)
+                  else (bdl_game.get("venue") or {}).get("name", "")) \
+        or (scraper_row.get("venue", "") if scraper_row else "")
+    weather["venue"] = venue_name
+    away_ctx["venue"] = home_ctx["venue"] = venue_name
     if scraper_row:
         try:
             park_factor = float(scraper_row.get("park_factor") or 0) or None
@@ -1415,6 +1778,8 @@ def build_game_context(bdl_game: dict, scraper_row: dict, year: int,
             park_factor = None
         try:
             temp = scraper_row.get("weather_temp_f", "")
+            if temp == "DOME":
+                weather["is_dome"] = True
             if temp and temp != "DOME":
                 weather["temp_f"] = float(temp)
             wind_str = scraper_row.get("weather_wind", "")
@@ -1489,7 +1854,7 @@ def run_for_date(date_str: str, game_lines_only: bool = False) -> Path:
         props = []  # no free player-prop odds source
         try:
             sim = sim_game(away_ctx, home_ctx, park_factor, weather,
-                           n_sims=N_SIMS, run_scale=run_scale)
+                           n_sims=N_SIMS, run_scale=run_scale, year=year)
         except Exception as e:
             print(f"    sim error: {e}", file=sys.stderr)
             continue

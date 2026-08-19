@@ -566,9 +566,12 @@ def render_hr_card_section(game: dict) -> str:
         '</tr></thead><tbody>'
         f'{"".join(rows)}'
         '</tbody></table>'
-        '<div class="hr-note">Model projection: P(1+ HR) = batter HR rate × park × '
-        'opposing-pitcher HR/9 × weather, over 10,000 sims. Fair odds are the '
-        'break-even price — not a +EV pick (no HR market prices are pulled).</div>'
+        '<div class="hr-note">Model projection over 10,000 sims: batter HR rate '
+        '(results blended with Statcast barrel quality, regressed for sample size), '
+        'adjusted for the platoon matchup vs the starter\'s hand, the opposing '
+        'pitcher\'s HR/barrel-allowed, the park\'s HR factor, and temperature + '
+        'wind direction. Fair odds are the no-vig break-even price — a projection, '
+        'not a +EV pick (no HR market prices are pulled).</div>'
         '</details>'
     )
 
