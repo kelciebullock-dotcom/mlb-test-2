@@ -531,6 +531,82 @@ def render_boxscore(game: dict) -> str:
     )
 
 
+def _hr_pct_class(p: float) -> str:
+    if p >= 0.30:
+        return "hr-hot"
+    if p >= 0.20:
+        return "hr-warm"
+    return "hr-cool"
+
+
+def render_hr_card_section(game: dict) -> str:
+    """Per-game collapsible list of the model's HR projections for both lineups."""
+    hrs = game.get("hr_projections") or []
+    if not hrs:
+        return ""
+    rows = []
+    for b in hrs:
+        p = b.get("p_hr") or 0
+        fair = b.get("fair_odds")
+        fair_str = f"{fair:+.0f}" if isinstance(fair, (int, float)) else "—"
+        rows.append(
+            '<tr>'
+            f'<td class="nm">{escape(b.get("name") or "")}</td>'
+            f'<td class="tm">{escape(b.get("team") or "")}</td>'
+            f'<td class="op">vs {escape(b.get("opp") or "")}</td>'
+            f'<td class="hp {_hr_pct_class(p)}">{p*100:.1f}%</td>'
+            f'<td class="fo">{fair_str}</td>'
+            '</tr>'
+        )
+    return (
+        '<details class="hr-wrap"><summary>HR Projections '
+        f'<span class="hr-count">{len(hrs)} batters</span></summary>'
+        '<table class="hr-table"><thead><tr>'
+        '<th>Batter</th><th>Tm</th><th>Opp</th><th>P(HR)</th><th>Fair</th>'
+        '</tr></thead><tbody>'
+        f'{"".join(rows)}'
+        '</tbody></table>'
+        '<div class="hr-note">Model projection: P(1+ HR) = batter HR rate × park × '
+        'opposing-pitcher HR/9 × weather, over 10,000 sims. Fair odds are the '
+        'break-even price — not a +EV pick (no HR market prices are pulled).</div>'
+        '</details>'
+    )
+
+
+def render_hr_leaderboard(games: list) -> str:
+    """Slate-wide sidebar leaderboard: the model's most-likely HR hitters tonight."""
+    allb = []
+    for g in games:
+        for b in g.get("hr_projections") or []:
+            allb.append(b)
+    if not allb:
+        return ""
+    allb.sort(key=lambda x: -(x.get("p_hr") or 0))
+    rows = []
+    for i, b in enumerate(allb[:12], 1):
+        p = b.get("p_hr") or 0
+        fair = b.get("fair_odds")
+        fair_str = f"{fair:+.0f}" if isinstance(fair, (int, float)) else "—"
+        rows.append(
+            '<div class="hrlb-row">'
+            f'<span class="hrlb-rank">{i}</span>'
+            '<span class="hrlb-mid">'
+            f'<span class="hrlb-name">{escape(b.get("name") or "")}</span>'
+            f'<span class="hrlb-mu">{escape(b.get("team") or "")} vs {escape(b.get("opp") or "")}</span>'
+            '</span>'
+            f'<span class="hrlb-p {_hr_pct_class(p)}">{p*100:.0f}%</span>'
+            f'<span class="hrlb-fo">{fair_str}</span>'
+            '</div>'
+        )
+    return (
+        '<div class="hrlb-panel">'
+        '<div class="hrlb-title">🏟 HR LEADERBOARD</div>'
+        '<div class="hrlb-sub">most likely to go yard · model projection</div>'
+        f'{"".join(rows)}'
+        '</div>'
+    )
+
+
 def render_card(game: dict) -> str:
     scraper_row = game.get("_scraper", {})
 
@@ -582,6 +658,7 @@ def render_card(game: dict) -> str:
     home = render_pitcher_side("HOME", "home", scraper_row) if scraper_row else ""
     picks_html = render_picks_panel(game)
     boxscore_html = render_boxscore(game)
+    hr_html = render_hr_card_section(game)
 
     matchup_html = (
         '<div class="matchup-grid">'
@@ -608,6 +685,7 @@ def render_card(game: dict) -> str:
         f'{picks_html}'
         f'{matchup_html}'
         f'{boxscore_html}'
+        f'{hr_html}'
         '</article>'
     )
 
@@ -725,11 +803,12 @@ def build_dashboard() -> str:
             "n_sims": p.get("n_sims"),
             "cards_html": "\n".join(render_card(g) for g in p.get("games", [])) or
                           '<p class="empty">No games this date.</p>',
+            "hr_board_html": render_hr_leaderboard(p.get("games", [])),
             "n_games": len(p.get("games", [])),
         }
 
     cal = calendar_html(available, selected)
-    initial = bundle.get(selected, {"cards_html": "<p class=\"empty\">No predictions yet — run mlb_predict.py.</p>", "n_games": 0, "date": selected, "generated_at": ""})
+    initial = bundle.get(selected, {"cards_html": "<p class=\"empty\">No predictions yet — run mlb_predict.py.</p>", "hr_board_html": "", "n_games": 0, "date": selected, "generated_at": ""})
 
     return HTML_SHELL.format(
         title=f"MLB · {selected}",
@@ -739,6 +818,7 @@ def build_dashboard() -> str:
         generated=initial["generated_at"] or "—",
         calendar=cal,
         performance=render_performance(),
+        hr_board=initial.get("hr_board_html", ""),
         legend=LEGEND_HTML,
         cards=initial["cards_html"],
         bundle_json=json.dumps(bundle),
@@ -1157,6 +1237,67 @@ HTML_SHELL = """<!DOCTYPE html>
     line-height: 1.5;
   }}
 
+  /* ---- HR projections (per-card) ---- */
+  .hr-wrap {{
+    margin: 0 18px 18px; border: 1px solid var(--rule); border-radius: 10px;
+    background: var(--bg); overflow: hidden;
+  }}
+  .hr-wrap > summary {{
+    cursor: pointer; padding: 11px 14px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+    list-style: none; display: flex; align-items: center; gap: 8px;
+  }}
+  .hr-wrap > summary::-webkit-details-marker {{ display: none; }}
+  .hr-wrap > summary::before {{ content: "▸"; font-size: 10px; color: var(--muted); }}
+  .hr-wrap[open] > summary::before {{ content: "▾"; }}
+  .hr-count {{ font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--muted); font-size: 10.5px; }}
+  .hr-table {{
+    width: 100%; border-collapse: collapse; font-size: 11.5px;
+    font-variant-numeric: tabular-nums;
+  }}
+  .hr-table thead th {{
+    text-align: left; padding: 6px 14px; font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule); background: var(--card);
+  }}
+  .hr-table th:nth-child(4), .hr-table th:nth-child(5),
+  .hr-table td.hp, .hr-table td.fo {{ text-align: right; }}
+  .hr-table tbody td {{ padding: 6px 14px; border-bottom: 1px solid var(--rule); }}
+  .hr-table tbody tr:last-child td {{ border-bottom: none; }}
+  .hr-table .nm {{ font-weight: 700; color: var(--ink); }}
+  .hr-table .tm, .hr-table .op {{ color: var(--muted); }}
+  .hr-table .hp {{ font-weight: 700; }}
+  .hr-table .fo {{ color: var(--muted); }}
+  .hr-hot {{ color: var(--accent); }}
+  .hr-warm {{ color: var(--mid); }}
+  .hr-cool {{ color: var(--muted); }}
+  .hr-note {{
+    padding: 9px 14px 12px; font-size: 10px; color: var(--muted);
+    font-style: italic; line-height: 1.5; border-top: 1px solid var(--rule);
+  }}
+
+  /* ---- HR leaderboard (sidebar) ---- */
+  .hrlb-panel {{
+    margin-top: 16px; padding: 14px; border: 1px solid var(--rule);
+    border-radius: 10px; background: var(--card);
+  }}
+  .hrlb-title {{
+    font-size: 11px; font-weight: 800; letter-spacing: 0.12em; color: var(--accent);
+  }}
+  .hrlb-sub {{ font-size: 10px; color: var(--muted); margin: 2px 0 10px; }}
+  .hrlb-row {{
+    display: flex; align-items: center; gap: 8px; padding: 5px 0;
+    border-top: 1px solid var(--rule); font-variant-numeric: tabular-nums;
+  }}
+  .hrlb-rank {{
+    flex: 0 0 16px; text-align: right; font-size: 10px; color: var(--muted); font-weight: 700;
+  }}
+  .hrlb-mid {{ flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }}
+  .hrlb-name {{ font-size: 11.5px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+  .hrlb-mu {{ font-size: 9.5px; color: var(--muted); }}
+  .hrlb-p {{ flex: 0 0 auto; font-size: 12px; font-weight: 800; }}
+  .hrlb-fo {{ flex: 0 0 40px; text-align: right; font-size: 10px; color: var(--muted); }}
+
   @media (max-width: 900px) {{
     .app {{ grid-template-columns: 1fr; }}
     aside {{ position: static; max-height: none; }}
@@ -1179,6 +1320,7 @@ HTML_SHELL = """<!DOCTYPE html>
     </nav>
     {calendar}
     {performance}
+    <div id="hr-board">{hr_board}</div>
     {legend}
   </aside>
   <main>
@@ -1198,14 +1340,17 @@ HTML_SHELL = """<!DOCTYPE html>
   const dateTitle = document.getElementById('date-title');
   const gamesCount = document.getElementById('games-count');
   const genAt = document.getElementById('gen-at');
+  const hrBoard = document.getElementById('hr-board');
   cal.addEventListener('click', (e) => {{
     const btn = e.target.closest('.cal-day');
     if (!btn) return;
     const d = btn.dataset.date;
     if (!BUNDLE[d]) {{ /* no prediction file for this date — but still switch view */
       cardsRoot.innerHTML = '<p class="empty">No predictions for this date. Run: <code>python mlb_predict.py ' + d + '</code></p>';
+      hrBoard.innerHTML = '';
     }} else {{
       cardsRoot.innerHTML = BUNDLE[d].cards_html;
+      hrBoard.innerHTML = BUNDLE[d].hr_board_html || '';
       gamesCount.textContent = BUNDLE[d].n_games;
       genAt.textContent = BUNDLE[d].generated_at || '—';
     }}

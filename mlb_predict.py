@@ -66,6 +66,7 @@ HFA_RUNS = 0.13          # home-field advantage, in runs
 RUN_DISPERSION = 1.15    # negative-binomial theta: var ≈ mean × (1 + theta) ≈ 2.15× mean
 STARTER_IP = 5.2         # league-avg innings per start (rest goes to the bullpen)
 UNEARNED_FACTOR = 0.92   # earned runs ≈ 92% of total runs (converts ERA → total run rate)
+LG_HR9 = 1.20            # league HR allowed per 9 IP (for the HR projection model)
 
 # Probability shrinkage toward the market. The raw sim is systematically
 # overconfident (backtest: it says 92% when reality is ~50%), so every reported
@@ -750,6 +751,16 @@ def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
     away_mean = max(1.5, away_mean * run_scale)
     home_mean = max(1.5, home_mean * run_scale)
 
+    # HR-specific weather: warm, thin air carries the ball — ~2%/°F above 70°F
+    # (much stronger for home runs than for total runs), capped. Dome → neutral.
+    hr_weather_mult = 1.0
+    _t = weather.get("temp_f")
+    if isinstance(_t, (int, float)):
+        hr_weather_mult = max(0.85, min(1.20, 1.0 + 0.02 * (_t - 70.0)))
+    _w = weather.get("wind_mph")
+    if isinstance(_w, (int, float)) and _w > 12:
+        hr_weather_mult *= 1.03  # windy (direction unknown) → mild HR bump
+
     rng = random.Random(42)
 
     def poisson(lam: float) -> int:
@@ -804,6 +815,10 @@ def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
     def batter_props(lineup: list[dict], opp_pitcher: dict, park_hr_factor: float) -> dict:
         p_pit_k = (opp_pitcher.get("k_pct") or LEAGUE_AVG_K_PCT) / 100.0
         p_pit_bb = (opp_pitcher.get("bb_pct") or 8.0) / 100.0
+        # Opposing starter's HR-suppression: their HR/9 relative to league.
+        opp_hr9 = opp_pitcher.get("hr9")
+        pit_hr_factor = (opp_hr9 / LG_HR9) if isinstance(opp_hr9, (int, float)) and opp_hr9 > 0 else 1.0
+        pit_hr_factor = max(0.6, min(1.7, pit_hr_factor))
         out = {}
         for b in lineup:
             slot = b.get("slot") or 5
@@ -816,8 +831,9 @@ def sim_game(away_ctx: dict, home_ctx: dict, park_factor: float,
             eff_bb = min(0.3, max(0.02, bat_bb * (p_pit_bb / 0.08)))
             hit_p = max(0.05, min(0.55,
                 (stats.get("hits_pa") or 0.240) * (1.0 - (eff_k - 0.22))))
-            hr_p = max(0.001, min(0.15,
-                (stats.get("hr_pa") or 0.030) * park_hr_factor * park_mult))
+            # HR model: batter HR/PA × park × opposing-pitcher HR/9 × warm-weather.
+            hr_p = max(0.002, min(0.15,
+                (stats.get("hr_pa") or 0.028) * park_hr_factor * pit_hr_factor * hr_weather_mult))
 
             samples_h, samples_hr, samples_bb, samples_k, samples_pa = [], [], [], [], []
             for _ in range(n_sims):
@@ -1051,6 +1067,36 @@ def generate_picks(sim: dict, odds: list[dict], props: list[dict],
 
 def _mean(xs) -> float:
     return sum(xs) / len(xs) if xs else 0.0
+
+
+def extract_hr_projections(sim: dict, away_ctx: dict, home_ctx: dict) -> list[dict]:
+    """Per-batter home-run projection for the game: P(hits ≥1 HR tonight) from the
+    sim's HR samples, plus expected HR count. Sorted most-likely first. A model
+    projection (batter HR rate × park × opp-pitcher HR/9 × weather), NOT a bet."""
+    out = []
+    for side, ctx in (("away", away_ctx), ("home", home_ctx)):
+        props = sim.get(f"{side}_batter_props", {})
+        opp = home_ctx if side == "away" else away_ctx
+        for b in ctx.get("lineup", []):
+            s = props.get(b.get("mlb_id"))
+            if not s:
+                continue
+            hrs = s.get("hrs") or []
+            if not hrs:
+                continue
+            n = len(hrs)
+            p_hr = sum(1 for x in hrs if x >= 1) / n
+            out.append({
+                "name": b.get("name", ""),
+                "team": ctx.get("abbr") or ctx.get("team", ""),
+                "opp": opp.get("abbr") or opp.get("team", ""),
+                "slot": b.get("slot"),
+                "p_hr": round(p_hr, 4),           # probability of 1+ HR
+                "hr_mean": round(sum(hrs) / n, 3),
+                "fair_odds": prob_to_american(p_hr),
+            })
+    out.sort(key=lambda x: -x["p_hr"])
+    return out
 
 
 def build_projected_boxscore(sim: dict, away_ctx: dict, home_ctx: dict,
@@ -1326,6 +1372,12 @@ def build_game_context(bdl_game: dict, scraper_row: dict, year: int,
     enrich_pitcher(away_pitcher, "away")
     enrich_pitcher(home_pitcher, "home")
 
+    # Attach each starter's HR/9 allowed (for the batter-HR projection model).
+    for pit in (away_pitcher, home_pitcher):
+        prof = get_pitcher_start_profile(pit.get("bdl_id") or pit.get("mlb_id"), year)
+        if prof:
+            pit["hr9"] = prof.get("hr9")
+
     # Team offense OPS vs opposing hand — from scraper CSV
     def team_ops_vs(side_key: str, opp_hand: str | None) -> float | None:
         if not scraper_row:
@@ -1456,6 +1508,12 @@ def run_for_date(date_str: str, game_lines_only: bool = False) -> Path:
             print(f"    boxscore error: {e}", file=sys.stderr)
             proj_box = {}
 
+        try:
+            hr_proj = extract_hr_projections(sim, away_ctx, home_ctx)
+        except Exception as e:
+            print(f"    hr projection error: {e}", file=sys.stderr)
+            hr_proj = []
+
         # Distributions summary for display
         away_runs = sim["away_runs"]; home_runs = sim["home_runs"]
         totals = [a + h for a, h in zip(away_runs, home_runs)]
@@ -1487,6 +1545,7 @@ def run_for_date(date_str: str, game_lines_only: bool = False) -> Path:
             },
             "picks": sorted(picks, key=lambda p: p["ev_pct"], reverse=True),
             "projected_box": proj_box,
+            "hr_projections": hr_proj,
             # Embed the per-game scraper context so the dashboard is self-contained
             # per date (never grafts a stale transient CSV onto the wrong day).
             "context": scraper_row,
