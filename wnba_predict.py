@@ -943,7 +943,62 @@ def _norm_abbr(a: str) -> str:
 
 INJURY_URL = ("https://sports.core.api.espn.com/v2/sports/basketball/leagues/wnba/"
               "teams/{tid}/injuries?lang=en&region=us")
+ESPN_TEAMS_URL = ("https://sports.core.api.espn.com/v2/sports/basketball/leagues/wnba/"
+                  "seasons/{yr}/teams?lang=en&region=us&limit=50")
 _inj_mem: dict[str, list[dict]] = {}
+_espn_team_idx: dict[int, dict] = {}
+
+
+def _espn_team_index(season: int) -> dict:
+    """Map every normalized team name/abbreviation → ESPN team id. Needed because
+    games from the Odds API (the primary source) carry NO ESPN id, which otherwise
+    silently disabled BOTH team-scoring and injury lookups on that path."""
+    if season in _espn_team_idx:
+        return _espn_team_idx[season]
+    idx: dict = {}
+    try:
+        lst = _get_json(ESPN_TEAMS_URL.format(yr=season), timeout=20)
+        for it in lst.get("items", []):
+            ref = it.get("$ref")
+            if not ref:
+                continue
+            t = _get_json(ref, timeout=15)
+            tid = t.get("id")
+            if not tid:
+                continue
+            for key in (t.get("displayName"), t.get("name"), t.get("location"),
+                        t.get("shortDisplayName"), t.get("abbreviation")):
+                if key:
+                    idx[_norm_name(key)] = tid
+    except Exception as e:
+        print(f"  (ESPN team index failed: {e})", file=sys.stderr)
+    _espn_team_idx[season] = idx
+    return idx
+
+
+def resolve_espn_team_id(team: dict, season: int):
+    """ESPN team id for a game's team dict — its own id if present, else matched by
+    normalized full name / nickname / abbreviation against the ESPN team index."""
+    tid = team.get("id")
+    if tid:
+        return tid
+    idx = _espn_team_index(season)
+    for key in (team.get("full_name"), team.get("name"), team.get("abbreviation")):
+        if key and _norm_name(key) in idx:
+            return idx[_norm_name(key)]
+    return None
+
+
+def _injury_active_on(rec: dict, game_date: str) -> bool:
+    """Is this injury in effect on the game date? Filters out stale records (the
+    estimated return date has passed) and injuries dated after the game."""
+    ret = (rec.get("return") or "")[:10]
+    onset = (rec.get("onset") or "")[:10]
+    if ret and ret <= game_date:      # expected back by game day
+        return False
+    if onset and onset > game_date:   # injury hasn't happened yet for this date
+        return False
+    return True
 
 
 def _norm_name(s: str) -> str:
@@ -997,9 +1052,12 @@ def fetch_team_injuries(espn_team_id) -> list[dict]:
                     name = _get_json(ath["$ref"], timeout=15).get("fullName", "")
                 except Exception:
                     name = ""
+            det = rec.get("details") or {}
             out.append({
                 "name": name, "norm": _norm_name(name), "status": status, "cat": cat,
-                "detail": (rec.get("details") or {}).get("type", ""),
+                "detail": det.get("type", ""),
+                "onset": (rec.get("date") or "")[:10],
+                "return": (det.get("returnDate") or "")[:10],
                 "comment": (rec.get("shortComment") or "")[:160],
             })
         try:
@@ -1053,7 +1111,7 @@ def _apply_injuries(roster: list[dict], injuries: list[dict]) -> list[dict]:
     return active
 
 
-def build_game_context(game: dict, season: int) -> tuple[dict, dict]:
+def build_game_context(game: dict, season: int, date_str: str = "") -> tuple[dict, dict]:
     home_team = game["home_team"]
     away_team = game["visitor_team"]
 
@@ -1065,7 +1123,9 @@ def build_game_context(game: dict, season: int) -> tuple[dict, dict]:
         by_abbr.setdefault(_norm_abbr(p.get("team_abbr")), []).append(p)
 
     def team_ctx(team: dict) -> dict:
-        espn_id = team.get("id")
+        # Resolve the ESPN team id even when the game came from the Odds API (no id),
+        # so team scoring AND injuries both work on the primary data path.
+        espn_id = resolve_espn_team_id(team, season)
         abbr = _norm_abbr(team.get("abbreviation"))
         scoring = fetch_team_scoring(espn_id, season)
         roster = []
@@ -1079,12 +1139,14 @@ def build_game_context(game: dict, season: int) -> tuple[dict, dict]:
         roster.sort(key=lambda r: -(r["stats"].get("min") or 0))
         roster = roster[:12]   # widen so a replacement starter can absorb an OUT star
 
-        # Injuries: drop OUT players and redistribute their load to the active roster.
-        injuries = fetch_team_injuries(espn_id)
+        # Injuries active on THIS game date (filters stale/future records), then drop
+        # OUT players and redistribute their load to the active roster.
+        injuries = [r for r in fetch_team_injuries(espn_id)
+                    if r["cat"] and _injury_active_on(r, date_str)]
         roster = _apply_injuries(roster, injuries)[:10]
         inj_display = sorted(
-            [{"name": r["name"], "status": r["status"], "cat": r["cat"], "detail": r["detail"]}
-             for r in injuries if r["cat"]],
+            [{"name": r["name"], "status": r["status"], "cat": r["cat"],
+              "detail": r["detail"], "return": r.get("return", "")} for r in injuries],
             key=lambda r: (r["cat"] != "out", r["name"]))
 
         return {
@@ -1133,7 +1195,7 @@ def run_for_date(date_str: str) -> Path:
         print(f"  [{i}/{len(games)}] {away_name} @ {home_name}", file=sys.stderr)
 
         try:
-            away_ctx, home_ctx = build_game_context(g, year)
+            away_ctx, home_ctx = build_game_context(g, year, date_str)
         except Exception as e:
             print(f"    context error: {e}", file=sys.stderr)
             continue
