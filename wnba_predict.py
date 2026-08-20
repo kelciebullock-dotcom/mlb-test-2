@@ -31,6 +31,7 @@ import random
 import statistics
 import sys
 import time
+import unicodedata
 import urllib.parse
 import urllib.request
 from collections import Counter, defaultdict
@@ -935,6 +936,123 @@ def _norm_abbr(a: str) -> str:
     return _ESPN_ABBR_ALIASES.get(a, a)
 
 
+# ---- Injuries (ESPN core API — free, keyless) -------------------------------
+# Which players are actually available tonight. OUT/Doubtful players are removed
+# from the projection AND their minutes/usage are redistributed to teammates, so
+# the remaining players' props rise the way they do in a real short-handed game.
+
+INJURY_URL = ("https://sports.core.api.espn.com/v2/sports/basketball/leagues/wnba/"
+              "teams/{tid}/injuries?lang=en&region=us")
+_inj_mem: dict[str, list[dict]] = {}
+
+
+def _norm_name(s: str) -> str:
+    """Accent/suffix/punctuation-insensitive name key for matching ESPN ↔ WNBA-stats."""
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()
+    s = "".join(ch if (ch.isalnum() or ch == " ") else " " for ch in s)
+    parts = [p for p in s.split() if p not in ("jr", "sr", "ii", "iii", "iv", "v")]
+    return " ".join(parts).strip()
+
+
+def fetch_team_injuries(espn_team_id) -> list[dict]:
+    """Injury records for one ESPN team id, each: {name, norm, status, cat, detail,
+    comment}. cat = 'out' (out/doubtful → removed from projection) or 'gtd' (day-to-
+    day/questionable → kept but flagged). Disk-cached 3h with stale fallback so a
+    flaky fetch never blocks predictions."""
+    if not espn_team_id:
+        return []
+    key = str(espn_team_id)
+    if key in _inj_mem:
+        return _inj_mem[key]
+    disk = CACHE_DIR / f"inj_{key}.json"
+    if disk.exists():
+        try:
+            c = json.load(open(disk))
+            if time.time() - float(c.get("_fetched_at", 0)) < 3 * 3600:
+                _inj_mem[key] = c["data"]
+                return c["data"]
+        except Exception:
+            pass
+    out: list[dict] = []
+    try:
+        lst = _get_json(INJURY_URL.format(tid=espn_team_id), timeout=15)
+        for it in lst.get("items", []):
+            ref = it.get("$ref")
+            if not ref:
+                continue
+            rec = _get_json(ref, timeout=15)
+            status = rec.get("status") or ""
+            tname = (rec.get("type") or {}).get("name", "")
+            if tname in ("INJURY_STATUS_OUT", "INJURY_STATUS_DOUBTFUL") or \
+               status.lower() in ("out", "doubtful", "injured reserve", "suspension"):
+                cat = "out"
+            elif status:
+                cat = "gtd"          # day-to-day / questionable / probable → likely plays
+            else:
+                cat = ""
+            ath = rec.get("athlete") or {}
+            name = ""
+            if isinstance(ath, dict) and ath.get("$ref"):
+                try:
+                    name = _get_json(ath["$ref"], timeout=15).get("fullName", "")
+                except Exception:
+                    name = ""
+            out.append({
+                "name": name, "norm": _norm_name(name), "status": status, "cat": cat,
+                "detail": (rec.get("details") or {}).get("type", ""),
+                "comment": (rec.get("shortComment") or "")[:160],
+            })
+        try:
+            json.dump({"_fetched_at": time.time(), "data": out}, open(disk, "w"))
+        except Exception:
+            pass
+    except Exception as e:
+        print(f"  (injury fetch failed team {espn_team_id}: {e})", file=sys.stderr)
+        if disk.exists():
+            try:
+                out = json.load(open(disk)).get("data", [])   # stale is better than none
+            except Exception:
+                out = []
+    _inj_mem[key] = out
+    return out
+
+
+def _apply_injuries(roster: list[dict], injuries: list[dict]) -> list[dict]:
+    """Remove OUT players and redistribute their minutes + usage to the remaining
+    rotation. Returns the active roster (with boosted stats for those absorbing the
+    load). Rebounds/assists redistribute more fully than points (a star's scoring is
+    partly lost to weaker offense, but someone still grabs the board / makes the pass)."""
+    name_cat = {r["norm"]: r["cat"] for r in injuries if r["norm"] and r["cat"]}
+    active, out_players = [], []
+    for p in roster:
+        cat = name_cat.get(_norm_name(p.get("name", "")))
+        p["injury"] = cat
+        (out_players if cat == "out" else active).append(p)
+
+    # Freed production from OUT players who were actually rotation pieces (min ≥ 10).
+    freed = {"pts": 0.0, "reb": 0.0, "ast": 0.0, "fg3m": 0.0, "min": 0.0}
+    for p in out_players:
+        s = p.get("stats", {})
+        if (s.get("min") or 0) < 10:
+            continue
+        for k in freed:
+            freed[k] += (s.get(k) or 0)
+
+    if freed["min"] > 0 and active:
+        PASS = {"pts": 0.68, "fg3m": 0.68, "reb": 0.85, "ast": 0.80}
+        tot = {k: (sum((a["stats"].get(k) or 0) for a in active) or 1.0) for k in PASS}
+        active_min = sum((a["stats"].get("min") or 0) for a in active) or 1.0
+        min_bump = min(200.0 / active_min, 1.20) if active_min < 200 else 1.0
+        for a in active:
+            s = dict(a["stats"])
+            for k in PASS:                       # add each active player's usage share
+                share = (s.get(k) or 0) / tot[k]
+                s[k] = (s.get(k) or 0) + freed[k] * share * PASS[k]
+            s["min"] = min(38.0, (s.get("min") or 0) * min_bump)
+            a["stats"] = s
+    return active
+
+
 def build_game_context(game: dict, season: int) -> tuple[dict, dict]:
     home_team = game["home_team"]
     away_team = game["visitor_team"]
@@ -959,12 +1077,22 @@ def build_game_context(game: dict, season: int) -> tuple[dict, dict]:
                 "stats": dict(p.get("stats", {})),
             })
         roster.sort(key=lambda r: -(r["stats"].get("min") or 0))
-        roster = roster[:10]
+        roster = roster[:12]   # widen so a replacement starter can absorb an OUT star
+
+        # Injuries: drop OUT players and redistribute their load to the active roster.
+        injuries = fetch_team_injuries(espn_id)
+        roster = _apply_injuries(roster, injuries)[:10]
+        inj_display = sorted(
+            [{"name": r["name"], "status": r["status"], "cat": r["cat"], "detail": r["detail"]}
+             for r in injuries if r["cat"]],
+            key=lambda r: (r["cat"] != "out", r["name"]))
+
         return {
             "team": team.get("full_name") or team.get("name", ""),
             "abbr": team.get("abbreviation", ""),
             "pf": scoring.get("pf"), "pa": scoring.get("pa"),
             "roster": roster,
+            "injuries": inj_display,
         }
 
     return team_ctx(away_team), team_ctx(home_team)
@@ -1056,6 +1184,10 @@ def run_for_date(date_str: str) -> Path:
             },
             "picks": sorted(picks, key=lambda p: p["ev_pct"], reverse=True),
             "projected_box": proj_box,
+            "injuries": {
+                "away": away_ctx.get("injuries", []),
+                "home": home_ctx.get("injuries", []),
+            },
         })
 
     out_path = DATA_DIR / f"wnba_predictions_{date_str}.json"

@@ -234,6 +234,44 @@ def render_boxscore(game: dict) -> str:
     )
 
 
+def render_injuries(game: dict) -> str:
+    """Injury report per side — OUT players (removed from the projection, their
+    minutes/usage redistributed to teammates) and game-time decisions (still
+    projected). Nothing renders when both teams are at full strength."""
+    inj = game.get("injuries") or {}
+    away = inj.get("away") or []
+    home = inj.get("home") or []
+    if not away and not home:
+        return ""
+
+    def side_block(label: str, players: list) -> str:
+        if not players:
+            return ""
+        chips = []
+        for p in players:
+            out = p.get("cat") == "out"
+            tag = "OUT" if out else (escape(p.get("status") or "GTD"))
+            det = escape(p.get("detail") or "")
+            det_html = f' <span class="inj-det">{det}</span>' if det else ""
+            chips.append(
+                f'<span class="inj-chip {"inj-out" if out else "inj-gtd"}">'
+                f'<span class="inj-tag">{tag}</span> {escape(p.get("name") or "")}{det_html}</span>'
+            )
+        return (f'<div class="inj-side"><span class="inj-team">{escape(label)}</span>'
+                f'{"".join(chips)}</div>')
+
+    return (
+        '<details class="inj-wrap"><summary>🚑 Injury Report'
+        f'<span class="inj-count">{sum(1 for p in away+home if p.get("cat")=="out")} out</span></summary>'
+        f'{side_block(game.get("away_abbr") or game.get("away_team",""), away)}'
+        f'{side_block(game.get("home_abbr") or game.get("home_team",""), home)}'
+        '<div class="inj-note">OUT players are removed from the projection and their '
+        'minutes/usage redistributed to teammates. Game-time decisions are still '
+        'projected. Source: ESPN, refreshed hourly.</div>'
+        '</details>'
+    )
+
+
 def render_card(game: dict) -> str:
     away = escape(game.get("away_team", ""))
     home = escape(game.get("home_team", ""))
@@ -243,6 +281,7 @@ def render_card(game: dict) -> str:
 
     picks_html = render_picks_panel(game)
     box_html = render_boxscore(game)
+    inj_html = render_injuries(game)
 
     return (
         '<article class="card">'
@@ -257,6 +296,7 @@ def render_card(game: dict) -> str:
         f'{status_html}'
         '</div>'
         '</header>'
+        f'{inj_html}'
         f'{picks_html}'
         f'{box_html}'
         '</article>'
@@ -543,6 +583,20 @@ HTML_SHELL = """<!DOCTYPE html>
   .empty {{ color: var(--muted); font-style: italic; }}
 
   /* Projected boxscore */
+  .inj-wrap {{ margin: 10px 0; border: 1px solid var(--rule); border-radius: 10px; background: var(--bg); overflow: hidden; }}
+  .inj-wrap > summary {{ cursor: pointer; padding: 9px 13px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bad); list-style: none; display: flex; align-items: center; gap: 8px; }}
+  .inj-wrap > summary::-webkit-details-marker {{ display: none; }}
+  .inj-count {{ font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--muted); font-size: 10.5px; }}
+  .inj-side {{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 13px; border-top: 1px solid var(--rule); }}
+  .inj-team {{ font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: var(--muted); min-width: 34px; }}
+  .inj-chip {{ font-size: 11px; padding: 2px 7px; border-radius: 999px; background: var(--chip-bg); color: var(--ink); }}
+  .inj-chip.inj-out {{ background: color-mix(in srgb, var(--bad) 15%, var(--card)); }}
+  .inj-tag {{ font-size: 8.5px; font-weight: 800; letter-spacing: 0.04em; padding: 1px 4px; border-radius: 4px; vertical-align: middle; }}
+  .inj-out .inj-tag {{ background: var(--bad); color: #fff; }}
+  .inj-gtd .inj-tag {{ background: var(--mid); color: #fff; }}
+  .inj-det {{ color: var(--muted); font-size: 10px; }}
+  .inj-note {{ padding: 8px 13px 11px; font-size: 10px; color: var(--muted); font-style: italic; line-height: 1.5; border-top: 1px solid var(--rule); }}
+
   .box-wrap {{ border-top: 1px solid var(--rule); padding-top: 12px; }}
   .box-wrap summary {{ cursor: pointer; font-size: 10.5px; letter-spacing: 0.14em;
     text-transform: uppercase; font-weight: 700; color: var(--accent); padding: 4px 0;
