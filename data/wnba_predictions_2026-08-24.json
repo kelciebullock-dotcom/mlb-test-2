@@ -1,0 +1,713 @@
+{
+  "date": "2026-08-24",
+  "n_sims": 10000,
+  "generated_at": "2026-08-23T09:51:47.823013-04:00",
+  "sport": "wnba",
+  "games": [
+    {
+      "bdl_game_id": "409b5df2946c7913e77a1c509e505fdb",
+      "date": "2026-08-24",
+      "tipoff_et": "8:10 PM ET",
+      "status": "",
+      "away_team": "Golden State Valkyries",
+      "home_team": "Minnesota Lynx",
+      "away_abbr": "GSV",
+      "home_abbr": "MIN",
+      "model": {
+        "away_win_pct": 0.3762,
+        "home_win_pct": 0.6238,
+        "mean_away_pts": 83.9,
+        "mean_home_pts": 88.0,
+        "mean_total": 171.9,
+        "mean_margin": 4.1
+      },
+      "picks": [
+        {
+          "market": "Total",
+          "side": "Over 160.5",
+          "line": 160.5,
+          "model_prob": 0.5975,
+          "raw_model_prob": 0.7787,
+          "market_fair_prob": 0.5,
+          "market_odds": -110,
+          "market_prob": 0.5238,
+          "ev_pct": 14.08,
+          "fair_odds": -148,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Golden State Valkyries ML",
+          "line": null,
+          "model_prob": 0.3438,
+          "raw_model_prob": 0.3891,
+          "market_fair_prob": 0.3194,
+          "market_odds": 200,
+          "market_prob": 0.3333,
+          "ev_pct": 3.14,
+          "fair_odds": 191,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Spread",
+          "side": "Golden State Valkyries +6.5",
+          "line": 6.5,
+          "model_prob": 0.5342,
+          "raw_model_prob": 0.5656,
+          "market_fair_prob": 0.5174,
+          "market_odds": -118,
+          "market_prob": 0.5413,
+          "ev_pct": -1.3,
+          "fair_odds": -115,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Minnesota Lynx ML",
+          "line": null,
+          "model_prob": 0.6562,
+          "raw_model_prob": 0.6109,
+          "market_fair_prob": 0.6806,
+          "market_odds": -245,
+          "market_prob": 0.7101,
+          "ev_pct": -7.6,
+          "fair_odds": -191,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Spread",
+          "side": "Minnesota Lynx -6.5",
+          "line": -6.5,
+          "model_prob": 0.4658,
+          "raw_model_prob": 0.4344,
+          "market_fair_prob": 0.4826,
+          "market_odds": -102,
+          "market_prob": 0.505,
+          "ev_pct": -7.76,
+          "fair_odds": 115,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Under 160.5",
+          "line": 160.5,
+          "model_prob": 0.4025,
+          "raw_model_prob": 0.2213,
+          "market_fair_prob": 0.5,
+          "market_odds": -110,
+          "market_prob": 0.5238,
+          "ev_pct": -23.17,
+          "fair_odds": 148,
+          "book": "DraftKings"
+        }
+      ],
+      "projected_box": {
+        "away": {
+          "players": [
+            {
+              "name": "Veronica Burton",
+              "pos": "",
+              "min": 28.6,
+              "pts": 13.4,
+              "reb": 3.9,
+              "ast": 5.5,
+              "stl": 1.4,
+              "blk": 0.5,
+              "threes": 1.5,
+              "fg": "4.0/9.4",
+              "ft": "3.0/3.7"
+            },
+            {
+              "name": "Gabby Williams",
+              "pos": "",
+              "min": 24.9,
+              "pts": 14.9,
+              "reb": 3.7,
+              "ast": 2.3,
+              "stl": 1.6,
+              "blk": 0.3,
+              "threes": 1.6,
+              "fg": "5.2/12.6",
+              "ft": "2.4/3.3"
+            },
+            {
+              "name": "Kayla Thornton",
+              "pos": "",
+              "min": 24.8,
+              "pts": 9.2,
+              "reb": 4.9,
+              "ast": 1.1,
+              "stl": 0.8,
+              "blk": 0.4,
+              "threes": 1.7,
+              "fg": "2.6/7.2",
+              "ft": "1.3/1.4"
+            },
+            {
+              "name": "Janelle Salaun",
+              "pos": "",
+              "min": 22.2,
+              "pts": 13.7,
+              "reb": 4.0,
+              "ast": 1.5,
+              "stl": 0.8,
+              "blk": 0.3,
+              "threes": 2.4,
+              "fg": "4.2/9.9",
+              "ft": "2.3/2.8"
+            },
+            {
+              "name": "Kiah Stokes",
+              "pos": "",
+              "min": 22.2,
+              "pts": 5.0,
+              "reb": 5.4,
+              "ast": 1.5,
+              "stl": 0.8,
+              "blk": 1.6,
+              "threes": 0.7,
+              "fg": "1.5/3.5",
+              "ft": "0.2/0.4"
+            },
+            {
+              "name": "Kaila Charles",
+              "pos": "",
+              "min": 19.6,
+              "pts": 6.8,
+              "reb": 4.4,
+              "ast": 1.5,
+              "stl": 0.9,
+              "blk": 0.4,
+              "threes": 0.9,
+              "fg": "2.2/5.5",
+              "ft": "0.9/1.1"
+            },
+            {
+              "name": "Cecilia Zandalasini",
+              "pos": "",
+              "min": 18.7,
+              "pts": 9.0,
+              "reb": 2.4,
+              "ast": 1.9,
+              "stl": 0.9,
+              "blk": 0.4,
+              "threes": 1.3,
+              "fg": "3.0/7.7",
+              "ft": "0.9/1.1"
+            },
+            {
+              "name": "Tiffany Hayes",
+              "pos": "",
+              "min": 16.9,
+              "pts": 9.1,
+              "reb": 2.3,
+              "ast": 2.5,
+              "stl": 0.8,
+              "blk": 0.4,
+              "threes": 0.7,
+              "fg": "2.8/6.2",
+              "ft": "2.5/3.1"
+            },
+            {
+              "name": "Kaitlyn Chen",
+              "pos": "",
+              "min": 14.5,
+              "pts": 7.1,
+              "reb": 1.5,
+              "ast": 2.0,
+              "stl": 0.5,
+              "blk": 0.3,
+              "threes": 0.7,
+              "fg": "2.7/5.1",
+              "ft": "0.7/1.0"
+            }
+          ],
+          "totals": {
+            "min": 192.4,
+            "pts": 83.9,
+            "reb": 32.5,
+            "ast": 19.8,
+            "stl": 8.5,
+            "blk": 4.6,
+            "threes": 11.5
+          }
+        },
+        "home": {
+          "players": [
+            {
+              "name": "Kayla McBride",
+              "pos": "",
+              "min": 32.4,
+              "pts": 18.4,
+              "reb": 3.6,
+              "ast": 2.4,
+              "stl": 1.7,
+              "blk": 0.4,
+              "threes": 2.8,
+              "fg": "6.0/12.7",
+              "ft": "3.3/3.6"
+            },
+            {
+              "name": "Olivia Miles",
+              "pos": "",
+              "min": 31.0,
+              "pts": 19.8,
+              "reb": 4.9,
+              "ast": 6.1,
+              "stl": 1.4,
+              "blk": 0.7,
+              "threes": 1.7,
+              "fg": "7.1/14.3",
+              "ft": "4.0/4.6"
+            },
+            {
+              "name": "Courtney Williams",
+              "pos": "",
+              "min": 30.6,
+              "pts": 14.9,
+              "reb": 5.3,
+              "ast": 4.4,
+              "stl": 1.2,
+              "blk": 0.5,
+              "threes": 1.3,
+              "fg": "6.1/13.4",
+              "ft": "1.1/1.3"
+            },
+            {
+              "name": "Napheesa Collier",
+              "pos": "",
+              "min": 29.8,
+              "pts": 17.6,
+              "reb": 6.9,
+              "ast": 3.2,
+              "stl": 1.4,
+              "blk": 1.0,
+              "threes": 1.7,
+              "fg": "7.0/13.6",
+              "ft": "3.2/3.7"
+            },
+            {
+              "name": "Natasha Howard",
+              "pos": "",
+              "min": 29.4,
+              "pts": 15.3,
+              "reb": 7.8,
+              "ast": 3.5,
+              "stl": 1.7,
+              "blk": 0.9,
+              "threes": 0.5,
+              "fg": "6.2/10.5",
+              "ft": "2.5/3.5"
+            },
+            {
+              "name": "Nia Coffey",
+              "pos": "",
+              "min": 23.3,
+              "pts": 7.4,
+              "reb": 4.7,
+              "ast": 2.0,
+              "stl": 1.1,
+              "blk": 1.1,
+              "threes": 1.3,
+              "fg": "2.5/5.6",
+              "ft": "0.3/0.6"
+            },
+            {
+              "name": "Emma Cechova",
+              "pos": "",
+              "min": 17.3,
+              "pts": 8.3,
+              "reb": 3.4,
+              "ast": 1.3,
+              "stl": 0.7,
+              "blk": 0.6,
+              "threes": 0.6,
+              "fg": "3.3/5.3",
+              "ft": "1.7/2.7"
+            },
+            {
+              "name": "Dorka Juhasz",
+              "pos": "",
+              "min": 14.7,
+              "pts": 4.8,
+              "reb": 2.7,
+              "ast": 1.5,
+              "stl": 0.6,
+              "blk": 0.6,
+              "threes": 0.9,
+              "fg": "1.4/3.6",
+              "ft": "0.1/0.3"
+            },
+            {
+              "name": "Maya Caldwell",
+              "pos": "",
+              "min": 13.6,
+              "pts": 4.4,
+              "reb": 2.3,
+              "ast": 1.3,
+              "stl": 0.8,
+              "blk": 0.4,
+              "threes": 0.8,
+              "fg": "1.3/3.6",
+              "ft": "0.6/0.7"
+            }
+          ],
+          "totals": {
+            "min": 222.1,
+            "pts": 88.0,
+            "reb": 41.6,
+            "ast": 25.7,
+            "stl": 10.6,
+            "blk": 6.2,
+            "threes": 11.6
+          }
+        }
+      },
+      "injuries": {
+        "away": [
+          {
+            "name": "Iliana Rupert",
+            "status": "Out",
+            "cat": "out",
+            "detail": "Not Injury Related",
+            "return": "2027-05-01"
+          }
+        ],
+        "home": []
+      }
+    },
+    {
+      "bdl_game_id": "6be5d7c309d85e0d9d1c237ac81f414c",
+      "date": "2026-08-24",
+      "tipoff_et": "10:00 PM ET",
+      "status": "",
+      "away_team": "Atlanta Dream",
+      "home_team": "Los Angeles Sparks",
+      "away_abbr": "ATL",
+      "home_abbr": "LAS",
+      "model": {
+        "away_win_pct": 0.6376,
+        "home_win_pct": 0.3624,
+        "mean_away_pts": 93.1,
+        "mean_home_pts": 87.4,
+        "mean_total": 180.6,
+        "mean_margin": -5.7
+      },
+      "picks": [
+        {
+          "market": "Moneyline",
+          "side": "Los Angeles Sparks ML",
+          "line": null,
+          "model_prob": 0.2612,
+          "raw_model_prob": 0.3502,
+          "market_fair_prob": 0.2133,
+          "market_odds": 350,
+          "market_prob": 0.2222,
+          "ev_pct": 17.53,
+          "fair_odds": 283,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Spread",
+          "side": "Los Angeles Sparks +8.5",
+          "line": 8.5,
+          "model_prob": 0.5202,
+          "raw_model_prob": 0.5779,
+          "market_fair_prob": 0.4892,
+          "market_odds": -105,
+          "market_prob": 0.5122,
+          "ev_pct": 1.57,
+          "fair_odds": -108,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Under 182.5",
+          "line": 182.5,
+          "model_prob": 0.5166,
+          "raw_model_prob": 0.5475,
+          "market_fair_prob": 0.5,
+          "market_odds": -110,
+          "market_prob": 0.5238,
+          "ev_pct": -1.37,
+          "fair_odds": -107,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Over 182.5",
+          "line": 182.5,
+          "model_prob": 0.4834,
+          "raw_model_prob": 0.4525,
+          "market_fair_prob": 0.5,
+          "market_odds": -110,
+          "market_prob": 0.5238,
+          "ev_pct": -7.72,
+          "fair_odds": 107,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Atlanta Dream ML",
+          "line": null,
+          "model_prob": 0.7388,
+          "raw_model_prob": 0.6498,
+          "market_fair_prob": 0.7867,
+          "market_odds": -455,
+          "market_prob": 0.8198,
+          "ev_pct": -9.88,
+          "fair_odds": -283,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Spread",
+          "side": "Atlanta Dream -8.5",
+          "line": -8.5,
+          "model_prob": 0.4798,
+          "raw_model_prob": 0.4221,
+          "market_fair_prob": 0.5108,
+          "market_odds": -115,
+          "market_prob": 0.5349,
+          "ev_pct": -10.3,
+          "fair_odds": 108,
+          "book": "DraftKings"
+        }
+      ],
+      "projected_box": {
+        "away": {
+          "players": [
+            {
+              "name": "Rhyne Howard",
+              "pos": "",
+              "min": 34.4,
+              "pts": 21.7,
+              "reb": 5.0,
+              "ast": 4.4,
+              "stl": 2.5,
+              "blk": 1.0,
+              "threes": 3.6,
+              "fg": "5.8/14.1",
+              "ft": "3.3/3.8"
+            },
+            {
+              "name": "Allisha Gray",
+              "pos": "",
+              "min": 32.7,
+              "pts": 23.0,
+              "reb": 4.5,
+              "ast": 3.0,
+              "stl": 1.4,
+              "blk": 0.6,
+              "threes": 2.1,
+              "fg": "6.6/14.2",
+              "ft": "4.6/5.8"
+            },
+            {
+              "name": "Jordin Canada",
+              "pos": "",
+              "min": 31.4,
+              "pts": 14.5,
+              "reb": 4.9,
+              "ast": 8.1,
+              "stl": 2.1,
+              "blk": 0.4,
+              "threes": 1.2,
+              "fg": "3.8/8.7",
+              "ft": "3.1/4.0"
+            },
+            {
+              "name": "Angel Reese",
+              "pos": "",
+              "min": 31.1,
+              "pts": 19.2,
+              "reb": 13.7,
+              "ast": 3.3,
+              "stl": 1.8,
+              "blk": 0.8,
+              "threes": 0.6,
+              "fg": "5.5/12.8",
+              "ft": "4.6/6.2"
+            },
+            {
+              "name": "Naz Hillmon",
+              "pos": "",
+              "min": 28.9,
+              "pts": 11.8,
+              "reb": 5.6,
+              "ast": 2.0,
+              "stl": 0.9,
+              "blk": 0.5,
+              "threes": 1.3,
+              "fg": "3.5/7.2",
+              "ft": "1.1/1.4"
+            },
+            {
+              "name": "Isobel Borlase",
+              "pos": "",
+              "min": 13.2,
+              "pts": 5.9,
+              "reb": 2.0,
+              "ast": 1.2,
+              "stl": 0.5,
+              "blk": 0.3,
+              "threes": 0.7,
+              "fg": "1.7/4.1",
+              "ft": "0.8/0.8"
+            },
+            {
+              "name": "Te-Hina Paopao",
+              "pos": "",
+              "min": 12.1,
+              "pts": 5.1,
+              "reb": 1.5,
+              "ast": 1.7,
+              "stl": 0.5,
+              "blk": 0.3,
+              "threes": 1.0,
+              "fg": "1.3/3.9",
+              "ft": "0.3/0.4"
+            }
+          ],
+          "totals": {
+            "min": 183.8,
+            "pts": 93.1,
+            "reb": 37.2,
+            "ast": 23.7,
+            "stl": 9.7,
+            "blk": 3.9,
+            "threes": 10.5
+          }
+        },
+        "home": {
+          "players": [
+            {
+              "name": "Nneka Ogwumike",
+              "pos": "",
+              "min": 31.1,
+              "pts": 18.7,
+              "reb": 9.1,
+              "ast": 3.4,
+              "stl": 1.3,
+              "blk": 0.6,
+              "threes": 1.5,
+              "fg": "6.4/12.8",
+              "ft": "2.3/2.7"
+            },
+            {
+              "name": "Dearica Hamby",
+              "pos": "",
+              "min": 29.2,
+              "pts": 16.6,
+              "reb": 7.6,
+              "ast": 2.8,
+              "stl": 1.6,
+              "blk": 0.5,
+              "threes": 0.6,
+              "fg": "5.7/10.3",
+              "ft": "3.2/4.6"
+            },
+            {
+              "name": "Rae Burrell",
+              "pos": "",
+              "min": 29.0,
+              "pts": 16.3,
+              "reb": 3.0,
+              "ast": 2.9,
+              "stl": 1.0,
+              "blk": 0.7,
+              "threes": 1.8,
+              "fg": "4.9/10.6",
+              "ft": "2.8/3.6"
+            },
+            {
+              "name": "Erica Wheeler",
+              "pos": "",
+              "min": 27.5,
+              "pts": 11.2,
+              "reb": 2.6,
+              "ast": 5.4,
+              "stl": 1.1,
+              "blk": 0.3,
+              "threes": 1.5,
+              "fg": "3.4/8.6",
+              "ft": "1.1/1.3"
+            },
+            {
+              "name": "Ariel Atkins",
+              "pos": "",
+              "min": 27.3,
+              "pts": 10.7,
+              "reb": 3.5,
+              "ast": 3.2,
+              "stl": 1.7,
+              "blk": 0.5,
+              "threes": 1.4,
+              "fg": "3.1/8.2",
+              "ft": "1.4/1.5"
+            },
+            {
+              "name": "Monique Akoa Makani",
+              "pos": "",
+              "min": 22.0,
+              "pts": 10.1,
+              "reb": 2.5,
+              "ast": 2.6,
+              "stl": 1.1,
+              "blk": 0.4,
+              "threes": 1.2,
+              "fg": "2.8/6.4",
+              "ft": "1.8/2.1"
+            },
+            {
+              "name": "Cameron Brink",
+              "pos": "",
+              "min": 18.2,
+              "pts": 10.3,
+              "reb": 5.1,
+              "ast": 1.7,
+              "stl": 0.7,
+              "blk": 1.5,
+              "threes": 1.0,
+              "fg": "3.1/6.3",
+              "ft": "2.0/2.6"
+            },
+            {
+              "name": "Tonie Morgan",
+              "pos": "",
+              "min": 14.9,
+              "pts": 7.2,
+              "reb": 2.1,
+              "ast": 2.1,
+              "stl": 0.9,
+              "blk": 0.3,
+              "threes": 0.6,
+              "fg": "2.4/3.4",
+              "ft": "0.6/0.8"
+            }
+          ],
+          "totals": {
+            "min": 199.2,
+            "pts": 87.4,
+            "reb": 35.5,
+            "ast": 24.1,
+            "stl": 9.4,
+            "blk": 4.8,
+            "threes": 9.6
+          }
+        }
+      },
+      "injuries": {
+        "away": [
+          {
+            "name": "Brionna Jones",
+            "status": "Out",
+            "cat": "out",
+            "detail": "Leg",
+            "return": "2026-08-30"
+          }
+        ],
+        "home": []
+      }
+    }
+  ]
+}
