@@ -1,7 +1,7 @@
 {
   "date": "2026-08-24",
   "n_sims": 10000,
-  "generated_at": "2026-08-23T09:51:24.783802-04:00",
+  "generated_at": "2026-08-23T13:03:09.938771-04:00",
   "games": [
     {
       "bdl_game_id": null,
@@ -12,23 +12,23 @@
       "away_abbr": "TB",
       "home_abbr": "DET",
       "venue": "",
-      "away_pitcher": "",
-      "home_pitcher": "",
+      "away_pitcher": "Drew Rasmussen",
+      "home_pitcher": "Framber Valdez",
       "park_factor": 99.0,
       "weather": {
         "venue": "Comerica Park",
-        "temp_f": 75.7,
-        "wind_mph": 11.3,
-        "wind_dir": "W",
+        "temp_f": 76.4,
+        "wind_mph": 10.4,
+        "wind_dir": "NW",
         "precip_pct": 2.0
       },
       "model": {
-        "away_win_pct": 0.4249,
-        "home_win_pct": 0.5751,
-        "mean_away_runs": 4.29,
-        "mean_home_runs": 4.52,
-        "mean_total": 8.8,
-        "mean_margin": 0.23
+        "away_win_pct": 0.4764,
+        "home_win_pct": 0.5236,
+        "mean_away_runs": 4.36,
+        "mean_home_runs": 4.0,
+        "mean_total": 8.36,
+        "mean_margin": -0.36
       },
       "picks": [],
       "projected_box": {
@@ -38,14 +38,14 @@
               "slot": 1,
               "pos": "3B",
               "name": "Junior Caminero",
-              "ab": 4.0,
+              "ab": 3.9,
               "r": 0.6,
-              "h": 1.1,
-              "hr": 0.26,
+              "h": 1.2,
+              "hr": 0.18,
               "rbi": 0.5,
               "bb": 0.5,
-              "k": 0.9,
-              "tb": 2.1
+              "k": 0.7,
+              "tb": 2.0
             },
             {
               "slot": 2,
@@ -54,24 +54,24 @@
               "ab": 4.1,
               "r": 0.6,
               "h": 1.2,
-              "hr": 0.13,
+              "hr": 0.12,
               "rbi": 0.5,
               "bb": 0.4,
-              "k": 0.7,
+              "k": 0.6,
               "tb": 1.8
             },
             {
               "slot": 3,
               "pos": "1B",
               "name": "Jonathan Aranda",
-              "ab": 4.0,
+              "ab": 3.9,
               "r": 0.6,
-              "h": 1.1,
-              "hr": 0.17,
+              "h": 1.0,
+              "hr": 0.08,
               "rbi": 0.6,
               "bb": 0.5,
-              "k": 1.1,
-              "tb": 1.8
+              "k": 0.8,
+              "tb": 1.4
             },
             {
               "slot": 4,
@@ -79,12 +79,12 @@
               "name": "Chandler Simpson",
               "ab": 4.1,
               "r": 0.5,
-              "h": 1.1,
-              "hr": 0.14,
+              "h": 1.0,
+              "hr": 0.09,
               "rbi": 0.6,
-              "bb": 0.2,
-              "k": 0.5,
-              "tb": 1.8
+              "bb": 0.3,
+              "k": 0.4,
+              "tb": 1.5
             },
             {
               "slot": 5,
@@ -92,12 +92,12 @@
               "name": "Liam Hicks",
               "ab": 3.9,
               "r": 0.5,
-              "h": 1.1,
-              "hr": 0.13,
+              "h": 0.9,
+              "hr": 0.07,
               "rbi": 0.6,
               "bb": 0.5,
-              "k": 0.5,
-              "tb": 1.7
+              "k": 0.4,
+              "tb": 1.3
             },
             {
               "slot": 6,
@@ -106,11 +106,11 @@
               "ab": 3.9,
               "r": 0.4,
               "h": 0.8,
-              "hr": 0.13,
+              "hr": 0.07,
               "rbi": 0.4,
               "bb": 0.4,
-              "k": 0.9,
-              "tb": 1.4
+              "k": 0.7,
+              "tb": 1.2
             },
             {
               "slot": 7,
@@ -119,24 +119,24 @@
               "ab": 3.8,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.05,
+              "hr": 0.04,
               "rbi": 0.3,
-              "bb": 0.4,
-              "k": 1.0,
+              "bb": 0.5,
+              "k": 0.9,
               "tb": 1.2
             },
             {
               "slot": 8,
               "pos": "2B",
               "name": "Richie Palacios",
-              "ab": 3.8,
+              "ab": 3.7,
               "r": 0.4,
-              "h": 1.0,
-              "hr": 0.09,
+              "h": 0.9,
+              "hr": 0.05,
               "rbi": 0.4,
               "bb": 0.5,
-              "k": 0.8,
-              "tb": 1.4
+              "k": 0.7,
+              "tb": 1.2
             },
             {
               "slot": 9,
@@ -145,33 +145,33 @@
               "ab": 4.0,
               "r": 0.4,
               "h": 1.0,
-              "hr": 0.07,
-              "rbi": 0.3,
+              "hr": 0.05,
+              "rbi": 0.4,
               "bb": 0.2,
-              "k": 0.6,
+              "k": 0.5,
               "tb": 1.4
             }
           ],
           "totals": {
-            "ab": 35.6,
-            "r": 4.3,
-            "h": 9.3,
-            "hr": 1.17,
-            "rbi": 4.2,
-            "bb": 3.6,
-            "k": 7.0,
-            "tb": 14.6
+            "ab": 35.3,
+            "r": 4.4,
+            "h": 8.9,
+            "hr": 0.75,
+            "rbi": 4.3,
+            "bb": 3.8,
+            "k": 5.7,
+            "tb": 13.0
           },
           "starter": {
-            "name": "",
-            "ip": 5.2,
-            "h": 5.4,
-            "r": 2.4,
-            "er": 2.4,
-            "bb": 1.8,
-            "k": 4.2,
-            "hr": 0.66,
-            "starts": null
+            "name": "Drew Rasmussen",
+            "ip": 5.5,
+            "h": 4.3,
+            "r": 1.9,
+            "er": 1.9,
+            "bb": 1.0,
+            "k": 5.7,
+            "hr": 0.55,
+            "starts": 24
           }
         },
         "home": {
@@ -180,140 +180,140 @@
               "slot": 1,
               "pos": "SS",
               "name": "Kevin McGonigle",
-              "ab": 3.9,
+              "ab": 4.1,
               "r": 0.7,
-              "h": 1.1,
-              "hr": 0.12,
+              "h": 1.0,
+              "hr": 0.09,
               "rbi": 0.4,
-              "bb": 0.6,
-              "k": 0.7,
-              "tb": 1.7
+              "bb": 0.3,
+              "k": 0.8,
+              "tb": 1.5
             },
             {
               "slot": 2,
               "pos": "C",
               "name": "Dillon Dingler",
-              "ab": 4.2,
-              "r": 0.6,
-              "h": 1.1,
-              "hr": 0.22,
-              "rbi": 0.6,
-              "bb": 0.3,
-              "k": 1.0,
-              "tb": 2.0
+              "ab": 4.3,
+              "r": 0.5,
+              "h": 1.0,
+              "hr": 0.17,
+              "rbi": 0.5,
+              "bb": 0.2,
+              "k": 1.2,
+              "tb": 1.7
             },
             {
               "slot": 3,
               "pos": "1B",
               "name": "Spencer Torkelson",
-              "ab": 3.9,
+              "ab": 4.1,
               "r": 0.5,
               "h": 0.8,
-              "hr": 0.2,
-              "rbi": 0.6,
-              "bb": 0.5,
-              "k": 1.4,
-              "tb": 1.6
+              "hr": 0.15,
+              "rbi": 0.5,
+              "bb": 0.3,
+              "k": 1.6,
+              "tb": 1.4
             },
             {
               "slot": 4,
               "pos": "3B",
               "name": "Colt Keith",
-              "ab": 4.0,
+              "ab": 4.2,
               "r": 0.5,
               "h": 1.1,
-              "hr": 0.13,
-              "rbi": 0.7,
-              "bb": 0.3,
-              "k": 0.9,
-              "tb": 1.8
+              "hr": 0.1,
+              "rbi": 0.6,
+              "bb": 0.2,
+              "k": 1.0,
+              "tb": 1.6
             },
             {
               "slot": 5,
               "pos": "2B",
               "name": "Zach McKinstry",
-              "ab": 3.9,
-              "r": 0.5,
-              "h": 1.0,
-              "hr": 0.07,
-              "rbi": 0.5,
-              "bb": 0.4,
-              "k": 0.7,
-              "tb": 1.4
+              "ab": 4.1,
+              "r": 0.4,
+              "h": 0.9,
+              "hr": 0.05,
+              "rbi": 0.4,
+              "bb": 0.3,
+              "k": 0.9,
+              "tb": 1.3
             },
             {
               "slot": 6,
               "pos": "2B",
               "name": "Gleyber Torres",
-              "ab": 3.8,
+              "ab": 4.0,
               "r": 0.5,
-              "h": 1.1,
-              "hr": 0.11,
-              "rbi": 0.5,
-              "bb": 0.6,
-              "k": 0.8,
-              "tb": 1.6
+              "h": 1.0,
+              "hr": 0.09,
+              "rbi": 0.4,
+              "bb": 0.3,
+              "k": 1.0,
+              "tb": 1.4
             },
             {
               "slot": 7,
               "pos": "2B",
               "name": "Hao-Yu Lee",
-              "ab": 4.0,
+              "ab": 4.1,
               "r": 0.4,
-              "h": 1.0,
-              "hr": 0.15,
+              "h": 0.9,
+              "hr": 0.11,
               "rbi": 0.5,
-              "bb": 0.3,
-              "k": 1.0,
-              "tb": 1.6
+              "bb": 0.2,
+              "k": 1.2,
+              "tb": 1.4
             },
             {
               "slot": 8,
               "pos": "SS",
               "name": "Javier B\u00e1ez",
-              "ab": 4.0,
-              "r": 0.4,
-              "h": 1.0,
-              "hr": 0.06,
-              "rbi": 0.4,
-              "bb": 0.2,
-              "k": 0.9,
-              "tb": 1.4
+              "ab": 4.1,
+              "r": 0.3,
+              "h": 0.9,
+              "hr": 0.05,
+              "rbi": 0.3,
+              "bb": 0.1,
+              "k": 1.0,
+              "tb": 1.2
             },
             {
               "slot": 9,
               "pos": "CF",
               "name": "Max Clark",
-              "ab": 3.9,
+              "ab": 4.0,
               "r": 0.4,
-              "h": 1.1,
-              "hr": 0.08,
-              "rbi": 0.4,
-              "bb": 0.3,
-              "k": 0.9,
-              "tb": 1.5
+              "h": 1.0,
+              "hr": 0.06,
+              "rbi": 0.3,
+              "bb": 0.2,
+              "k": 1.1,
+              "tb": 1.4
             }
           ],
           "totals": {
-            "ab": 35.6,
-            "r": 4.5,
-            "h": 9.3,
-            "hr": 1.14,
-            "rbi": 4.6,
-            "bb": 3.5,
-            "k": 8.3,
-            "tb": 14.6
+            "ab": 37.0,
+            "r": 4.0,
+            "h": 8.6,
+            "hr": 0.87,
+            "rbi": 3.9,
+            "bb": 2.1,
+            "k": 9.8,
+            "tb": 12.9
           },
           "starter": {
-            "name": "",
-            "ip": 5.2,
-            "h": 5.5,
-            "r": 2.5,
-            "er": 2.5,
-            "bb": 1.8,
-            "k": 3.4,
-            "hr": 0.66,
-            "starts": null
+            "name": "Framber Valdez",
+            "ip": 5.5,
+            "h": 5.8,
+            "r": 2.8,
+            "er": 2.8,
+            "bb": 2.2,
+            "k": 4.5,
+            "hr": 0.54,
+            "starts": 25
           }
         }
       },
@@ -323,162 +323,162 @@
           "team": "TB",
           "opp": "DET",
           "slot": 1,
-          "p_hr": 0.2356,
-          "hr_mean": 0.262,
-          "fair_odds": 324
+          "p_hr": 0.1669,
+          "hr_mean": 0.178,
+          "fair_odds": 499
         },
         {
           "name": "Dillon Dingler",
           "team": "DET",
           "opp": "TB",
           "slot": 2,
-          "p_hr": 0.2028,
-          "hr_mean": 0.222,
-          "fair_odds": 393
+          "p_hr": 0.1553,
+          "hr_mean": 0.165,
+          "fair_odds": 544
         },
         {
           "name": "Spencer Torkelson",
           "team": "DET",
           "opp": "TB",
           "slot": 3,
-          "p_hr": 0.185,
-          "hr_mean": 0.2,
-          "fair_odds": 441
-        },
-        {
-          "name": "Jonathan Aranda",
-          "team": "TB",
-          "opp": "DET",
-          "slot": 3,
-          "p_hr": 0.1615,
-          "hr_mean": 0.175,
-          "fair_odds": 519
-        },
-        {
-          "name": "Hao-Yu Lee",
-          "team": "DET",
-          "opp": "TB",
-          "slot": 7,
-          "p_hr": 0.1419,
+          "p_hr": 0.1417,
           "hr_mean": 0.15,
-          "fair_odds": 605
-        },
-        {
-          "name": "Chandler Simpson",
-          "team": "TB",
-          "opp": "DET",
-          "slot": 4,
-          "p_hr": 0.1346,
-          "hr_mean": 0.143,
-          "fair_odds": 643
-        },
-        {
-          "name": "Colt Keith",
-          "team": "DET",
-          "opp": "TB",
-          "slot": 4,
-          "p_hr": 0.1251,
-          "hr_mean": 0.132,
-          "fair_odds": 699
-        },
-        {
-          "name": "Liam Hicks",
-          "team": "TB",
-          "opp": "DET",
-          "slot": 5,
-          "p_hr": 0.1239,
-          "hr_mean": 0.132,
-          "fair_odds": 707
-        },
-        {
-          "name": "Cedric Mullins",
-          "team": "TB",
-          "opp": "DET",
-          "slot": 6,
-          "p_hr": 0.1228,
-          "hr_mean": 0.128,
-          "fair_odds": 714
+          "fair_odds": 606
         },
         {
           "name": "Yandy D\u00edaz",
           "team": "TB",
           "opp": "DET",
           "slot": 2,
-          "p_hr": 0.1201,
-          "hr_mean": 0.127,
-          "fair_odds": 733
+          "p_hr": 0.1154,
+          "hr_mean": 0.12,
+          "fair_odds": 767
         },
         {
-          "name": "Kevin McGonigle",
+          "name": "Hao-Yu Lee",
           "team": "DET",
           "opp": "TB",
-          "slot": 1,
-          "p_hr": 0.1163,
-          "hr_mean": 0.122,
-          "fair_odds": 760
+          "slot": 7,
+          "p_hr": 0.1043,
+          "hr_mean": 0.109,
+          "fair_odds": 859
+        },
+        {
+          "name": "Colt Keith",
+          "team": "DET",
+          "opp": "TB",
+          "slot": 4,
+          "p_hr": 0.0925,
+          "hr_mean": 0.095,
+          "fair_odds": 981
+        },
+        {
+          "name": "Chandler Simpson",
+          "team": "TB",
+          "opp": "DET",
+          "slot": 4,
+          "p_hr": 0.0895,
+          "hr_mean": 0.094,
+          "fair_odds": 1017
         },
         {
           "name": "Gleyber Torres",
           "team": "DET",
           "opp": "TB",
           "slot": 6,
-          "p_hr": 0.1079,
-          "hr_mean": 0.113,
-          "fair_odds": 827
+          "p_hr": 0.0872,
+          "hr_mean": 0.09,
+          "fair_odds": 1047
         },
         {
-          "name": "Richie Palacios",
+          "name": "Kevin McGonigle",
+          "team": "DET",
+          "opp": "TB",
+          "slot": 1,
+          "p_hr": 0.0865,
+          "hr_mean": 0.09,
+          "fair_odds": 1056
+        },
+        {
+          "name": "Jonathan Aranda",
           "team": "TB",
           "opp": "DET",
-          "slot": 8,
-          "p_hr": 0.0831,
-          "hr_mean": 0.086,
-          "fair_odds": 1103
+          "slot": 3,
+          "p_hr": 0.0739,
+          "hr_mean": 0.076,
+          "fair_odds": 1253
+        },
+        {
+          "name": "Cedric Mullins",
+          "team": "TB",
+          "opp": "DET",
+          "slot": 6,
+          "p_hr": 0.07,
+          "hr_mean": 0.072,
+          "fair_odds": 1329
+        },
+        {
+          "name": "Liam Hicks",
+          "team": "TB",
+          "opp": "DET",
+          "slot": 5,
+          "p_hr": 0.0651,
+          "hr_mean": 0.068,
+          "fair_odds": 1436
         },
         {
           "name": "Max Clark",
           "team": "DET",
           "opp": "TB",
           "slot": 9,
-          "p_hr": 0.0754,
-          "hr_mean": 0.077,
-          "fair_odds": 1226
+          "p_hr": 0.0561,
+          "hr_mean": 0.057,
+          "fair_odds": 1683
         },
         {
-          "name": "Nick Fortes",
+          "name": "Richie Palacios",
           "team": "TB",
           "opp": "DET",
-          "slot": 9,
-          "p_hr": 0.0723,
-          "hr_mean": 0.074,
-          "fair_odds": 1283
+          "slot": 8,
+          "p_hr": 0.0497,
+          "hr_mean": 0.051,
+          "fair_odds": 1912
         },
         {
           "name": "Zach McKinstry",
           "team": "DET",
           "opp": "TB",
           "slot": 5,
-          "p_hr": 0.0702,
-          "hr_mean": 0.071,
-          "fair_odds": 1325
+          "p_hr": 0.0489,
+          "hr_mean": 0.05,
+          "fair_odds": 1945
         },
         {
           "name": "Javier B\u00e1ez",
           "team": "DET",
           "opp": "TB",
           "slot": 8,
-          "p_hr": 0.0604,
-          "hr_mean": 0.062,
-          "fair_odds": 1556
+          "p_hr": 0.0475,
+          "hr_mean": 0.048,
+          "fair_odds": 2005
+        },
+        {
+          "name": "Nick Fortes",
+          "team": "TB",
+          "opp": "DET",
+          "slot": 9,
+          "p_hr": 0.0458,
+          "hr_mean": 0.046,
+          "fair_odds": 2083
         },
         {
           "name": "Taylor Walls",
           "team": "TB",
           "opp": "DET",
           "slot": 7,
-          "p_hr": 0.0476,
-          "hr_mean": 0.049,
-          "fair_odds": 2001
+          "p_hr": 0.0413,
+          "hr_mean": 0.042,
+          "fair_odds": 2321
         }
       ],
       "context": {
@@ -490,39 +490,39 @@
         "venue": "Comerica Park",
         "park_factor": "99",
         "umpire_hp": "",
-        "weather_temp_f": "75.7",
-        "weather_wind": "11.3 mph W",
+        "weather_temp_f": "76.4",
+        "weather_wind": "10.4 mph NW",
         "weather_precip_pct": "2",
         "away_record": "76-53 \u00b7 L10 3-7 \u00b7 L3 \u00b7 RD +42",
-        "away_vs_opp_hand": "",
-        "away_il_count": "10",
+        "away_vs_opp_hand": "AVG .249 / OPS .682 / 29 HR",
+        "away_il_count": "9",
         "away_il_names": "Ben Williamson, Cole Sulser, Edwin Uceta, Gavin Lux, Griffin Jax",
-        "away_pitcher": "TBD",
-        "away_pitcher_hand": "",
-        "away_pitcher_era": "",
-        "away_pitcher_xera": "",
-        "away_pitcher_k_pct": "",
-        "away_pitcher_bb_pct": "",
-        "away_pitcher_barrel_pct": "",
-        "away_pitcher_whiff_pct": "",
-        "away_pitcher_hardhit_pct": "",
-        "away_pitcher_last3": "",
+        "away_pitcher": "Drew Rasmussen",
+        "away_pitcher_hand": "R",
+        "away_pitcher_era": "3.01",
+        "away_pitcher_xera": "3.12",
+        "away_pitcher_k_pct": "26.1",
+        "away_pitcher_bb_pct": "4.7",
+        "away_pitcher_barrel_pct": "6.1",
+        "away_pitcher_whiff_pct": "25",
+        "away_pitcher_hardhit_pct": "32.9",
+        "away_pitcher_last3": "2026-08-07: 7.0 IP, 0 ER, 8 K | 2026-08-12: 5.0 IP, 2 ER, 3 K | 2026-08-19: 5.0 IP, 5 ER, 5 K",
         "away_bullpen_ip_last3d": "5.0",
         "away_bullpen_b2b_arms": "1",
         "home_record": "61-68 \u00b7 L10 2-8 \u00b7 L4 \u00b7 RD +77",
-        "home_vs_opp_hand": "",
-        "home_il_count": "14",
-        "home_il_names": "Bailey Horn, Brant Hurter, Burch Smith, Jack Flaherty, James Outman",
-        "home_pitcher": "TBD",
-        "home_pitcher_hand": "",
-        "home_pitcher_era": "",
-        "home_pitcher_xera": "",
-        "home_pitcher_k_pct": "",
-        "home_pitcher_bb_pct": "",
-        "home_pitcher_barrel_pct": "",
-        "home_pitcher_whiff_pct": "",
-        "home_pitcher_hardhit_pct": "",
-        "home_pitcher_last3": "",
+        "home_vs_opp_hand": "AVG .246 / OPS .735 / 121 HR",
+        "home_il_count": "13",
+        "home_il_names": "Bailey Horn, Brant Hurter, Burch Smith, Jack Flaherty, Justin Verlander",
+        "home_pitcher": "Framber Valdez",
+        "home_pitcher_hand": "L",
+        "home_pitcher_era": "4.35",
+        "home_pitcher_xera": "4.43",
+        "home_pitcher_k_pct": "18.1",
+        "home_pitcher_bb_pct": "8.8",
+        "home_pitcher_barrel_pct": "6.2",
+        "home_pitcher_whiff_pct": "20.6",
+        "home_pitcher_hardhit_pct": "43.7",
+        "home_pitcher_last3": "2026-08-06: 7.0 IP, 0 ER, 5 K | 2026-08-12: 5.2 IP, 4 ER, 3 K | 2026-08-17: 5.2 IP, 4 ER, 5 K",
         "home_bullpen_ip_last3d": "5.1",
         "home_bullpen_b2b_arms": "0"
       }
@@ -536,20 +536,20 @@
       "away_abbr": "BOS",
       "home_abbr": "MIA",
       "venue": "",
-      "away_pitcher": "",
-      "home_pitcher": "",
+      "away_pitcher": "Ranger Suarez",
+      "home_pitcher": "Sandy Alcantara",
       "park_factor": 96.0,
       "weather": {
         "venue": "loanDepot park",
         "is_dome": true
       },
       "model": {
-        "away_win_pct": 0.4654,
-        "home_win_pct": 0.5346,
-        "mean_away_runs": 4.3,
-        "mean_home_runs": 4.07,
-        "mean_total": 8.37,
-        "mean_margin": -0.24
+        "away_win_pct": 0.4703,
+        "home_win_pct": 0.5297,
+        "mean_away_runs": 4.02,
+        "mean_home_runs": 3.8,
+        "mean_total": 7.82,
+        "mean_margin": -0.23
       },
       "picks": [],
       "projected_box": {
@@ -559,65 +559,65 @@
               "slot": 1,
               "pos": "RF",
               "name": "Wilyer Abreu",
-              "ab": 4.0,
+              "ab": 4.1,
               "r": 0.6,
-              "h": 1.0,
-              "hr": 0.21,
+              "h": 1.1,
+              "hr": 0.17,
               "rbi": 0.4,
-              "bb": 0.5,
-              "k": 0.9,
-              "tb": 1.9
+              "bb": 0.4,
+              "k": 0.7,
+              "tb": 1.8
             },
             {
               "slot": 2,
               "pos": "CF",
               "name": "Ceddanne Rafaela",
-              "ab": 4.2,
-              "r": 0.6,
+              "ab": 4.3,
+              "r": 0.5,
               "h": 1.1,
-              "hr": 0.12,
+              "hr": 0.09,
               "rbi": 0.5,
               "bb": 0.2,
-              "k": 0.9,
-              "tb": 1.7
+              "k": 0.7,
+              "tb": 1.6
             },
             {
               "slot": 3,
               "pos": "LF",
               "name": "Jarren Duran",
-              "ab": 4.1,
+              "ab": 4.2,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.18,
-              "rbi": 0.5,
-              "bb": 0.3,
-              "k": 1.2,
-              "tb": 1.7
+              "hr": 0.13,
+              "rbi": 0.4,
+              "bb": 0.2,
+              "k": 1.0,
+              "tb": 1.6
             },
             {
               "slot": 4,
               "pos": "1B",
               "name": "Willson Contreras",
-              "ab": 3.9,
+              "ab": 4.0,
               "r": 0.6,
               "h": 1.0,
-              "hr": 0.21,
-              "rbi": 0.8,
-              "bb": 0.5,
-              "k": 1.1,
-              "tb": 1.9
+              "hr": 0.17,
+              "rbi": 0.7,
+              "bb": 0.4,
+              "k": 0.9,
+              "tb": 1.7
             },
             {
               "slot": 5,
               "pos": "3B",
               "name": "Caleb Durbin",
-              "ab": 4.0,
-              "r": 0.5,
+              "ab": 4.1,
+              "r": 0.4,
               "h": 1.0,
-              "hr": 0.09,
+              "hr": 0.07,
               "rbi": 0.5,
               "bb": 0.3,
-              "k": 0.6,
+              "k": 0.5,
               "tb": 1.4
             },
             {
@@ -627,23 +627,23 @@
               "ab": 3.9,
               "r": 0.4,
               "h": 1.0,
-              "hr": 0.13,
+              "hr": 0.1,
               "rbi": 0.5,
-              "bb": 0.5,
-              "k": 0.7,
-              "tb": 1.7
+              "bb": 0.4,
+              "k": 0.6,
+              "tb": 1.6
             },
             {
               "slot": 7,
               "pos": "SS",
               "name": "Andruw Monasterio",
-              "ab": 3.9,
+              "ab": 4.0,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.08,
+              "hr": 0.07,
               "rbi": 0.4,
-              "bb": 0.4,
-              "k": 0.9,
+              "bb": 0.3,
+              "k": 0.7,
               "tb": 1.4
             },
             {
@@ -653,46 +653,46 @@
               "ab": 3.9,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.08,
-              "rbi": 0.4,
-              "bb": 0.4,
-              "k": 1.0,
+              "hr": 0.06,
+              "rbi": 0.3,
+              "bb": 0.3,
+              "k": 0.8,
               "tb": 1.3
             },
             {
               "slot": 9,
               "pos": "RF",
               "name": "Eli White",
-              "ab": 3.9,
-              "r": 0.4,
+              "ab": 4.0,
+              "r": 0.3,
               "h": 0.9,
-              "hr": 0.1,
+              "hr": 0.08,
               "rbi": 0.3,
-              "bb": 0.3,
-              "k": 1.0,
-              "tb": 1.4
+              "bb": 0.2,
+              "k": 0.8,
+              "tb": 1.3
             }
           ],
           "totals": {
-            "ab": 35.8,
-            "r": 4.3,
-            "h": 8.7,
-            "hr": 1.2,
-            "rbi": 4.3,
-            "bb": 3.4,
-            "k": 8.3,
-            "tb": 14.4
+            "ab": 36.5,
+            "r": 4.0,
+            "h": 8.8,
+            "hr": 0.94,
+            "rbi": 4.0,
+            "bb": 2.7,
+            "k": 6.7,
+            "tb": 13.7
           },
           "starter": {
-            "name": "",
+            "name": "Ranger Suarez",
             "ip": 5.2,
-            "h": 5.3,
-            "r": 2.4,
-            "er": 2.4,
-            "bb": 1.8,
-            "k": 4.8,
-            "hr": 0.64,
-            "starts": null
+            "h": 4.5,
+            "r": 1.9,
+            "er": 1.9,
+            "bb": 1.5,
+            "k": 5.2,
+            "hr": 0.31,
+            "starts": 22
           }
         },
         "home": {
@@ -701,14 +701,14 @@
               "slot": 1,
               "pos": "SS",
               "name": "Otto Lopez",
-              "ab": 4.2,
-              "r": 0.6,
-              "h": 1.1,
-              "hr": 0.1,
+              "ab": 4.3,
+              "r": 0.5,
+              "h": 1.3,
+              "hr": 0.07,
               "rbi": 0.4,
-              "bb": 0.3,
-              "k": 0.6,
-              "tb": 1.7
+              "bb": 0.2,
+              "k": 0.7,
+              "tb": 1.8
             },
             {
               "slot": 2,
@@ -717,10 +717,10 @@
               "ab": 4.0,
               "r": 0.6,
               "h": 1.1,
-              "hr": 0.04,
+              "hr": 0.07,
               "rbi": 0.4,
-              "bb": 0.5,
-              "k": 0.6,
+              "bb": 0.4,
+              "k": 0.7,
               "tb": 1.5
             },
             {
@@ -729,12 +729,12 @@
               "name": "Jakob Marsee",
               "ab": 3.9,
               "r": 0.5,
-              "h": 0.9,
-              "hr": 0.08,
+              "h": 0.8,
+              "hr": 0.04,
               "rbi": 0.4,
               "bb": 0.5,
-              "k": 1.0,
-              "tb": 1.4
+              "k": 1.1,
+              "tb": 1.1
             },
             {
               "slot": 4,
@@ -743,10 +743,10 @@
               "ab": 4.0,
               "r": 0.4,
               "h": 1.0,
-              "hr": 0.19,
+              "hr": 0.16,
               "rbi": 0.6,
               "bb": 0.4,
-              "k": 1.2,
+              "k": 1.3,
               "tb": 1.7
             },
             {
@@ -755,25 +755,25 @@
               "name": "Javier Sanoja",
               "ab": 4.1,
               "r": 0.4,
-              "h": 1.0,
-              "hr": 0.06,
+              "h": 1.2,
+              "hr": 0.05,
               "rbi": 0.5,
-              "bb": 0.3,
+              "bb": 0.2,
               "k": 0.5,
-              "tb": 1.4
+              "tb": 1.6
             },
             {
               "slot": 6,
               "pos": "RF",
               "name": "Owen Caissie",
               "ab": 4.0,
-              "r": 0.4,
-              "h": 0.9,
-              "hr": 0.22,
-              "rbi": 0.5,
+              "r": 0.3,
+              "h": 0.8,
+              "hr": 0.13,
+              "rbi": 0.4,
               "bb": 0.3,
-              "k": 1.6,
-              "tb": 1.7
+              "k": 1.7,
+              "tb": 1.4
             },
             {
               "slot": 7,
@@ -781,225 +781,225 @@
               "name": "Joe Mack",
               "ab": 4.0,
               "r": 0.3,
-              "h": 1.0,
-              "hr": 0.18,
+              "h": 0.8,
+              "hr": 0.09,
               "rbi": 0.4,
               "bb": 0.3,
-              "k": 1.1,
-              "tb": 1.7
+              "k": 1.2,
+              "tb": 1.2
             },
             {
               "slot": 8,
               "pos": "RF",
               "name": "Griffin Conine",
-              "ab": 3.8,
+              "ab": 3.9,
               "r": 0.4,
-              "h": 1.1,
-              "hr": 0.27,
-              "rbi": 0.5,
+              "h": 0.9,
+              "hr": 0.15,
+              "rbi": 0.4,
               "bb": 0.4,
               "k": 1.3,
-              "tb": 2.0
+              "tb": 1.5
             },
             {
               "slot": 9,
               "pos": "RF",
               "name": "Esteury Ruiz",
-              "ab": 3.8,
+              "ab": 3.9,
               "r": 0.4,
-              "h": 0.8,
-              "hr": 0.12,
+              "h": 0.9,
+              "hr": 0.1,
               "rbi": 0.4,
               "bb": 0.4,
-              "k": 1.2,
+              "k": 1.3,
               "tb": 1.4
             }
           ],
           "totals": {
-            "ab": 35.8,
-            "r": 4.1,
-            "h": 8.9,
-            "hr": 1.26,
-            "rbi": 4.1,
-            "bb": 3.4,
-            "k": 9.1,
-            "tb": 14.5
+            "ab": 36.1,
+            "r": 3.8,
+            "h": 8.8,
+            "hr": 0.86,
+            "rbi": 3.9,
+            "bb": 3.1,
+            "k": 9.8,
+            "tb": 13.2
           },
           "starter": {
-            "name": "",
-            "ip": 5.2,
-            "h": 5.5,
-            "r": 2.5,
-            "er": 2.5,
-            "bb": 1.8,
-            "k": 4.3,
+            "name": "Sandy Alcantara",
+            "ip": 6.2,
+            "h": 5.7,
+            "r": 2.4,
+            "er": 2.4,
+            "bb": 1.7,
+            "k": 4.7,
             "hr": 0.64,
-            "starts": null
+            "starts": 27
           }
         }
       },
       "hr_projections": [
         {
-          "name": "Griffin Conine",
-          "team": "MIA",
-          "opp": "BOS",
-          "slot": 8,
-          "p_hr": 0.2405,
-          "hr_mean": 0.267,
-          "fair_odds": 316
-        },
-        {
-          "name": "Owen Caissie",
-          "team": "MIA",
-          "opp": "BOS",
-          "slot": 6,
-          "p_hr": 0.2035,
-          "hr_mean": 0.219,
-          "fair_odds": 391
+          "name": "Willson Contreras",
+          "team": "BOS",
+          "opp": "MIA",
+          "slot": 4,
+          "p_hr": 0.1583,
+          "hr_mean": 0.169,
+          "fair_odds": 532
         },
         {
           "name": "Wilyer Abreu",
           "team": "BOS",
           "opp": "MIA",
           "slot": 1,
-          "p_hr": 0.1965,
-          "hr_mean": 0.214,
-          "fair_odds": 409
-        },
-        {
-          "name": "Willson Contreras",
-          "team": "BOS",
-          "opp": "MIA",
-          "slot": 4,
-          "p_hr": 0.196,
-          "hr_mean": 0.214,
-          "fair_odds": 410
+          "p_hr": 0.1538,
+          "hr_mean": 0.165,
+          "fair_odds": 550
         },
         {
           "name": "Heriberto Hern\u00e1ndez",
           "team": "MIA",
           "opp": "BOS",
           "slot": 4,
-          "p_hr": 0.1762,
-          "hr_mean": 0.19,
-          "fair_odds": 468
+          "p_hr": 0.1457,
+          "hr_mean": 0.156,
+          "fair_odds": 586
         },
         {
-          "name": "Joe Mack",
+          "name": "Griffin Conine",
           "team": "MIA",
           "opp": "BOS",
-          "slot": 7,
-          "p_hr": 0.1689,
-          "hr_mean": 0.179,
-          "fair_odds": 492
+          "slot": 8,
+          "p_hr": 0.141,
+          "hr_mean": 0.15,
+          "fair_odds": 609
         },
         {
           "name": "Jarren Duran",
           "team": "BOS",
           "opp": "MIA",
           "slot": 3,
-          "p_hr": 0.1633,
-          "hr_mean": 0.177,
-          "fair_odds": 512
+          "p_hr": 0.1235,
+          "hr_mean": 0.131,
+          "fair_odds": 710
         },
         {
-          "name": "Adley Rutschman",
-          "team": "BOS",
-          "opp": "MIA",
+          "name": "Owen Caissie",
+          "team": "MIA",
+          "opp": "BOS",
           "slot": 6,
-          "p_hr": 0.1202,
-          "hr_mean": 0.127,
-          "fair_odds": 732
+          "p_hr": 0.1218,
+          "hr_mean": 0.128,
+          "fair_odds": 721
         },
         {
           "name": "Esteury Ruiz",
           "team": "MIA",
           "opp": "BOS",
           "slot": 9,
-          "p_hr": 0.1156,
-          "hr_mean": 0.123,
-          "fair_odds": 765
+          "p_hr": 0.0962,
+          "hr_mean": 0.101,
+          "fair_odds": 940
+        },
+        {
+          "name": "Adley Rutschman",
+          "team": "BOS",
+          "opp": "MIA",
+          "slot": 6,
+          "p_hr": 0.0932,
+          "hr_mean": 0.097,
+          "fair_odds": 973
         },
         {
           "name": "Ceddanne Rafaela",
           "team": "BOS",
           "opp": "MIA",
           "slot": 2,
-          "p_hr": 0.1145,
-          "hr_mean": 0.12,
-          "fair_odds": 773
+          "p_hr": 0.0865,
+          "hr_mean": 0.09,
+          "fair_odds": 1056
+        },
+        {
+          "name": "Joe Mack",
+          "team": "MIA",
+          "opp": "BOS",
+          "slot": 7,
+          "p_hr": 0.0853,
+          "hr_mean": 0.09,
+          "fair_odds": 1072
         },
         {
           "name": "Eli White",
           "team": "BOS",
           "opp": "MIA",
           "slot": 9,
-          "p_hr": 0.0969,
-          "hr_mean": 0.1,
-          "fair_odds": 932
+          "p_hr": 0.0769,
+          "hr_mean": 0.079,
+          "fair_odds": 1200
         },
         {
           "name": "Otto Lopez",
           "team": "MIA",
           "opp": "BOS",
           "slot": 1,
-          "p_hr": 0.0956,
-          "hr_mean": 0.099,
-          "fair_odds": 946
-        },
-        {
-          "name": "Caleb Durbin",
-          "team": "BOS",
-          "opp": "MIA",
-          "slot": 5,
-          "p_hr": 0.087,
-          "hr_mean": 0.091,
-          "fair_odds": 1049
-        },
-        {
-          "name": "Jakob Marsee",
-          "team": "MIA",
-          "opp": "BOS",
-          "slot": 3,
-          "p_hr": 0.0769,
-          "hr_mean": 0.08,
-          "fair_odds": 1200
-        },
-        {
-          "name": "Andruw Monasterio",
-          "team": "BOS",
-          "opp": "MIA",
-          "slot": 7,
-          "p_hr": 0.0764,
-          "hr_mean": 0.078,
-          "fair_odds": 1209
-        },
-        {
-          "name": "Connor Wong",
-          "team": "BOS",
-          "opp": "MIA",
-          "slot": 8,
-          "p_hr": 0.0753,
-          "hr_mean": 0.078,
-          "fair_odds": 1228
-        },
-        {
-          "name": "Javier Sanoja",
-          "team": "MIA",
-          "opp": "BOS",
-          "slot": 5,
-          "p_hr": 0.0598,
-          "hr_mean": 0.061,
-          "fair_odds": 1572
+          "p_hr": 0.0664,
+          "hr_mean": 0.068,
+          "fair_odds": 1406
         },
         {
           "name": "Xavier Edwards",
           "team": "MIA",
           "opp": "BOS",
           "slot": 2,
-          "p_hr": 0.0425,
-          "hr_mean": 0.043,
-          "fair_odds": 2253
+          "p_hr": 0.0653,
+          "hr_mean": 0.067,
+          "fair_odds": 1431
+        },
+        {
+          "name": "Caleb Durbin",
+          "team": "BOS",
+          "opp": "MIA",
+          "slot": 5,
+          "p_hr": 0.0638,
+          "hr_mean": 0.065,
+          "fair_odds": 1467
+        },
+        {
+          "name": "Andruw Monasterio",
+          "team": "BOS",
+          "opp": "MIA",
+          "slot": 7,
+          "p_hr": 0.0636,
+          "hr_mean": 0.066,
+          "fair_odds": 1472
+        },
+        {
+          "name": "Connor Wong",
+          "team": "BOS",
+          "opp": "MIA",
+          "slot": 8,
+          "p_hr": 0.0595,
+          "hr_mean": 0.061,
+          "fair_odds": 1581
+        },
+        {
+          "name": "Javier Sanoja",
+          "team": "MIA",
+          "opp": "BOS",
+          "slot": 5,
+          "p_hr": 0.0519,
+          "hr_mean": 0.053,
+          "fair_odds": 1827
+        },
+        {
+          "name": "Jakob Marsee",
+          "team": "MIA",
+          "opp": "BOS",
+          "slot": 3,
+          "p_hr": 0.0399,
+          "hr_mean": 0.041,
+          "fair_odds": 2406
         }
       ],
       "context": {
@@ -1015,35 +1015,35 @@
         "weather_wind": "",
         "weather_precip_pct": "",
         "away_record": "70-59 \u00b7 L10 6-4 \u00b7 W2 \u00b7 RD +98",
-        "away_vs_opp_hand": "",
+        "away_vs_opp_hand": "AVG .248 / OPS .718 / 96 HR",
         "away_il_count": "13",
         "away_il_names": "Curtis Mead, Garrett Crochet, Garrett Whitlock, Isiah Kiner-Falefa, Johan Oviedo",
-        "away_pitcher": "TBD",
-        "away_pitcher_hand": "",
-        "away_pitcher_era": "",
-        "away_pitcher_xera": "",
-        "away_pitcher_k_pct": "",
-        "away_pitcher_bb_pct": "",
-        "away_pitcher_barrel_pct": "",
-        "away_pitcher_whiff_pct": "",
-        "away_pitcher_hardhit_pct": "",
-        "away_pitcher_last3": "",
+        "away_pitcher": "Ranger Suarez",
+        "away_pitcher_hand": "L",
+        "away_pitcher_era": "3.41",
+        "away_pitcher_xera": "3.62",
+        "away_pitcher_k_pct": "24.2",
+        "away_pitcher_bb_pct": "7.1",
+        "away_pitcher_barrel_pct": "4.7",
+        "away_pitcher_whiff_pct": "23",
+        "away_pitcher_hardhit_pct": "32.8",
+        "away_pitcher_last3": "2026-08-06: 3.0 IP, 3 ER, 3 K | 2026-08-12: 5.0 IP, 1 ER, 2 K | 2026-08-18: 5.1 IP, 4 ER, 3 K",
         "away_bullpen_ip_last3d": "6.1",
         "away_bullpen_b2b_arms": "0",
         "home_record": "66-64 \u00b7 L10 5-5 \u00b7 W2 \u00b7 RD +17",
-        "home_vs_opp_hand": "",
+        "home_vs_opp_hand": "AVG .239 / OPS .703 / 31 HR",
         "home_il_count": "8",
         "home_il_names": "Adam Mazur, Andrew Nardi, Anthony Bender, Kyle Stowers, Max Meyer",
-        "home_pitcher": "TBD",
-        "home_pitcher_hand": "",
-        "home_pitcher_era": "",
-        "home_pitcher_xera": "",
-        "home_pitcher_k_pct": "",
-        "home_pitcher_bb_pct": "",
-        "home_pitcher_barrel_pct": "",
-        "home_pitcher_whiff_pct": "",
-        "home_pitcher_hardhit_pct": "",
-        "home_pitcher_last3": "",
+        "home_pitcher": "Sandy Alcantara",
+        "home_pitcher_hand": "R",
+        "home_pitcher_era": "3.46",
+        "home_pitcher_xera": "3.67",
+        "home_pitcher_k_pct": "18",
+        "home_pitcher_bb_pct": "6.5",
+        "home_pitcher_barrel_pct": "5.4",
+        "home_pitcher_whiff_pct": "21.1",
+        "home_pitcher_hardhit_pct": "35.2",
+        "home_pitcher_last3": "2026-08-08: 7.0 IP, 0 ER, 8 K | 2026-08-14: 7.0 IP, 1 ER, 2 K | 2026-08-19: 6.0 IP, 3 ER, 1 K",
         "home_bullpen_ip_last3d": "9.0",
         "home_bullpen_b2b_arms": "3"
       }
@@ -1058,22 +1058,22 @@
       "home_abbr": "WSH",
       "venue": "",
       "away_pitcher": "",
-      "home_pitcher": "",
+      "home_pitcher": "Cade Cavalli",
       "park_factor": 100.0,
       "weather": {
         "venue": "Nationals Park",
-        "temp_f": 84.2,
-        "wind_mph": 7.2,
+        "temp_f": 83.9,
+        "wind_mph": 9.6,
         "wind_dir": "W",
         "precip_pct": 0.0
       },
       "model": {
-        "away_win_pct": 0.3987,
-        "home_win_pct": 0.6013,
-        "mean_away_runs": 5.2,
-        "mean_home_runs": 5.93,
-        "mean_total": 11.12,
-        "mean_margin": 0.73
+        "away_win_pct": 0.3729,
+        "home_win_pct": 0.6271,
+        "mean_away_runs": 4.92,
+        "mean_home_runs": 5.9,
+        "mean_total": 10.83,
+        "mean_margin": 0.98
       },
       "picks": [],
       "projected_box": {
@@ -1083,14 +1083,14 @@
               "slot": 1,
               "pos": "1B",
               "name": "TJ Rumfield",
-              "ab": 4.0,
+              "ab": 4.1,
               "r": 0.8,
-              "h": 1.2,
-              "hr": 0.14,
+              "h": 1.1,
+              "hr": 0.12,
               "rbi": 0.5,
               "bb": 0.4,
-              "k": 0.7,
-              "tb": 1.8
+              "k": 0.8,
+              "tb": 1.7
             },
             {
               "slot": 2,
@@ -1099,113 +1099,113 @@
               "ab": 4.2,
               "r": 0.7,
               "h": 1.1,
-              "hr": 0.12,
+              "hr": 0.11,
               "rbi": 0.6,
-              "bb": 0.3,
-              "k": 0.8,
-              "tb": 1.8
+              "bb": 0.2,
+              "k": 1.0,
+              "tb": 1.7
             },
             {
               "slot": 3,
               "pos": "2B",
               "name": "Willi Castro",
-              "ab": 4.0,
+              "ab": 4.1,
               "r": 0.6,
-              "h": 1.0,
-              "hr": 0.17,
-              "rbi": 0.7,
-              "bb": 0.4,
-              "k": 1.2,
-              "tb": 1.7
+              "h": 0.9,
+              "hr": 0.15,
+              "rbi": 0.6,
+              "bb": 0.3,
+              "k": 1.4,
+              "tb": 1.6
             },
             {
               "slot": 4,
               "pos": "SS",
               "name": "Ezequiel Tovar",
               "ab": 4.1,
-              "r": 0.5,
-              "h": 0.9,
-              "hr": 0.12,
-              "rbi": 0.6,
+              "r": 0.4,
+              "h": 0.8,
+              "hr": 0.11,
+              "rbi": 0.5,
               "bb": 0.3,
-              "k": 1.1,
+              "k": 1.3,
               "tb": 1.4
             },
             {
               "slot": 5,
               "pos": "3B",
               "name": "Kyle Karros",
-              "ab": 3.8,
+              "ab": 3.9,
               "r": 0.6,
-              "h": 1.0,
-              "hr": 0.16,
-              "rbi": 0.7,
-              "bb": 0.5,
-              "k": 0.9,
-              "tb": 1.6
+              "h": 0.9,
+              "hr": 0.14,
+              "rbi": 0.6,
+              "bb": 0.4,
+              "k": 1.1,
+              "tb": 1.5
             },
             {
               "slot": 6,
               "pos": "RF",
               "name": "Troy Johnston",
-              "ab": 3.9,
+              "ab": 4.0,
               "r": 0.5,
-              "h": 1.2,
-              "hr": 0.06,
-              "rbi": 0.6,
-              "bb": 0.4,
-              "k": 0.8,
+              "h": 1.1,
+              "hr": 0.05,
+              "rbi": 0.5,
+              "bb": 0.3,
+              "k": 0.9,
               "tb": 1.6
             },
             {
               "slot": 7,
               "pos": "LF",
               "name": "Mickey Moniak",
-              "ab": 4.0,
-              "r": 0.5,
+              "ab": 4.1,
+              "r": 0.4,
               "h": 1.0,
-              "hr": 0.24,
+              "hr": 0.21,
               "rbi": 0.7,
-              "bb": 0.3,
-              "k": 1.1,
-              "tb": 1.9
+              "bb": 0.2,
+              "k": 1.3,
+              "tb": 1.8
             },
             {
               "slot": 8,
               "pos": "2B",
               "name": "Connor Norby",
-              "ab": 3.8,
-              "r": 0.5,
-              "h": 0.9,
-              "hr": 0.12,
+              "ab": 3.9,
+              "r": 0.4,
+              "h": 0.8,
+              "hr": 0.11,
               "rbi": 0.4,
               "bb": 0.4,
-              "k": 1.2,
+              "k": 1.5,
               "tb": 1.4
             },
             {
               "slot": 9,
               "pos": "CF",
               "name": "Cole Carrigg",
-              "ab": 3.8,
+              "ab": 3.9,
               "r": 0.5,
               "h": 0.9,
-              "hr": 0.1,
+              "hr": 0.09,
               "rbi": 0.5,
               "bb": 0.4,
-              "k": 0.9,
-              "tb": 1.5
+              "k": 1.1,
+              "tb": 1.4
             }
           ],
           "totals": {
-            "ab": 35.6,
-            "r": 5.2,
-            "h": 9.2,
-            "hr": 1.23,
-            "rbi": 5.3,
-            "bb": 3.4,
-            "k": 8.7,
-            "tb": 14.7
+            "ab": 36.3,
+            "r": 4.9,
+            "h": 8.6,
+            "hr": 1.09,
+            "rbi": 4.9,
+            "bb": 2.9,
+            "k": 10.4,
+            "tb": 14.1
           },
           "starter": {
             "name": "",
@@ -1214,7 +1214,7 @@
             "r": 2.8,
             "er": 2.8,
             "bb": 1.8,
-            "k": 4.4,
+            "k": 4.3,
             "hr": 0.66,
             "starts": null
           }
@@ -1267,11 +1267,11 @@
               "ab": 4.1,
               "r": 0.7,
               "h": 1.0,
-              "hr": 0.12,
+              "hr": 0.13,
               "rbi": 0.9,
               "bb": 0.3,
               "k": 0.8,
-              "tb": 1.5
+              "tb": 1.6
             },
             {
               "slot": 5,
@@ -1284,7 +1284,7 @@
               "rbi": 0.7,
               "bb": 0.3,
               "k": 1.1,
-              "tb": 1.4
+              "tb": 1.5
             },
             {
               "slot": 6,
@@ -1331,34 +1331,34 @@
               "name": "Jos\u00e9 Tena",
               "ab": 3.8,
               "r": 0.6,
-              "h": 0.9,
+              "h": 1.0,
               "hr": 0.16,
               "rbi": 0.5,
               "bb": 0.4,
-              "k": 1.3,
+              "k": 1.2,
               "tb": 1.6
             }
           ],
           "totals": {
             "ab": 36.1,
             "r": 5.9,
-            "h": 8.6,
-            "hr": 1.26,
+            "h": 8.7,
+            "hr": 1.27,
             "rbi": 5.8,
             "bb": 3.2,
-            "k": 8.6,
-            "tb": 14.1
+            "k": 8.5,
+            "tb": 14.3
           },
           "starter": {
-            "name": "",
-            "ip": 5.2,
-            "h": 5.8,
-            "r": 2.6,
-            "er": 2.6,
-            "bb": 1.8,
-            "k": 4.5,
-            "hr": 0.66,
-            "starts": null
+            "name": "Cade Cavalli",
+            "ip": 5.3,
+            "h": 5.4,
+            "r": 2.1,
+            "er": 2.1,
+            "bb": 1.6,
+            "k": 6.2,
+            "hr": 0.62,
+            "starts": 27
           }
         }
       },
@@ -1368,162 +1368,162 @@
           "team": "WSH",
           "opp": "COL",
           "slot": 1,
-          "p_hr": 0.2223,
-          "hr_mean": 0.247,
-          "fair_odds": 350
+          "p_hr": 0.2236,
+          "hr_mean": 0.248,
+          "fair_odds": 347
         },
         {
           "name": "Mickey Moniak",
           "team": "COL",
           "opp": "WSH",
           "slot": 7,
-          "p_hr": 0.2159,
-          "hr_mean": 0.236,
-          "fair_odds": 363
+          "p_hr": 0.1902,
+          "hr_mean": 0.206,
+          "fair_odds": 426
         },
         {
           "name": "Daylen Lile",
           "team": "WSH",
           "opp": "COL",
           "slot": 2,
-          "p_hr": 0.167,
+          "p_hr": 0.1672,
           "hr_mean": 0.18,
-          "fair_odds": 499
-        },
-        {
-          "name": "Willi Castro",
-          "team": "COL",
-          "opp": "WSH",
-          "slot": 3,
-          "p_hr": 0.1578,
-          "hr_mean": 0.169,
-          "fair_odds": 534
+          "fair_odds": 498
         },
         {
           "name": "Brady House",
           "team": "WSH",
           "opp": "COL",
           "slot": 8,
-          "p_hr": 0.1552,
-          "hr_mean": 0.166,
-          "fair_odds": 544
-        },
-        {
-          "name": "Kyle Karros",
-          "team": "COL",
-          "opp": "WSH",
-          "slot": 5,
-          "p_hr": 0.151,
-          "hr_mean": 0.159,
-          "fair_odds": 562
+          "p_hr": 0.1568,
+          "hr_mean": 0.168,
+          "fair_odds": 538
         },
         {
           "name": "Jos\u00e9 Tena",
           "team": "WSH",
           "opp": "COL",
           "slot": 9,
-          "p_hr": 0.1429,
-          "hr_mean": 0.155,
-          "fair_odds": 600
+          "p_hr": 0.1444,
+          "hr_mean": 0.157,
+          "fair_odds": 593
         },
         {
           "name": "Dylan Crews",
           "team": "WSH",
           "opp": "COL",
           "slot": 5,
-          "p_hr": 0.1389,
+          "p_hr": 0.1398,
           "hr_mean": 0.148,
-          "fair_odds": 620
+          "fair_odds": 615
         },
         {
-          "name": "TJ Rumfield",
+          "name": "Willi Castro",
           "team": "COL",
           "opp": "WSH",
-          "slot": 1,
-          "p_hr": 0.1289,
-          "hr_mean": 0.136,
-          "fair_odds": 676
+          "slot": 3,
+          "p_hr": 0.1384,
+          "hr_mean": 0.146,
+          "fair_odds": 623
+        },
+        {
+          "name": "Kyle Karros",
+          "team": "COL",
+          "opp": "WSH",
+          "slot": 5,
+          "p_hr": 0.1298,
+          "hr_mean": 0.138,
+          "fair_odds": 670
         },
         {
           "name": "Jacob Young",
           "team": "WSH",
           "opp": "COL",
           "slot": 4,
-          "p_hr": 0.1194,
-          "hr_mean": 0.125,
-          "fair_odds": 738
+          "p_hr": 0.1212,
+          "hr_mean": 0.127,
+          "fair_odds": 725
         },
         {
-          "name": "Jake McCarthy",
+          "name": "TJ Rumfield",
           "team": "COL",
           "opp": "WSH",
-          "slot": 2,
-          "p_hr": 0.1169,
-          "hr_mean": 0.123,
-          "fair_odds": 755
-        },
-        {
-          "name": "Connor Norby",
-          "team": "COL",
-          "opp": "WSH",
-          "slot": 8,
-          "p_hr": 0.1164,
-          "hr_mean": 0.121,
-          "fair_odds": 759
+          "slot": 1,
+          "p_hr": 0.1142,
+          "hr_mean": 0.12,
+          "fair_odds": 776
         },
         {
           "name": "Keibert Ruiz",
           "team": "WSH",
           "opp": "COL",
           "slot": 6,
-          "p_hr": 0.1132,
-          "hr_mean": 0.118,
-          "fair_odds": 783
+          "p_hr": 0.1139,
+          "hr_mean": 0.119,
+          "fair_odds": 778
+        },
+        {
+          "name": "Connor Norby",
+          "team": "COL",
+          "opp": "WSH",
+          "slot": 8,
+          "p_hr": 0.1062,
+          "hr_mean": 0.111,
+          "fair_odds": 842
         },
         {
           "name": "Ezequiel Tovar",
           "team": "COL",
           "opp": "WSH",
           "slot": 4,
-          "p_hr": 0.111,
-          "hr_mean": 0.116,
-          "fair_odds": 801
+          "p_hr": 0.1059,
+          "hr_mean": 0.111,
+          "fair_odds": 844
+        },
+        {
+          "name": "Jake McCarthy",
+          "team": "COL",
+          "opp": "WSH",
+          "slot": 2,
+          "p_hr": 0.1044,
+          "hr_mean": 0.11,
+          "fair_odds": 858
         },
         {
           "name": "Cole Carrigg",
           "team": "COL",
           "opp": "WSH",
           "slot": 9,
-          "p_hr": 0.0991,
-          "hr_mean": 0.103,
-          "fair_odds": 909
+          "p_hr": 0.0871,
+          "hr_mean": 0.09,
+          "fair_odds": 1048
         },
         {
           "name": "Jorbit Vivas",
           "team": "WSH",
           "opp": "COL",
           "slot": 7,
-          "p_hr": 0.0747,
+          "p_hr": 0.0748,
           "hr_mean": 0.078,
-          "fair_odds": 1239
+          "fair_odds": 1237
         },
         {
           "name": "Troy Johnston",
           "team": "COL",
           "opp": "WSH",
           "slot": 6,
-          "p_hr": 0.0603,
-          "hr_mean": 0.061,
-          "fair_odds": 1558
+          "p_hr": 0.0487,
+          "hr_mean": 0.05,
+          "fair_odds": 1953
         },
         {
           "name": "Nasim Nu\u00f1ez",
           "team": "WSH",
           "opp": "COL",
           "slot": 3,
-          "p_hr": 0.0313,
+          "p_hr": 0.0318,
           "hr_mean": 0.032,
-          "fair_odds": 3095
+          "fair_odds": 3045
         }
       ],
       "context": {
@@ -1535,11 +1535,11 @@
         "venue": "Nationals Park",
         "park_factor": "100",
         "umpire_hp": "",
-        "weather_temp_f": "84.2",
-        "weather_wind": "7.2 mph W",
+        "weather_temp_f": "83.9",
+        "weather_wind": "9.6 mph W",
         "weather_precip_pct": "0",
         "away_record": "50-79 \u00b7 L10 4-6 \u00b7 L5 \u00b7 RD -131",
-        "away_vs_opp_hand": "",
+        "away_vs_opp_hand": "AVG .254 / OPS .756 / 113 HR",
         "away_il_count": "9",
         "away_il_names": "Chase Dollander, Hunter Goodman, Jose Quintana, Kris Bryant, McCade Brown",
         "away_pitcher": "TBD",
@@ -1558,16 +1558,16 @@
         "home_vs_opp_hand": "",
         "home_il_count": "9",
         "home_il_names": "Connelly Early, DJ Herz, Drew Millas, James Wood, Josiah Gray",
-        "home_pitcher": "TBD",
-        "home_pitcher_hand": "",
-        "home_pitcher_era": "",
-        "home_pitcher_xera": "",
-        "home_pitcher_k_pct": "",
-        "home_pitcher_bb_pct": "",
-        "home_pitcher_barrel_pct": "",
-        "home_pitcher_whiff_pct": "",
-        "home_pitcher_hardhit_pct": "",
-        "home_pitcher_last3": "",
+        "home_pitcher": "Cade Cavalli",
+        "home_pitcher_hand": "R",
+        "home_pitcher_era": "3.22",
+        "home_pitcher_xera": "3.83",
+        "home_pitcher_k_pct": "27",
+        "home_pitcher_bb_pct": "7",
+        "home_pitcher_barrel_pct": "7.1",
+        "home_pitcher_whiff_pct": "25.9",
+        "home_pitcher_hardhit_pct": "41.4",
+        "home_pitcher_last3": "2026-08-07: 6.0 IP, 3 ER, 8 K | 2026-08-13: 8.0 IP, 0 ER, 10 K | 2026-08-19: 6.0 IP, 0 ER, 11 K",
         "home_bullpen_ip_last3d": "7.1",
         "home_bullpen_b2b_arms": "0"
       }
@@ -1585,19 +1585,15 @@
       "home_pitcher": "",
       "park_factor": 98.0,
       "weather": {
-        "venue": "Rate Field",
-        "temp_f": 72.8,
-        "wind_mph": 7.4,
-        "wind_dir": "E",
-        "precip_pct": 0.0
+        "venue": "Rate Field"
       },
       "model": {
-        "away_win_pct": 0.3727,
-        "home_win_pct": 0.6273,
-        "mean_away_runs": 4.02,
-        "mean_home_runs": 4.79,
-        "mean_total": 8.81,
-        "mean_margin": 0.77
+        "away_win_pct": 0.3757,
+        "home_win_pct": 0.6243,
+        "mean_away_runs": 3.99,
+        "mean_home_runs": 4.76,
+        "mean_total": 8.75,
+        "mean_margin": 0.76
       },
       "picks": [],
       "projected_box": {
@@ -1627,7 +1623,7 @@
               "rbi": 0.4,
               "bb": 0.3,
               "k": 1.2,
-              "tb": 1.6
+              "tb": 1.7
             },
             {
               "slot": 3,
@@ -1636,7 +1632,7 @@
               "ab": 4.1,
               "r": 0.5,
               "h": 1.0,
-              "hr": 0.13,
+              "hr": 0.14,
               "rbi": 0.6,
               "bb": 0.3,
               "k": 1.1,
@@ -1649,7 +1645,7 @@
               "ab": 3.9,
               "r": 0.5,
               "h": 1.0,
-              "hr": 0.22,
+              "hr": 0.23,
               "rbi": 0.7,
               "bb": 0.5,
               "k": 1.0,
@@ -1688,7 +1684,7 @@
               "ab": 3.8,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.23,
+              "hr": 0.24,
               "rbi": 0.4,
               "bb": 0.5,
               "k": 1.1,
@@ -1701,7 +1697,7 @@
               "ab": 4.0,
               "r": 0.3,
               "h": 1.0,
-              "hr": 0.08,
+              "hr": 0.09,
               "rbi": 0.3,
               "bb": 0.2,
               "k": 0.8,
@@ -1714,22 +1710,22 @@
               "ab": 3.9,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.16,
+              "hr": 0.17,
               "rbi": 0.4,
               "bb": 0.3,
               "k": 1.1,
-              "tb": 1.5
+              "tb": 1.6
             }
           ],
           "totals": {
             "ab": 35.8,
             "r": 4.0,
             "h": 8.7,
-            "hr": 1.43,
+            "hr": 1.48,
             "rbi": 4.1,
             "bb": 3.3,
             "k": 9.4,
-            "tb": 14.8
+            "tb": 15.0
           },
           "starter": {
             "name": "",
@@ -1765,7 +1761,7 @@
               "ab": 4.0,
               "r": 0.7,
               "h": 1.0,
-              "hr": 0.1,
+              "hr": 0.11,
               "rbi": 0.4,
               "bb": 0.4,
               "k": 1.0,
@@ -1791,7 +1787,7 @@
               "ab": 4.0,
               "r": 0.6,
               "h": 1.1,
-              "hr": 0.11,
+              "hr": 0.12,
               "rbi": 0.6,
               "bb": 0.4,
               "k": 0.8,
@@ -1804,7 +1800,7 @@
               "ab": 3.7,
               "r": 0.6,
               "h": 0.9,
-              "hr": 0.33,
+              "hr": 0.34,
               "rbi": 0.7,
               "bb": 0.7,
               "k": 1.4,
@@ -1830,7 +1826,7 @@
               "ab": 3.9,
               "r": 0.5,
               "h": 1.1,
-              "hr": 0.11,
+              "hr": 0.12,
               "rbi": 0.5,
               "bb": 0.3,
               "k": 0.8,
@@ -1860,18 +1856,18 @@
               "rbi": 0.5,
               "bb": 0.2,
               "k": 1.0,
-              "tb": 1.7
+              "tb": 1.8
             }
           ],
           "totals": {
             "ab": 35.3,
             "r": 4.8,
             "h": 8.9,
-            "hr": 1.53,
+            "hr": 1.57,
             "rbi": 4.7,
             "bb": 3.8,
             "k": 9.4,
-            "tb": 15.5
+            "tb": 15.6
           },
           "starter": {
             "name": "",
@@ -1892,162 +1888,162 @@
           "team": "CWS",
           "opp": "TEX",
           "slot": 5,
-          "p_hr": 0.2906,
-          "hr_mean": 0.331,
-          "fair_odds": 244
+          "p_hr": 0.2984,
+          "hr_mean": 0.342,
+          "fair_odds": 235
         },
         {
           "name": "Corey Seager",
           "team": "TEX",
           "opp": "CWS",
           "slot": 7,
-          "p_hr": 0.2108,
-          "hr_mean": 0.231,
-          "fair_odds": 374
+          "p_hr": 0.215,
+          "hr_mean": 0.235,
+          "fair_odds": 365
         },
         {
           "name": "Joc Pederson",
           "team": "TEX",
           "opp": "CWS",
           "slot": 4,
-          "p_hr": 0.2065,
-          "hr_mean": 0.225,
-          "fair_odds": 384
-        },
-        {
-          "name": "Colson Montgomery",
-          "team": "CWS",
-          "opp": "TEX",
-          "slot": 3,
-          "p_hr": 0.1994,
-          "hr_mean": 0.217,
-          "fair_odds": 402
+          "p_hr": 0.2112,
+          "hr_mean": 0.23,
+          "fair_odds": 373
         },
         {
           "name": "Miguel Vargas",
           "team": "CWS",
           "opp": "TEX",
           "slot": 1,
-          "p_hr": 0.1968,
-          "hr_mean": 0.215,
-          "fair_odds": 408
+          "p_hr": 0.2019,
+          "hr_mean": 0.221,
+          "fair_odds": 395
         },
         {
-          "name": "Jake Burger",
-          "team": "TEX",
-          "opp": "CWS",
-          "slot": 2,
-          "p_hr": 0.1658,
-          "hr_mean": 0.178,
-          "fair_odds": 503
+          "name": "Colson Montgomery",
+          "team": "CWS",
+          "opp": "TEX",
+          "slot": 3,
+          "p_hr": 0.2018,
+          "hr_mean": 0.22,
+          "fair_odds": 396
         },
         {
           "name": "Randal Grichuk",
           "team": "CWS",
           "opp": "TEX",
           "slot": 9,
-          "p_hr": 0.1643,
-          "hr_mean": 0.176,
-          "fair_odds": 509
+          "p_hr": 0.1692,
+          "hr_mean": 0.182,
+          "fair_odds": 491
+        },
+        {
+          "name": "Jake Burger",
+          "team": "TEX",
+          "opp": "CWS",
+          "slot": 2,
+          "p_hr": 0.1687,
+          "hr_mean": 0.181,
+          "fair_odds": 493
         },
         {
           "name": "Justin Foscue",
           "team": "TEX",
           "opp": "CWS",
           "slot": 9,
-          "p_hr": 0.1509,
-          "hr_mean": 0.161,
-          "fair_odds": 563
-        },
-        {
-          "name": "Wyatt Langford",
-          "team": "TEX",
-          "opp": "CWS",
-          "slot": 6,
-          "p_hr": 0.1492,
-          "hr_mean": 0.159,
-          "fair_odds": 570
+          "p_hr": 0.1552,
+          "hr_mean": 0.166,
+          "fair_odds": 544
         },
         {
           "name": "Andrew Benintendi",
           "team": "CWS",
           "opp": "TEX",
           "slot": 6,
-          "p_hr": 0.1489,
-          "hr_mean": 0.158,
-          "fair_odds": 572
+          "p_hr": 0.1528,
+          "hr_mean": 0.163,
+          "fair_odds": 554
+        },
+        {
+          "name": "Wyatt Langford",
+          "team": "TEX",
+          "opp": "CWS",
+          "slot": 6,
+          "p_hr": 0.1517,
+          "hr_mean": 0.162,
+          "fair_odds": 559
         },
         {
           "name": "Brandon Nimmo",
           "team": "TEX",
           "opp": "CWS",
           "slot": 1,
-          "p_hr": 0.1376,
-          "hr_mean": 0.146,
-          "fair_odds": 627
+          "p_hr": 0.1416,
+          "hr_mean": 0.15,
+          "fair_odds": 606
         },
         {
           "name": "Ezequiel Duran",
           "team": "TEX",
           "opp": "CWS",
           "slot": 3,
-          "p_hr": 0.1268,
-          "hr_mean": 0.134,
-          "fair_odds": 689
+          "p_hr": 0.1291,
+          "hr_mean": 0.137,
+          "fair_odds": 675
         },
         {
           "name": "Evan Carter",
           "team": "TEX",
           "opp": "CWS",
           "slot": 5,
-          "p_hr": 0.1155,
-          "hr_mean": 0.12,
-          "fair_odds": 766
+          "p_hr": 0.117,
+          "hr_mean": 0.122,
+          "fair_odds": 755
         },
         {
           "name": "Tristan Peters",
           "team": "CWS",
           "opp": "TEX",
           "slot": 7,
-          "p_hr": 0.1099,
-          "hr_mean": 0.115,
-          "fair_odds": 810
+          "p_hr": 0.1124,
+          "hr_mean": 0.117,
+          "fair_odds": 790
         },
         {
           "name": "Sam Antonacci",
           "team": "CWS",
           "opp": "TEX",
           "slot": 4,
-          "p_hr": 0.1088,
-          "hr_mean": 0.115,
-          "fair_odds": 819
+          "p_hr": 0.1111,
+          "hr_mean": 0.117,
+          "fair_odds": 800
         },
         {
           "name": "Chase Meidroth",
           "team": "CWS",
           "opp": "TEX",
           "slot": 2,
-          "p_hr": 0.0982,
-          "hr_mean": 0.103,
-          "fair_odds": 918
+          "p_hr": 0.1002,
+          "hr_mean": 0.106,
+          "fair_odds": 898
         },
         {
           "name": "Braden Montgomery",
           "team": "CWS",
           "opp": "TEX",
           "slot": 8,
-          "p_hr": 0.0928,
-          "hr_mean": 0.097,
-          "fair_odds": 978
+          "p_hr": 0.0939,
+          "hr_mean": 0.098,
+          "fair_odds": 965
         },
         {
           "name": "Nicky Lopez",
           "team": "TEX",
           "opp": "CWS",
           "slot": 8,
-          "p_hr": 0.0819,
-          "hr_mean": 0.084,
-          "fair_odds": 1121
+          "p_hr": 0.0831,
+          "hr_mean": 0.085,
+          "fair_odds": 1103
         }
       ],
       "context": {
@@ -2059,9 +2055,9 @@
         "venue": "Rate Field",
         "park_factor": "98",
         "umpire_hp": "",
-        "weather_temp_f": "72.8",
-        "weather_wind": "7.4 mph E",
-        "weather_precip_pct": "0",
+        "weather_temp_f": "",
+        "weather_wind": "",
+        "weather_precip_pct": "",
         "away_record": "64-66 \u00b7 L10 4-6 \u00b7 L1 \u00b7 RD -48",
         "away_vs_opp_hand": "",
         "away_il_count": "9",
@@ -2106,22 +2102,22 @@
       "home_abbr": "LAA",
       "venue": "",
       "away_pitcher": "Parker Messick",
-      "home_pitcher": "",
+      "home_pitcher": "George Klassen",
       "park_factor": 100.0,
       "weather": {
         "venue": "Angel Stadium",
-        "temp_f": 94.0,
-        "wind_mph": 7.0,
-        "wind_dir": "W",
-        "precip_pct": 0.0
+        "temp_f": 83.8,
+        "wind_mph": 8.2,
+        "wind_dir": "SW",
+        "precip_pct": 2.0
       },
       "model": {
-        "away_win_pct": 0.5223,
-        "home_win_pct": 0.4777,
-        "mean_away_runs": 4.36,
-        "mean_home_runs": 3.64,
-        "mean_total": 8.0,
-        "mean_margin": -0.71
+        "away_win_pct": 0.5611,
+        "home_win_pct": 0.4389,
+        "mean_away_runs": 4.78,
+        "mean_home_runs": 3.6,
+        "mean_total": 8.39,
+        "mean_margin": -1.18
       },
       "picks": [],
       "projected_box": {
@@ -2134,11 +2130,11 @@
               "ab": 4.2,
               "r": 0.6,
               "h": 1.0,
-              "hr": 0.15,
-              "rbi": 0.4,
+              "hr": 0.11,
+              "rbi": 0.5,
               "bb": 0.2,
-              "k": 1.1,
-              "tb": 1.6
+              "k": 1.0,
+              "tb": 1.5
             },
             {
               "slot": 2,
@@ -2147,24 +2143,24 @@
               "ab": 3.9,
               "r": 0.7,
               "h": 1.1,
-              "hr": 0.04,
+              "hr": 0.03,
               "rbi": 0.4,
               "bb": 0.6,
               "k": 0.5,
-              "tb": 1.5
+              "tb": 1.4
             },
             {
               "slot": 3,
               "pos": "SS",
               "name": "Brayan Rocchio",
               "ab": 4.1,
-              "r": 0.5,
+              "r": 0.6,
               "h": 1.0,
-              "hr": 0.1,
-              "rbi": 0.5,
+              "hr": 0.08,
+              "rbi": 0.6,
               "bb": 0.3,
-              "k": 0.7,
-              "tb": 1.6
+              "k": 0.6,
+              "tb": 1.5
             },
             {
               "slot": 4,
@@ -2173,11 +2169,11 @@
               "ab": 3.9,
               "r": 0.6,
               "h": 1.0,
-              "hr": 0.16,
-              "rbi": 0.7,
+              "hr": 0.11,
+              "rbi": 0.8,
               "bb": 0.5,
-              "k": 0.7,
-              "tb": 1.7
+              "k": 0.6,
+              "tb": 1.6
             },
             {
               "slot": 5,
@@ -2186,11 +2182,11 @@
               "ab": 3.8,
               "r": 0.5,
               "h": 1.0,
-              "hr": 0.1,
+              "hr": 0.08,
               "rbi": 0.6,
               "bb": 0.5,
               "k": 0.6,
-              "tb": 1.5
+              "tb": 1.4
             },
             {
               "slot": 6,
@@ -2199,61 +2195,61 @@
               "ab": 3.8,
               "r": 0.5,
               "h": 1.0,
-              "hr": 0.13,
+              "hr": 0.09,
               "rbi": 0.5,
               "bb": 0.5,
               "k": 0.9,
-              "tb": 1.6
+              "tb": 1.5
             },
             {
               "slot": 7,
               "pos": "1B",
               "name": "Nathaniel Lowe",
               "ab": 3.9,
-              "r": 0.4,
+              "r": 0.5,
               "h": 1.1,
-              "hr": 0.2,
+              "hr": 0.15,
               "rbi": 0.6,
               "bb": 0.4,
               "k": 1.0,
-              "tb": 1.9
+              "tb": 1.8
             },
             {
               "slot": 8,
               "pos": "LF",
               "name": "Angel Mart\u00ednez",
               "ab": 4.1,
-              "r": 0.3,
+              "r": 0.4,
               "h": 1.0,
-              "hr": 0.17,
-              "rbi": 0.4,
+              "hr": 0.13,
+              "rbi": 0.5,
               "bb": 0.2,
-              "k": 1.0,
-              "tb": 1.7
+              "k": 0.9,
+              "tb": 1.6
             },
             {
               "slot": 9,
               "pos": "C",
               "name": "Patrick Bailey",
               "ab": 3.9,
-              "r": 0.3,
+              "r": 0.4,
               "h": 0.9,
-              "hr": 0.14,
+              "hr": 0.1,
               "rbi": 0.3,
               "bb": 0.3,
-              "k": 1.1,
-              "tb": 1.5
+              "k": 1.0,
+              "tb": 1.4
             }
           ],
           "totals": {
             "ab": 35.6,
-            "r": 4.4,
+            "r": 4.8,
             "h": 9.1,
-            "hr": 1.19,
-            "rbi": 4.4,
+            "hr": 0.88,
+            "rbi": 4.8,
             "bb": 3.5,
-            "k": 7.6,
-            "tb": 14.6
+            "k": 7.1,
+            "tb": 13.7
           },
           "starter": {
             "name": "Parker Messick",
@@ -2289,7 +2285,7 @@
               "ab": 3.9,
               "r": 0.6,
               "h": 0.9,
-              "hr": 0.18,
+              "hr": 0.17,
               "rbi": 0.4,
               "bb": 0.6,
               "k": 1.3,
@@ -2302,7 +2298,7 @@
               "ab": 4.1,
               "r": 0.5,
               "h": 0.9,
-              "hr": 0.1,
+              "hr": 0.09,
               "rbi": 0.5,
               "bb": 0.3,
               "k": 1.0,
@@ -2319,7 +2315,7 @@
               "rbi": 0.5,
               "bb": 0.2,
               "k": 1.5,
-              "tb": 1.5
+              "tb": 1.4
             },
             {
               "slot": 5,
@@ -2328,7 +2324,7 @@
               "ab": 4.1,
               "r": 0.3,
               "h": 0.7,
-              "hr": 0.12,
+              "hr": 0.11,
               "rbi": 0.5,
               "bb": 0.3,
               "k": 1.4,
@@ -2354,7 +2350,7 @@
               "ab": 4.1,
               "r": 0.3,
               "h": 0.8,
-              "hr": 0.13,
+              "hr": 0.12,
               "rbi": 0.4,
               "bb": 0.2,
               "k": 1.2,
@@ -2383,7 +2379,7 @@
               "hr": 0.04,
               "rbi": 0.2,
               "bb": 0.2,
-              "k": 0.8,
+              "k": 0.9,
               "tb": 1.1
             }
           ],
@@ -2391,187 +2387,187 @@
             "ab": 36.5,
             "r": 3.6,
             "h": 7.4,
-            "hr": 1.13,
+            "hr": 1.09,
             "rbi": 3.7,
             "bb": 2.7,
-            "k": 11.2,
-            "tb": 12.5
+            "k": 11.3,
+            "tb": 12.4
           },
           "starter": {
-            "name": "",
-            "ip": 5.2,
-            "h": 4.8,
-            "r": 2.2,
-            "er": 2.2,
-            "bb": 1.8,
-            "k": 3.9,
-            "hr": 0.66,
-            "starts": null
+            "name": "George Klassen",
+            "ip": 4.9,
+            "h": 3.6,
+            "r": 1.9,
+            "er": 1.9,
+            "bb": 4.0,
+            "k": 4.6,
+            "hr": 0.42,
+            "starts": 5
           }
         }
       },
       "hr_projections": [
         {
-          "name": "Nathaniel Lowe",
-          "team": "CLE",
-          "opp": "LAA",
-          "slot": 7,
-          "p_hr": 0.1839,
-          "hr_mean": 0.197,
-          "fair_odds": 444
-        },
-        {
           "name": "Jose Siri",
           "team": "LAA",
           "opp": "CLE",
           "slot": 8,
-          "p_hr": 0.1698,
-          "hr_mean": 0.181,
-          "fair_odds": 489
+          "p_hr": 0.168,
+          "hr_mean": 0.179,
+          "fair_odds": 495
         },
         {
           "name": "Mike Trout",
           "team": "LAA",
           "opp": "CLE",
           "slot": 2,
-          "p_hr": 0.1656,
-          "hr_mean": 0.18,
-          "fair_odds": 504
-        },
-        {
-          "name": "Angel Mart\u00ednez",
-          "team": "CLE",
-          "opp": "LAA",
-          "slot": 8,
-          "p_hr": 0.1608,
-          "hr_mean": 0.172,
-          "fair_odds": 522
-        },
-        {
-          "name": "Chase DeLauter",
-          "team": "CLE",
-          "opp": "LAA",
-          "slot": 4,
-          "p_hr": 0.1522,
-          "hr_mean": 0.161,
-          "fair_odds": 557
+          "p_hr": 0.1613,
+          "hr_mean": 0.175,
+          "fair_odds": 520
         },
         {
           "name": "Zach Neto",
           "team": "LAA",
           "opp": "CLE",
           "slot": 1,
-          "p_hr": 0.1512,
+          "p_hr": 0.1503,
           "hr_mean": 0.16,
-          "fair_odds": 561
+          "fair_odds": 565
         },
         {
-          "name": "Jo Adell",
+          "name": "Nathaniel Lowe",
           "team": "CLE",
           "opp": "LAA",
-          "slot": 1,
-          "p_hr": 0.1445,
-          "hr_mean": 0.153,
-          "fair_odds": 592
+          "slot": 7,
+          "p_hr": 0.1404,
+          "hr_mean": 0.15,
+          "fair_odds": 612
         },
         {
-          "name": "Patrick Bailey",
+          "name": "Angel Mart\u00ednez",
           "team": "CLE",
           "opp": "LAA",
-          "slot": 9,
-          "p_hr": 0.1315,
-          "hr_mean": 0.139,
-          "fair_odds": 660
-        },
-        {
-          "name": "Travis Bazzana",
-          "team": "CLE",
-          "opp": "LAA",
-          "slot": 6,
-          "p_hr": 0.1238,
-          "hr_mean": 0.133,
-          "fair_odds": 708
+          "slot": 8,
+          "p_hr": 0.1208,
+          "hr_mean": 0.127,
+          "fair_odds": 728
         },
         {
           "name": "Denzer Guzman",
           "team": "LAA",
           "opp": "CLE",
           "slot": 7,
-          "p_hr": 0.1189,
-          "hr_mean": 0.126,
-          "fair_odds": 741
+          "p_hr": 0.1179,
+          "hr_mean": 0.124,
+          "fair_odds": 748
         },
         {
           "name": "Oswald Peraza",
           "team": "LAA",
           "opp": "CLE",
           "slot": 4,
-          "p_hr": 0.1184,
-          "hr_mean": 0.123,
-          "fair_odds": 745
+          "p_hr": 0.1158,
+          "hr_mean": 0.12,
+          "fair_odds": 764
+        },
+        {
+          "name": "Chase DeLauter",
+          "team": "CLE",
+          "opp": "LAA",
+          "slot": 4,
+          "p_hr": 0.1094,
+          "hr_mean": 0.114,
+          "fair_odds": 814
         },
         {
           "name": "Josh Lowe",
           "team": "LAA",
           "opp": "CLE",
           "slot": 5,
-          "p_hr": 0.1125,
-          "hr_mean": 0.118,
-          "fair_odds": 789
+          "p_hr": 0.1074,
+          "hr_mean": 0.112,
+          "fair_odds": 831
+        },
+        {
+          "name": "Jo Adell",
+          "team": "CLE",
+          "opp": "LAA",
+          "slot": 1,
+          "p_hr": 0.1058,
+          "hr_mean": 0.112,
+          "fair_odds": 845
         },
         {
           "name": "Mois\u00e9s Ballesteros",
           "team": "LAA",
           "opp": "CLE",
           "slot": 6,
-          "p_hr": 0.1004,
-          "hr_mean": 0.104,
-          "fair_odds": 896
+          "p_hr": 0.0994,
+          "hr_mean": 0.103,
+          "fair_odds": 906
         },
         {
-          "name": "Jos\u00e9 Ram\u00edrez",
+          "name": "Patrick Bailey",
           "team": "CLE",
           "opp": "LAA",
-          "slot": 5,
-          "p_hr": 0.0993,
-          "hr_mean": 0.104,
-          "fair_odds": 907
+          "slot": 9,
+          "p_hr": 0.0919,
+          "hr_mean": 0.096,
+          "fair_odds": 988
         },
         {
-          "name": "Brayan Rocchio",
+          "name": "Travis Bazzana",
           "team": "CLE",
           "opp": "LAA",
-          "slot": 3,
-          "p_hr": 0.0964,
-          "hr_mean": 0.1,
-          "fair_odds": 937
+          "slot": 6,
+          "p_hr": 0.0896,
+          "hr_mean": 0.093,
+          "fair_odds": 1016
         },
         {
           "name": "Vaughn Grissom",
           "team": "LAA",
           "opp": "CLE",
           "slot": 3,
-          "p_hr": 0.0919,
-          "hr_mean": 0.096,
-          "fair_odds": 988
+          "p_hr": 0.0896,
+          "hr_mean": 0.093,
+          "fair_odds": 1016
+        },
+        {
+          "name": "Jos\u00e9 Ram\u00edrez",
+          "team": "CLE",
+          "opp": "LAA",
+          "slot": 5,
+          "p_hr": 0.0765,
+          "hr_mean": 0.079,
+          "fair_odds": 1207
+        },
+        {
+          "name": "Brayan Rocchio",
+          "team": "CLE",
+          "opp": "LAA",
+          "slot": 3,
+          "p_hr": 0.0745,
+          "hr_mean": 0.077,
+          "fair_odds": 1242
         },
         {
           "name": "Tyler Heineman",
           "team": "LAA",
           "opp": "CLE",
           "slot": 9,
-          "p_hr": 0.0438,
+          "p_hr": 0.0439,
           "hr_mean": 0.045,
-          "fair_odds": 2183
+          "fair_odds": 2178
         },
         {
           "name": "Steven Kwan",
           "team": "CLE",
           "opp": "LAA",
           "slot": 2,
-          "p_hr": 0.0422,
-          "hr_mean": 0.043,
-          "fair_odds": 2270
+          "p_hr": 0.0303,
+          "hr_mean": 0.03,
+          "fair_odds": 3200
         }
       ],
       "context": {
@@ -2583,11 +2579,11 @@
         "venue": "Angel Stadium",
         "park_factor": "100",
         "umpire_hp": "",
-        "weather_temp_f": "94.0",
-        "weather_wind": "7.0 mph W",
-        "weather_precip_pct": "0",
+        "weather_temp_f": "83.8",
+        "weather_wind": "8.2 mph SW",
+        "weather_precip_pct": "2",
         "away_record": "64-66 \u00b7 L10 6-4 \u00b7 W3 \u00b7 RD -14",
-        "away_vs_opp_hand": "",
+        "away_vs_opp_hand": "AVG .236 / OPS .689 / 93 HR",
         "away_il_count": "3",
         "away_il_names": "Rhys Hoskins, Shawn Armstrong, Slade Cecconi",
         "away_pitcher": "Parker Messick",
@@ -2604,18 +2600,18 @@
         "away_bullpen_b2b_arms": "0",
         "home_record": "52-78 \u00b7 L10 6-4 \u00b7 W1 \u00b7 RD -68",
         "home_vs_opp_hand": "AVG .237 / OPS .693 / 41 HR",
-        "home_il_count": "11",
+        "home_il_count": "10",
         "home_il_names": "Anthony Rendon, Jack Kochanowicz, Nolan Schanuel, Robert Stephenson, Sam Bachman",
-        "home_pitcher": "TBD",
-        "home_pitcher_hand": "",
-        "home_pitcher_era": "",
-        "home_pitcher_xera": "",
-        "home_pitcher_k_pct": "",
-        "home_pitcher_bb_pct": "",
-        "home_pitcher_barrel_pct": "",
-        "home_pitcher_whiff_pct": "",
-        "home_pitcher_hardhit_pct": "",
-        "home_pitcher_last3": "",
+        "home_pitcher": "George Klassen",
+        "home_pitcher_hand": "R",
+        "home_pitcher_era": "3.74",
+        "home_pitcher_xera": "5.28",
+        "home_pitcher_k_pct": "20.8",
+        "home_pitcher_bb_pct": "17.8",
+        "home_pitcher_barrel_pct": "9.8",
+        "home_pitcher_whiff_pct": "33.3",
+        "home_pitcher_hardhit_pct": "41",
+        "home_pitcher_last3": "2026-08-07: 4.0 IP, 1 ER, 3 K | 2026-08-12: 6.0 IP, 2 ER, 5 K | 2026-08-18: 7.0 IP, 0 ER, 7 K",
         "home_bullpen_ip_last3d": "5.2",
         "home_bullpen_b2b_arms": "1"
       }
@@ -3155,18 +3151,18 @@
       "park_factor": 94.0,
       "weather": {
         "venue": "Petco Park",
-        "temp_f": 73.0,
-        "wind_mph": 7.0,
+        "temp_f": 72.5,
+        "wind_mph": 5.8,
         "wind_dir": "SW",
-        "precip_pct": 0.0
+        "precip_pct": 2.0
       },
       "model": {
-        "away_win_pct": 0.4498,
-        "home_win_pct": 0.5502,
+        "away_win_pct": 0.45,
+        "home_win_pct": 0.55,
         "mean_away_runs": 4.35,
-        "mean_home_runs": 4.33,
-        "mean_total": 8.68,
-        "mean_margin": -0.01
+        "mean_home_runs": 4.32,
+        "mean_total": 8.67,
+        "mean_margin": -0.02
       },
       "picks": [],
       "projected_box": {
@@ -3283,7 +3279,7 @@
               "ab": 3.4,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.33,
+              "hr": 0.32,
               "rbi": 0.5,
               "bb": 0.8,
               "k": 1.3,
@@ -3294,7 +3290,7 @@
             "ab": 33.8,
             "r": 4.3,
             "h": 8.6,
-            "hr": 1.4,
+            "hr": 1.39,
             "rbi": 4.3,
             "bb": 5.3,
             "k": 8.5,
@@ -3370,7 +3366,7 @@
               "slot": 5,
               "pos": "1B",
               "name": "Gavin Sheets",
-              "ab": 3.9,
+              "ab": 3.8,
               "r": 0.5,
               "h": 0.9,
               "hr": 0.16,
@@ -3399,7 +3395,7 @@
               "ab": 3.9,
               "r": 0.4,
               "h": 1.0,
-              "hr": 0.09,
+              "hr": 0.08,
               "rbi": 0.4,
               "bb": 0.4,
               "k": 0.7,
@@ -3433,10 +3429,10 @@
             }
           ],
           "totals": {
-            "ab": 35.7,
+            "ab": 35.6,
             "r": 4.3,
             "h": 8.5,
-            "hr": 1.27,
+            "hr": 1.26,
             "rbi": 4.3,
             "bb": 3.6,
             "k": 8.3,
@@ -3461,162 +3457,162 @@
           "team": "PIT",
           "opp": "SD",
           "slot": 9,
-          "p_hr": 0.2853,
-          "hr_mean": 0.325,
-          "fair_odds": 251
+          "p_hr": 0.2834,
+          "hr_mean": 0.323,
+          "fair_odds": 253
         },
         {
           "name": "Oneil Cruz",
           "team": "PIT",
           "opp": "SD",
           "slot": 6,
-          "p_hr": 0.226,
-          "hr_mean": 0.247,
-          "fair_odds": 342
+          "p_hr": 0.2246,
+          "hr_mean": 0.246,
+          "fair_odds": 345
         },
         {
           "name": "Jackson Merrill",
           "team": "SD",
           "opp": "PIT",
           "slot": 3,
-          "p_hr": 0.1858,
-          "hr_mean": 0.202,
-          "fair_odds": 438
+          "p_hr": 0.1846,
+          "hr_mean": 0.2,
+          "fair_odds": 442
         },
         {
           "name": "Ty France",
           "team": "SD",
           "opp": "PIT",
           "slot": 6,
-          "p_hr": 0.1835,
-          "hr_mean": 0.196,
-          "fair_odds": 445
+          "p_hr": 0.1827,
+          "hr_mean": 0.195,
+          "fair_odds": 447
         },
         {
           "name": "Manny Machado",
           "team": "SD",
           "opp": "PIT",
           "slot": 2,
-          "p_hr": 0.1796,
-          "hr_mean": 0.198,
-          "fair_odds": 457
+          "p_hr": 0.1792,
+          "hr_mean": 0.197,
+          "fair_odds": 458
         },
         {
           "name": "Bryan Reynolds",
           "team": "PIT",
           "opp": "SD",
           "slot": 1,
-          "p_hr": 0.1775,
-          "hr_mean": 0.191,
-          "fair_odds": 463
+          "p_hr": 0.1764,
+          "hr_mean": 0.189,
+          "fair_odds": 467
         },
         {
           "name": "Brandon Lowe",
           "team": "PIT",
           "opp": "SD",
           "slot": 2,
-          "p_hr": 0.172,
-          "hr_mean": 0.185,
-          "fair_odds": 481
+          "p_hr": 0.1716,
+          "hr_mean": 0.184,
+          "fair_odds": 483
         },
         {
           "name": "Gavin Sheets",
           "team": "SD",
           "opp": "PIT",
           "slot": 5,
-          "p_hr": 0.1548,
-          "hr_mean": 0.165,
-          "fair_odds": 546
+          "p_hr": 0.1541,
+          "hr_mean": 0.164,
+          "fair_odds": 549
         },
         {
           "name": "Henry Davis",
           "team": "PIT",
           "opp": "SD",
           "slot": 8,
-          "p_hr": 0.1401,
-          "hr_mean": 0.149,
-          "fair_odds": 614
+          "p_hr": 0.1393,
+          "hr_mean": 0.148,
+          "fair_odds": 618
         },
         {
           "name": "Fernando Tatis Jr.",
           "team": "SD",
           "opp": "PIT",
           "slot": 1,
-          "p_hr": 0.1311,
-          "hr_mean": 0.139,
-          "fair_odds": 663
+          "p_hr": 0.1298,
+          "hr_mean": 0.137,
+          "fair_odds": 670
         },
         {
           "name": "Xander Bogaerts",
           "team": "SD",
           "opp": "PIT",
           "slot": 4,
-          "p_hr": 0.1201,
-          "hr_mean": 0.126,
-          "fair_odds": 733
+          "p_hr": 0.1194,
+          "hr_mean": 0.125,
+          "fair_odds": 738
         },
         {
           "name": "Spencer Horwitz",
           "team": "PIT",
           "opp": "SD",
           "slot": 5,
-          "p_hr": 0.1164,
-          "hr_mean": 0.121,
-          "fair_odds": 759
+          "p_hr": 0.1153,
+          "hr_mean": 0.12,
+          "fair_odds": 767
         },
         {
           "name": "Luis Rengifo",
           "team": "SD",
           "opp": "PIT",
           "slot": 7,
-          "p_hr": 0.0821,
-          "hr_mean": 0.085,
-          "fair_odds": 1118
+          "p_hr": 0.0812,
+          "hr_mean": 0.084,
+          "fair_odds": 1132
         },
         {
           "name": "Jake Cronenworth",
           "team": "SD",
           "opp": "PIT",
           "slot": 8,
-          "p_hr": 0.0742,
-          "hr_mean": 0.076,
-          "fair_odds": 1248
+          "p_hr": 0.0737,
+          "hr_mean": 0.075,
+          "fair_odds": 1257
         },
         {
           "name": "Freddy Fermin",
           "team": "SD",
           "opp": "PIT",
           "slot": 9,
-          "p_hr": 0.0732,
-          "hr_mean": 0.075,
-          "fair_odds": 1266
+          "p_hr": 0.0723,
+          "hr_mean": 0.074,
+          "fair_odds": 1283
         },
         {
           "name": "Jared Triolo",
           "team": "PIT",
           "opp": "SD",
           "slot": 7,
-          "p_hr": 0.061,
+          "p_hr": 0.0606,
           "hr_mean": 0.062,
-          "fair_odds": 1539
+          "fair_odds": 1550
         },
         {
           "name": "Jake Mangum",
           "team": "PIT",
           "opp": "SD",
           "slot": 4,
-          "p_hr": 0.0595,
-          "hr_mean": 0.061,
-          "fair_odds": 1581
+          "p_hr": 0.0589,
+          "hr_mean": 0.06,
+          "fair_odds": 1598
         },
         {
           "name": "Nick Gonzales",
           "team": "PIT",
           "opp": "SD",
           "slot": 3,
-          "p_hr": 0.0588,
+          "p_hr": 0.0585,
           "hr_mean": 0.06,
-          "fair_odds": 1601
+          "fair_odds": 1609
         }
       ],
       "context": {
@@ -3628,9 +3624,9 @@
         "venue": "Petco Park",
         "park_factor": "94",
         "umpire_hp": "",
-        "weather_temp_f": "73.0",
-        "weather_wind": "7.0 mph SW",
-        "weather_precip_pct": "0",
+        "weather_temp_f": "72.5",
+        "weather_wind": "5.8 mph SW",
+        "weather_precip_pct": "2",
         "away_record": "63-68 \u00b7 L10 5-5 \u00b7 L2 \u00b7 RD +29",
         "away_vs_opp_hand": "AVG .243 / OPS .687 / 41 HR",
         "away_il_count": "4",
@@ -3675,18 +3671,18 @@
       "home_abbr": "ATH",
       "venue": "",
       "away_pitcher": "",
-      "home_pitcher": "",
+      "home_pitcher": "Jeffrey Springs",
       "park_factor": 100.0,
       "weather": {
         "venue": "Sutter Health Park"
       },
       "model": {
-        "away_win_pct": 0.5074,
-        "home_win_pct": 0.4926,
-        "mean_away_runs": 5.2,
-        "mean_home_runs": 4.63,
-        "mean_total": 9.83,
-        "mean_margin": -0.57
+        "away_win_pct": 0.5526,
+        "home_win_pct": 0.4474,
+        "mean_away_runs": 5.72,
+        "mean_home_runs": 4.65,
+        "mean_total": 10.37,
+        "mean_margin": -1.07
       },
       "picks": [],
       "projected_box": {
@@ -3696,66 +3692,66 @@
               "slot": 1,
               "pos": "DH",
               "name": "Josh Bell",
-              "ab": 4.1,
-              "r": 0.7,
-              "h": 1.0,
-              "hr": 0.17,
+              "ab": 4.0,
+              "r": 0.8,
+              "h": 1.2,
+              "hr": 0.23,
               "rbi": 0.5,
               "bb": 0.4,
-              "k": 1.0,
-              "tb": 1.8
+              "k": 0.7,
+              "tb": 2.1
             },
             {
               "slot": 2,
               "pos": "3B",
               "name": "Brooks Lee",
               "ab": 4.1,
-              "r": 0.6,
+              "r": 0.7,
               "h": 1.0,
-              "hr": 0.13,
-              "rbi": 0.5,
-              "bb": 0.3,
-              "k": 0.8,
-              "tb": 1.7
+              "hr": 0.14,
+              "rbi": 0.6,
+              "bb": 0.4,
+              "k": 0.6,
+              "tb": 1.6
             },
             {
               "slot": 3,
               "pos": "2B",
               "name": "Luke Keaschall",
-              "ab": 4.0,
-              "r": 0.7,
-              "h": 1.0,
+              "ab": 3.9,
+              "r": 0.8,
+              "h": 1.1,
               "hr": 0.09,
-              "rbi": 0.6,
-              "bb": 0.4,
-              "k": 0.7,
-              "tb": 1.4
+              "rbi": 0.7,
+              "bb": 0.5,
+              "k": 0.6,
+              "tb": 1.6
             },
             {
               "slot": 4,
               "pos": "1B",
               "name": "Kody Clemens",
-              "ab": 4.1,
-              "r": 0.5,
+              "ab": 4.0,
+              "r": 0.6,
               "h": 1.0,
-              "hr": 0.2,
-              "rbi": 0.8,
+              "hr": 0.26,
+              "rbi": 0.9,
               "bb": 0.3,
-              "k": 1.0,
-              "tb": 1.9
+              "k": 0.8,
+              "tb": 2.0
             },
             {
               "slot": 5,
               "pos": "CF",
               "name": "Byron Buxton",
               "ab": 4.0,
-              "r": 0.5,
-              "h": 1.0,
-              "hr": 0.28,
-              "rbi": 0.8,
-              "bb": 0.3,
-              "k": 1.1,
-              "tb": 2.0
+              "r": 0.6,
+              "h": 1.1,
+              "hr": 0.33,
+              "rbi": 0.9,
+              "bb": 0.4,
+              "k": 0.9,
+              "tb": 2.3
             },
             {
               "slot": 6,
@@ -3763,25 +3759,25 @@
               "name": "Royce Lewis",
               "ab": 3.9,
               "r": 0.5,
-              "h": 0.9,
-              "hr": 0.17,
+              "h": 1.1,
+              "hr": 0.25,
               "rbi": 0.6,
               "bb": 0.4,
-              "k": 1.1,
-              "tb": 1.6
+              "k": 0.9,
+              "tb": 2.0
             },
             {
               "slot": 7,
               "pos": "LF",
               "name": "Trevor Larnach",
               "ab": 3.8,
-              "r": 0.5,
-              "h": 1.1,
-              "hr": 0.12,
-              "rbi": 0.5,
-              "bb": 0.4,
-              "k": 0.8,
-              "tb": 1.7
+              "r": 0.6,
+              "h": 0.9,
+              "hr": 0.18,
+              "rbi": 0.6,
+              "bb": 0.5,
+              "k": 0.6,
+              "tb": 1.6
             },
             {
               "slot": 8,
@@ -3790,35 +3786,35 @@
               "ab": 3.8,
               "r": 0.5,
               "h": 0.9,
-              "hr": 0.12,
+              "hr": 0.14,
               "rbi": 0.4,
-              "bb": 0.4,
-              "k": 0.9,
+              "bb": 0.5,
+              "k": 0.7,
               "tb": 1.5
             },
             {
               "slot": 9,
               "pos": "C",
               "name": "Ryan Jeffers",
-              "ab": 3.7,
+              "ab": 3.6,
               "r": 0.6,
-              "h": 0.9,
-              "hr": 0.18,
-              "rbi": 0.5,
-              "bb": 0.5,
-              "k": 0.8,
-              "tb": 1.7
+              "h": 1.1,
+              "hr": 0.22,
+              "rbi": 0.6,
+              "bb": 0.6,
+              "k": 0.6,
+              "tb": 1.9
             }
           ],
           "totals": {
-            "ab": 35.5,
-            "r": 5.2,
-            "h": 8.8,
-            "hr": 1.46,
-            "rbi": 5.2,
-            "bb": 3.4,
-            "k": 8.2,
-            "tb": 15.3
+            "ab": 35.1,
+            "r": 5.7,
+            "h": 9.4,
+            "hr": 1.84,
+            "rbi": 5.8,
+            "bb": 4.0,
+            "k": 6.4,
+            "tb": 16.6
           },
           "starter": {
             "name": "",
@@ -3866,7 +3862,7 @@
               "name": "Henry Bolte",
               "ab": 4.1,
               "r": 0.6,
-              "h": 0.9,
+              "h": 1.0,
               "hr": 0.08,
               "rbi": 0.6,
               "bb": 0.3,
@@ -3923,7 +3919,7 @@
               "rbi": 0.5,
               "bb": 0.3,
               "k": 1.4,
-              "tb": 1.5
+              "tb": 1.6
             },
             {
               "slot": 8,
@@ -3955,23 +3951,23 @@
           "totals": {
             "ab": 35.8,
             "r": 4.6,
-            "h": 8.6,
+            "h": 8.7,
             "hr": 1.03,
             "rbi": 4.6,
             "bb": 3.1,
             "k": 8.8,
-            "tb": 13.5
+            "tb": 13.6
           },
           "starter": {
-            "name": "",
-            "ip": 5.2,
-            "h": 5.6,
-            "r": 2.5,
-            "er": 2.5,
-            "bb": 1.8,
-            "k": 4.1,
-            "hr": 0.66,
-            "starts": null
+            "name": "Jeffrey Springs",
+            "ip": 5.0,
+            "h": 5.7,
+            "r": 3.6,
+            "er": 3.6,
+            "bb": 2.1,
+            "k": 4.0,
+            "hr": 1.37,
+            "starts": 23
           }
         }
       },
@@ -3981,162 +3977,162 @@
           "team": "MIN",
           "opp": "ATH",
           "slot": 5,
-          "p_hr": 0.2509,
-          "hr_mean": 0.279,
-          "fair_odds": 299
+          "p_hr": 0.2925,
+          "hr_mean": 0.334,
+          "fair_odds": 242
         },
         {
           "name": "Kody Clemens",
           "team": "MIN",
           "opp": "ATH",
           "slot": 4,
-          "p_hr": 0.1876,
-          "hr_mean": 0.204,
-          "fair_odds": 433
-        },
-        {
-          "name": "Ryan Jeffers",
-          "team": "MIN",
-          "opp": "ATH",
-          "slot": 9,
-          "p_hr": 0.1688,
-          "hr_mean": 0.18,
-          "fair_odds": 492
-        },
-        {
-          "name": "Zack Gelof",
-          "team": "ATH",
-          "opp": "MIN",
-          "slot": 6,
-          "p_hr": 0.1584,
-          "hr_mean": 0.168,
-          "fair_odds": 531
-        },
-        {
-          "name": "Josh Bell",
-          "team": "MIN",
-          "opp": "ATH",
-          "slot": 1,
-          "p_hr": 0.1583,
-          "hr_mean": 0.168,
-          "fair_odds": 532
+          "p_hr": 0.2327,
+          "hr_mean": 0.258,
+          "fair_odds": 330
         },
         {
           "name": "Royce Lewis",
           "team": "MIN",
           "opp": "ATH",
           "slot": 6,
-          "p_hr": 0.1577,
-          "hr_mean": 0.169,
-          "fair_odds": 534
+          "p_hr": 0.227,
+          "hr_mean": 0.25,
+          "fair_odds": 341
         },
         {
-          "name": "Max Muncy",
-          "team": "ATH",
-          "opp": "MIN",
-          "slot": 7,
-          "p_hr": 0.1552,
-          "hr_mean": 0.165,
-          "fair_odds": 544
-        },
-        {
-          "name": "Lawrence Butler",
-          "team": "ATH",
-          "opp": "MIN",
-          "slot": 1,
-          "p_hr": 0.1324,
-          "hr_mean": 0.14,
-          "fair_odds": 655
-        },
-        {
-          "name": "Brooks Lee",
+          "name": "Josh Bell",
           "team": "MIN",
           "opp": "ATH",
-          "slot": 2,
-          "p_hr": 0.1279,
-          "hr_mean": 0.134,
-          "fair_odds": 682
+          "slot": 1,
+          "p_hr": 0.2062,
+          "hr_mean": 0.227,
+          "fair_odds": 385
         },
         {
-          "name": "Carlos Cortes",
-          "team": "ATH",
-          "opp": "MIN",
-          "slot": 5,
-          "p_hr": 0.1168,
-          "hr_mean": 0.122,
-          "fair_odds": 756
+          "name": "Ryan Jeffers",
+          "team": "MIN",
+          "opp": "ATH",
+          "slot": 9,
+          "p_hr": 0.1974,
+          "hr_mean": 0.215,
+          "fair_odds": 407
         },
         {
           "name": "Trevor Larnach",
           "team": "MIN",
           "opp": "ATH",
           "slot": 7,
-          "p_hr": 0.115,
-          "hr_mean": 0.12,
-          "fair_odds": 770
+          "p_hr": 0.1644,
+          "hr_mean": 0.175,
+          "fair_odds": 508
+        },
+        {
+          "name": "Zack Gelof",
+          "team": "ATH",
+          "opp": "MIN",
+          "slot": 6,
+          "p_hr": 0.1565,
+          "hr_mean": 0.166,
+          "fair_odds": 539
+        },
+        {
+          "name": "Max Muncy",
+          "team": "ATH",
+          "opp": "MIN",
+          "slot": 7,
+          "p_hr": 0.1558,
+          "hr_mean": 0.165,
+          "fair_odds": 542
         },
         {
           "name": "Victor Caratini",
           "team": "MIN",
           "opp": "ATH",
           "slot": 8,
-          "p_hr": 0.1097,
-          "hr_mean": 0.116,
-          "fair_odds": 812
+          "p_hr": 0.1375,
+          "hr_mean": 0.145,
+          "fair_odds": 627
+        },
+        {
+          "name": "Brooks Lee",
+          "team": "MIN",
+          "opp": "ATH",
+          "slot": 2,
+          "p_hr": 0.1334,
+          "hr_mean": 0.141,
+          "fair_odds": 650
+        },
+        {
+          "name": "Lawrence Butler",
+          "team": "ATH",
+          "opp": "MIN",
+          "slot": 1,
+          "p_hr": 0.1332,
+          "hr_mean": 0.141,
+          "fair_odds": 651
+        },
+        {
+          "name": "Carlos Cortes",
+          "team": "ATH",
+          "opp": "MIN",
+          "slot": 5,
+          "p_hr": 0.118,
+          "hr_mean": 0.123,
+          "fair_odds": 747
         },
         {
           "name": "Jonah Heim",
           "team": "ATH",
           "opp": "MIN",
           "slot": 4,
-          "p_hr": 0.1071,
+          "p_hr": 0.108,
           "hr_mean": 0.113,
-          "fair_odds": 834
+          "fair_odds": 826
         },
         {
           "name": "Donovan Walton",
           "team": "ATH",
           "opp": "MIN",
           "slot": 8,
-          "p_hr": 0.1002,
-          "hr_mean": 0.104,
-          "fair_odds": 898
+          "p_hr": 0.0993,
+          "hr_mean": 0.103,
+          "fair_odds": 907
         },
         {
           "name": "Luke Keaschall",
           "team": "MIN",
           "opp": "ATH",
           "slot": 3,
-          "p_hr": 0.086,
-          "hr_mean": 0.089,
-          "fair_odds": 1063
+          "p_hr": 0.0841,
+          "hr_mean": 0.087,
+          "fair_odds": 1089
         },
         {
           "name": "Henry Bolte",
           "team": "ATH",
           "opp": "MIN",
           "slot": 3,
-          "p_hr": 0.0737,
-          "hr_mean": 0.076,
-          "fair_odds": 1257
+          "p_hr": 0.0744,
+          "hr_mean": 0.077,
+          "fair_odds": 1244
         },
         {
           "name": "Jeff McNeil",
           "team": "ATH",
           "opp": "MIN",
           "slot": 2,
-          "p_hr": 0.0725,
+          "p_hr": 0.0724,
           "hr_mean": 0.075,
-          "fair_odds": 1279
+          "fair_odds": 1281
         },
         {
           "name": "Alika Williams",
           "team": "ATH",
           "opp": "MIN",
           "slot": 9,
-          "p_hr": 0.0576,
-          "hr_mean": 0.059,
-          "fair_odds": 1636
+          "p_hr": 0.0585,
+          "hr_mean": 0.06,
+          "fair_odds": 1609
         }
       ],
       "context": {
@@ -4152,7 +4148,7 @@
         "weather_wind": "",
         "weather_precip_pct": "",
         "away_record": "63-67 \u00b7 L10 4-6 \u00b7 L2 \u00b7 RD -47",
-        "away_vs_opp_hand": "",
+        "away_vs_opp_hand": "AVG .236 / OPS .695 / 35 HR",
         "away_il_count": "8",
         "away_il_names": "Anthony Banda, Austin Martin, Cole Sands, David Festa, Joe Ryan",
         "away_pitcher": "TBD",
@@ -4171,16 +4167,16 @@
         "home_vs_opp_hand": "",
         "home_il_count": "13",
         "home_il_names": "Brent Rooker, Brooks Kriske, Denzel Clarke, Gunnar Hoglund, Jacob Wilson",
-        "home_pitcher": "TBD",
-        "home_pitcher_hand": "",
-        "home_pitcher_era": "",
-        "home_pitcher_xera": "",
-        "home_pitcher_k_pct": "",
-        "home_pitcher_bb_pct": "",
-        "home_pitcher_barrel_pct": "",
-        "home_pitcher_whiff_pct": "",
-        "home_pitcher_hardhit_pct": "",
-        "home_pitcher_last3": "",
+        "home_pitcher": "Jeffrey Springs",
+        "home_pitcher_hand": "L",
+        "home_pitcher_era": "6.02",
+        "home_pitcher_xera": "5.07",
+        "home_pitcher_k_pct": "17.7",
+        "home_pitcher_bb_pct": "9.3",
+        "home_pitcher_barrel_pct": "9.7",
+        "home_pitcher_whiff_pct": "23.3",
+        "home_pitcher_hardhit_pct": "35.3",
+        "home_pitcher_last3": "2026-07-26: 1.1 IP, 4 ER, 0 K | 2026-07-31: 4.0 IP, 2 ER, 2 K | 2026-08-19: 5.2 IP, 2 ER, 1 K",
         "home_bullpen_ip_last3d": "6.0",
         "home_bullpen_b2b_arms": "1"
       }
@@ -4194,7 +4190,7 @@
       "away_abbr": "PHI",
       "home_abbr": "SEA",
       "venue": "",
-      "away_pitcher": "",
+      "away_pitcher": "Zack Wheeler",
       "home_pitcher": "",
       "park_factor": 97.0,
       "weather": {
@@ -4202,12 +4198,12 @@
         "is_dome": true
       },
       "model": {
-        "away_win_pct": 0.4779,
-        "home_win_pct": 0.5221,
+        "away_win_pct": 0.5293,
+        "home_win_pct": 0.4707,
         "mean_away_runs": 4.34,
-        "mean_home_runs": 4.0,
-        "mean_total": 8.34,
-        "mean_margin": -0.35
+        "mean_home_runs": 3.51,
+        "mean_total": 7.86,
+        "mean_margin": -0.83
       },
       "picks": [],
       "projected_box": {
@@ -4233,7 +4229,7 @@
               "ab": 3.8,
               "r": 0.7,
               "h": 1.2,
-              "hr": 0.22,
+              "hr": 0.23,
               "rbi": 0.5,
               "bb": 0.7,
               "k": 1.0,
@@ -4261,7 +4257,7 @@
               "h": 1.2,
               "hr": 0.06,
               "rbi": 0.6,
-              "bb": 0.2,
+              "bb": 0.3,
               "k": 0.3,
               "tb": 1.7
             },
@@ -4288,7 +4284,7 @@
               "hr": 0.09,
               "rbi": 0.5,
               "bb": 0.4,
-              "k": 0.8,
+              "k": 0.7,
               "tb": 1.6
             },
             {
@@ -4310,7 +4306,7 @@
               "name": "Justin Crawford",
               "ab": 4.0,
               "r": 0.4,
-              "h": 1.0,
+              "h": 1.1,
               "hr": 0.05,
               "rbi": 0.3,
               "bb": 0.3,
@@ -4334,23 +4330,23 @@
           "totals": {
             "ab": 35.7,
             "r": 4.3,
-            "h": 9.4,
-            "hr": 1.21,
+            "h": 9.5,
+            "hr": 1.22,
             "rbi": 4.3,
-            "bb": 3.4,
-            "k": 7.9,
+            "bb": 3.5,
+            "k": 7.8,
             "tb": 15.2
           },
           "starter": {
-            "name": "",
-            "ip": 5.2,
-            "h": 4.7,
-            "r": 2.1,
-            "er": 2.1,
-            "bb": 1.8,
-            "k": 4.1,
-            "hr": 0.64,
-            "starts": null
+            "name": "Zack Wheeler",
+            "ip": 5.6,
+            "h": 3.6,
+            "r": 1.6,
+            "er": 1.6,
+            "bb": 1.5,
+            "k": 6.5,
+            "hr": 0.62,
+            "starts": 21
           }
         },
         "home": {
@@ -4359,53 +4355,53 @@
               "slot": 1,
               "pos": "DH",
               "name": "Taylor Ward",
-              "ab": 3.8,
-              "r": 0.6,
-              "h": 1.0,
-              "hr": 0.07,
+              "ab": 3.9,
+              "r": 0.5,
+              "h": 0.8,
+              "hr": 0.06,
               "rbi": 0.3,
-              "bb": 0.7,
-              "k": 1.0,
-              "tb": 1.4
+              "bb": 0.6,
+              "k": 1.3,
+              "tb": 1.1
             },
             {
               "slot": 2,
               "pos": "LF",
               "name": "Randy Arozarena",
-              "ab": 4.0,
-              "r": 0.6,
-              "h": 1.1,
-              "hr": 0.15,
-              "rbi": 0.5,
+              "ab": 4.1,
+              "r": 0.5,
+              "h": 0.9,
+              "hr": 0.12,
+              "rbi": 0.4,
               "bb": 0.4,
-              "k": 1.0,
-              "tb": 1.7
+              "k": 1.3,
+              "tb": 1.4
             },
             {
               "slot": 3,
               "pos": "2B",
               "name": "Cole Young",
               "ab": 4.1,
-              "r": 0.5,
-              "h": 1.1,
-              "hr": 0.12,
+              "r": 0.4,
+              "h": 0.9,
+              "hr": 0.1,
               "rbi": 0.5,
               "bb": 0.3,
-              "k": 0.8,
-              "tb": 1.6
+              "k": 1.1,
+              "tb": 1.4
             },
             {
               "slot": 4,
               "pos": "1B",
               "name": "Josh Naylor",
-              "ab": 4.0,
-              "r": 0.5,
-              "h": 1.1,
-              "hr": 0.1,
+              "ab": 4.1,
+              "r": 0.4,
+              "h": 0.9,
+              "hr": 0.08,
               "rbi": 0.5,
-              "bb": 0.4,
-              "k": 0.6,
-              "tb": 1.6
+              "bb": 0.3,
+              "k": 0.9,
+              "tb": 1.3
             },
             {
               "slot": 5,
@@ -4413,38 +4409,38 @@
               "name": "Julio Rodr\u00edguez",
               "ab": 4.0,
               "r": 0.4,
-              "h": 1.0,
-              "hr": 0.14,
-              "rbi": 0.6,
+              "h": 0.9,
+              "hr": 0.12,
+              "rbi": 0.5,
               "bb": 0.3,
-              "k": 1.0,
-              "tb": 1.6
+              "k": 1.3,
+              "tb": 1.4
             },
             {
               "slot": 6,
               "pos": "C",
               "name": "Cal Raleigh",
-              "ab": 3.8,
+              "ab": 3.9,
               "r": 0.3,
-              "h": 0.8,
-              "hr": 0.16,
-              "rbi": 0.4,
+              "h": 0.6,
+              "hr": 0.14,
+              "rbi": 0.3,
               "bb": 0.5,
-              "k": 1.3,
-              "tb": 1.4
+              "k": 1.7,
+              "tb": 1.2
             },
             {
               "slot": 7,
               "pos": "DH",
               "name": "Dominic Canzone",
-              "ab": 3.9,
-              "r": 0.4,
-              "h": 1.1,
-              "hr": 0.2,
+              "ab": 4.0,
+              "r": 0.3,
+              "h": 0.9,
+              "hr": 0.17,
               "rbi": 0.5,
-              "bb": 0.4,
-              "k": 0.9,
-              "tb": 1.9
+              "bb": 0.3,
+              "k": 1.3,
+              "tb": 1.6
             },
             {
               "slot": 8,
@@ -4452,36 +4448,36 @@
               "name": "Brendan Donovan",
               "ab": 3.9,
               "r": 0.4,
-              "h": 1.1,
-              "hr": 0.09,
-              "rbi": 0.4,
-              "bb": 0.4,
-              "k": 0.7,
-              "tb": 1.6
+              "h": 0.9,
+              "hr": 0.07,
+              "rbi": 0.3,
+              "bb": 0.3,
+              "k": 1.0,
+              "tb": 1.3
             },
             {
               "slot": 9,
               "pos": "RF",
               "name": "Victor Robles",
-              "ab": 3.9,
-              "r": 0.4,
-              "h": 0.9,
-              "hr": 0.09,
+              "ab": 4.0,
+              "r": 0.3,
+              "h": 0.7,
+              "hr": 0.07,
               "rbi": 0.3,
-              "bb": 0.3,
-              "k": 0.8,
-              "tb": 1.3
+              "bb": 0.2,
+              "k": 1.0,
+              "tb": 1.1
             }
           ],
           "totals": {
-            "ab": 35.4,
-            "r": 4.0,
-            "h": 9.2,
-            "hr": 1.12,
-            "rbi": 4.0,
-            "bb": 3.7,
-            "k": 8.1,
-            "tb": 14.1
+            "ab": 36.0,
+            "r": 3.5,
+            "h": 7.5,
+            "hr": 0.93,
+            "rbi": 3.6,
+            "bb": 3.2,
+            "k": 10.9,
+            "tb": 11.8
           },
           "starter": {
             "name": "",
@@ -4502,162 +4498,162 @@
           "team": "PHI",
           "opp": "SEA",
           "slot": 3,
-          "p_hr": 0.2577,
-          "hr_mean": 0.289,
-          "fair_odds": 288
+          "p_hr": 0.2554,
+          "hr_mean": 0.287,
+          "fair_odds": 292
         },
         {
           "name": "Bryce Harper",
           "team": "PHI",
           "opp": "SEA",
           "slot": 2,
-          "p_hr": 0.2042,
-          "hr_mean": 0.222,
-          "fair_odds": 390
+          "p_hr": 0.2077,
+          "hr_mean": 0.228,
+          "fair_odds": 381
         },
         {
           "name": "Dominic Canzone",
           "team": "SEA",
           "opp": "PHI",
           "slot": 7,
-          "p_hr": 0.1827,
-          "hr_mean": 0.198,
-          "fair_odds": 447
-        },
-        {
-          "name": "Cal Raleigh",
-          "team": "SEA",
-          "opp": "PHI",
-          "slot": 6,
-          "p_hr": 0.1539,
-          "hr_mean": 0.164,
-          "fair_odds": 550
+          "p_hr": 0.156,
+          "hr_mean": 0.168,
+          "fair_odds": 541
         },
         {
           "name": "Brandon Marsh",
           "team": "PHI",
           "opp": "SEA",
           "slot": 7,
-          "p_hr": 0.1461,
-          "hr_mean": 0.157,
-          "fair_odds": 584
+          "p_hr": 0.1483,
+          "hr_mean": 0.159,
+          "fair_odds": 574
         },
         {
-          "name": "Randy Arozarena",
+          "name": "Cal Raleigh",
           "team": "SEA",
           "opp": "PHI",
-          "slot": 2,
-          "p_hr": 0.1377,
-          "hr_mean": 0.145,
-          "fair_odds": 626
+          "slot": 6,
+          "p_hr": 0.1363,
+          "hr_mean": 0.143,
+          "fair_odds": 634
         },
         {
           "name": "Trea Turner",
           "team": "PHI",
           "opp": "SEA",
           "slot": 1,
-          "p_hr": 0.1285,
-          "hr_mean": 0.135,
-          "fair_odds": 678
+          "p_hr": 0.129,
+          "hr_mean": 0.137,
+          "fair_odds": 675
+        },
+        {
+          "name": "Randy Arozarena",
+          "team": "SEA",
+          "opp": "PHI",
+          "slot": 2,
+          "p_hr": 0.1168,
+          "hr_mean": 0.122,
+          "fair_odds": 756
         },
         {
           "name": "Julio Rodr\u00edguez",
           "team": "SEA",
           "opp": "PHI",
           "slot": 5,
-          "p_hr": 0.1283,
-          "hr_mean": 0.136,
-          "fair_odds": 679
-        },
-        {
-          "name": "Cole Young",
-          "team": "SEA",
-          "opp": "PHI",
-          "slot": 3,
-          "p_hr": 0.1126,
-          "hr_mean": 0.117,
-          "fair_odds": 788
+          "p_hr": 0.1129,
+          "hr_mean": 0.118,
+          "fair_odds": 786
         },
         {
           "name": "Alec Bohm",
           "team": "PHI",
           "opp": "SEA",
           "slot": 5,
-          "p_hr": 0.0947,
-          "hr_mean": 0.099,
-          "fair_odds": 956
+          "p_hr": 0.0963,
+          "hr_mean": 0.102,
+          "fair_odds": 938
         },
         {
           "name": "J.T. Realmuto",
           "team": "PHI",
           "opp": "SEA",
           "slot": 9,
-          "p_hr": 0.0942,
-          "hr_mean": 0.098,
-          "fair_odds": 962
+          "p_hr": 0.0927,
+          "hr_mean": 0.096,
+          "fair_odds": 979
         },
         {
-          "name": "Josh Naylor",
+          "name": "Cole Young",
           "team": "SEA",
           "opp": "PHI",
-          "slot": 4,
-          "p_hr": 0.0922,
-          "hr_mean": 0.095,
-          "fair_odds": 985
+          "slot": 3,
+          "p_hr": 0.0925,
+          "hr_mean": 0.096,
+          "fair_odds": 981
         },
         {
           "name": "Bryson Stott",
           "team": "PHI",
           "opp": "SEA",
           "slot": 6,
-          "p_hr": 0.0899,
-          "hr_mean": 0.094,
-          "fair_odds": 1012
+          "p_hr": 0.0894,
+          "hr_mean": 0.093,
+          "fair_odds": 1019
+        },
+        {
+          "name": "Josh Naylor",
+          "team": "SEA",
+          "opp": "PHI",
+          "slot": 4,
+          "p_hr": 0.0751,
+          "hr_mean": 0.077,
+          "fair_odds": 1232
         },
         {
           "name": "Brendan Donovan",
           "team": "SEA",
           "opp": "PHI",
           "slot": 8,
-          "p_hr": 0.0859,
-          "hr_mean": 0.089,
-          "fair_odds": 1064
+          "p_hr": 0.072,
+          "hr_mean": 0.074,
+          "fair_odds": 1289
         },
         {
           "name": "Victor Robles",
           "team": "SEA",
           "opp": "PHI",
           "slot": 9,
-          "p_hr": 0.0832,
-          "hr_mean": 0.086,
-          "fair_odds": 1102
+          "p_hr": 0.0687,
+          "hr_mean": 0.071,
+          "fair_odds": 1356
         },
         {
           "name": "Taylor Ward",
           "team": "SEA",
           "opp": "PHI",
           "slot": 1,
-          "p_hr": 0.0678,
-          "hr_mean": 0.07,
-          "fair_odds": 1375
+          "p_hr": 0.0569,
+          "hr_mean": 0.059,
+          "fair_odds": 1657
         },
         {
           "name": "Luis Arraez",
           "team": "PHI",
           "opp": "SEA",
           "slot": 4,
-          "p_hr": 0.0545,
-          "hr_mean": 0.056,
-          "fair_odds": 1735
+          "p_hr": 0.0538,
+          "hr_mean": 0.055,
+          "fair_odds": 1759
         },
         {
           "name": "Justin Crawford",
           "team": "PHI",
           "opp": "SEA",
           "slot": 8,
-          "p_hr": 0.0455,
-          "hr_mean": 0.046,
-          "fair_odds": 2098
+          "p_hr": 0.0444,
+          "hr_mean": 0.045,
+          "fair_odds": 2152
         }
       ],
       "context": {
@@ -4676,20 +4672,20 @@
         "away_vs_opp_hand": "",
         "away_il_count": "7",
         "away_il_names": "Adolis Garc\u00eda, Brad Keller, Caleb Kilian, Felix Reyes, Johan Rojas",
-        "away_pitcher": "TBD",
-        "away_pitcher_hand": "",
-        "away_pitcher_era": "",
-        "away_pitcher_xera": "",
-        "away_pitcher_k_pct": "",
-        "away_pitcher_bb_pct": "",
-        "away_pitcher_barrel_pct": "",
-        "away_pitcher_whiff_pct": "",
-        "away_pitcher_hardhit_pct": "",
-        "away_pitcher_last3": "",
+        "away_pitcher": "Zack Wheeler",
+        "away_pitcher_hand": "R",
+        "away_pitcher_era": "2.92",
+        "away_pitcher_xera": "2.78",
+        "away_pitcher_k_pct": "30.4",
+        "away_pitcher_bb_pct": "7",
+        "away_pitcher_barrel_pct": "5.8",
+        "away_pitcher_whiff_pct": "30.7",
+        "away_pitcher_hardhit_pct": "35",
+        "away_pitcher_last3": "2026-08-07: 5.1 IP, 4 ER, 6 K | 2026-08-12: 5.0 IP, 4 ER, 5 K | 2026-08-18: 5.0 IP, 2 ER, 7 K",
         "away_bullpen_ip_last3d": "6.1",
         "away_bullpen_b2b_arms": "0",
         "home_record": "62-68 \u00b7 L10 6-4 \u00b7 W2 \u00b7 RD -44",
-        "home_vs_opp_hand": "",
+        "home_vs_opp_hand": "AVG .236 / OPS .706 / 105 HR",
         "home_il_count": "8",
         "home_il_names": "Cole Wilcox, Colt Emerson, Cooper Criswell, J.P. Crawford, Logan Evans",
         "home_pitcher": "TBD",
@@ -4720,15 +4716,15 @@
       "park_factor": 94.0,
       "weather": {
         "venue": "Oracle Park",
-        "temp_f": 62.4,
-        "wind_mph": 13.1,
+        "temp_f": 62.6,
+        "wind_mph": 13.0,
         "wind_dir": "W",
-        "precip_pct": 0.0
+        "precip_pct": 1.0
       },
       "model": {
-        "away_win_pct": 0.4721,
-        "home_win_pct": 0.5279,
-        "mean_away_runs": 3.86,
+        "away_win_pct": 0.4742,
+        "home_win_pct": 0.5258,
+        "mean_away_runs": 3.87,
         "mean_home_runs": 3.56,
         "mean_total": 7.43,
         "mean_margin": -0.3
@@ -5026,25 +5022,25 @@
           "team": "CIN",
           "opp": "SF",
           "slot": 1,
-          "p_hr": 0.1903,
+          "p_hr": 0.1901,
           "hr_mean": 0.206,
-          "fair_odds": 425
+          "fair_odds": 426
         },
         {
           "name": "Elly De La Cruz",
           "team": "CIN",
           "opp": "SF",
           "slot": 2,
-          "p_hr": 0.1776,
+          "p_hr": 0.1779,
           "hr_mean": 0.191,
-          "fair_odds": 463
+          "fair_odds": 462
         },
         {
           "name": "Tyler Stephenson",
           "team": "CIN",
           "opp": "SF",
           "slot": 6,
-          "p_hr": 0.1745,
+          "p_hr": 0.1746,
           "hr_mean": 0.188,
           "fair_odds": 473
         },
@@ -5053,18 +5049,18 @@
           "team": "CIN",
           "opp": "SF",
           "slot": 3,
-          "p_hr": 0.1713,
+          "p_hr": 0.1715,
           "hr_mean": 0.185,
-          "fair_odds": 484
+          "fair_odds": 483
         },
         {
           "name": "Rafael Devers",
           "team": "SF",
           "opp": "CIN",
           "slot": 1,
-          "p_hr": 0.1698,
+          "p_hr": 0.1701,
           "hr_mean": 0.181,
-          "fair_odds": 489
+          "fair_odds": 488
         },
         {
           "name": "Eugenio Su\u00e1rez",
@@ -5080,7 +5076,7 @@
           "team": "SF",
           "opp": "CIN",
           "slot": 8,
-          "p_hr": 0.1569,
+          "p_hr": 0.157,
           "hr_mean": 0.166,
           "fair_odds": 537
         },
@@ -5089,27 +5085,27 @@
           "team": "SF",
           "opp": "CIN",
           "slot": 4,
-          "p_hr": 0.1508,
-          "hr_mean": 0.161,
-          "fair_odds": 563
+          "p_hr": 0.1507,
+          "hr_mean": 0.16,
+          "fair_odds": 564
         },
         {
           "name": "Matt McLain",
           "team": "CIN",
           "opp": "SF",
           "slot": 4,
-          "p_hr": 0.1359,
+          "p_hr": 0.1357,
           "hr_mean": 0.144,
-          "fair_odds": 636
+          "fair_odds": 637
         },
         {
           "name": "Willy Adames",
           "team": "SF",
           "opp": "CIN",
           "slot": 2,
-          "p_hr": 0.1347,
-          "hr_mean": 0.143,
-          "fair_odds": 642
+          "p_hr": 0.135,
+          "hr_mean": 0.144,
+          "fair_odds": 641
         },
         {
           "name": "Osleivis Basabe",
@@ -5134,18 +5130,9 @@
           "team": "SF",
           "opp": "CIN",
           "slot": 6,
-          "p_hr": 0.0925,
+          "p_hr": 0.0926,
           "hr_mean": 0.096,
-          "fair_odds": 981
-        },
-        {
-          "name": "Drew Cavanaugh",
-          "team": "SF",
-          "opp": "CIN",
-          "slot": 7,
-          "p_hr": 0.0863,
-          "hr_mean": 0.089,
-          "fair_odds": 1059
+          "fair_odds": 980
         },
         {
           "name": "Drew Gilbert",
@@ -5157,31 +5144,40 @@
           "fair_odds": 1060
         },
         {
+          "name": "Drew Cavanaugh",
+          "team": "SF",
+          "opp": "CIN",
+          "slot": 7,
+          "p_hr": 0.0862,
+          "hr_mean": 0.089,
+          "fair_odds": 1060
+        },
+        {
           "name": "Dane Myers",
           "team": "CIN",
           "opp": "SF",
           "slot": 8,
-          "p_hr": 0.076,
-          "hr_mean": 0.079,
-          "fair_odds": 1216
+          "p_hr": 0.0762,
+          "hr_mean": 0.08,
+          "fair_odds": 1212
         },
         {
           "name": "TJ Friedl",
           "team": "CIN",
           "opp": "SF",
           "slot": 7,
-          "p_hr": 0.0723,
+          "p_hr": 0.0722,
           "hr_mean": 0.074,
-          "fair_odds": 1283
+          "fair_odds": 1285
         },
         {
           "name": "Jung Hoo Lee",
           "team": "SF",
           "opp": "CIN",
           "slot": 3,
-          "p_hr": 0.0662,
-          "hr_mean": 0.068,
-          "fair_odds": 1411
+          "p_hr": 0.0664,
+          "hr_mean": 0.069,
+          "fair_odds": 1406
         }
       ],
       "context": {
@@ -5193,13 +5189,13 @@
         "venue": "Oracle Park",
         "park_factor": "94",
         "umpire_hp": "",
-        "weather_temp_f": "62.4",
-        "weather_wind": "13.1 mph W",
-        "weather_precip_pct": "0",
+        "weather_temp_f": "62.6",
+        "weather_wind": "13.0 mph W",
+        "weather_precip_pct": "1",
         "away_record": "62-68 \u00b7 L10 4-6 \u00b7 W1 \u00b7 RD -92",
         "away_vs_opp_hand": "",
-        "away_il_count": "5",
-        "away_il_names": "Blake Dunn, Brandon Williamson, Graham Ashcraft, Hunter Greene, Spencer Steer",
+        "away_il_count": "6",
+        "away_il_names": "Blake Dunn, Brandon Williamson, Graham Ashcraft, Hunter Greene, Michael Toglia",
         "away_pitcher": "Chase Burns",
         "away_pitcher_hand": "R",
         "away_pitcher_era": "2.51",
