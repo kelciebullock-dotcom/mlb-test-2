@@ -1,7 +1,389 @@
 {
   "date": "2026-09-21",
   "n_sims": 10000,
-  "generated_at": "2026-09-20T14:46:25.340056-04:00",
+  "generated_at": "2026-09-20T17:33:02.661155-04:00",
   "sport": "wnba",
-  "games": []
+  "games": [
+    {
+      "bdl_game_id": "fed9526885a35567f78caa67030b71b6",
+      "date": "2026-09-21",
+      "tipoff_et": "10:00 PM ET",
+      "status": "",
+      "away_team": "Dallas Wings",
+      "home_team": "Phoenix Mercury",
+      "away_abbr": "DAL",
+      "home_abbr": "PHX",
+      "model": {
+        "away_win_pct": 0.5468,
+        "home_win_pct": 0.4532,
+        "mean_away_pts": 87.7,
+        "mean_home_pts": 85.5,
+        "mean_total": 173.2,
+        "mean_margin": -2.2
+      },
+      "picks": [
+        {
+          "market": "Moneyline",
+          "side": "Phoenix Mercury ML",
+          "line": null,
+          "model_prob": 0.3694,
+          "raw_model_prob": 0.4407,
+          "market_fair_prob": 0.331,
+          "market_odds": 190,
+          "market_prob": 0.3448,
+          "ev_pct": 7.13,
+          "fair_odds": 171,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Spread",
+          "side": "Phoenix Mercury +6.5",
+          "line": 6.5,
+          "model_prob": 0.5481,
+          "raw_model_prob": 0.6173,
+          "market_fair_prob": 0.5108,
+          "market_odds": -115,
+          "market_prob": 0.5349,
+          "ev_pct": 2.47,
+          "fair_odds": -121,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Over 172.5",
+          "line": 172.5,
+          "model_prob": 0.5076,
+          "raw_model_prob": 0.5218,
+          "market_fair_prob": 0.5,
+          "market_odds": -110,
+          "market_prob": 0.5238,
+          "ev_pct": -3.09,
+          "fair_odds": -103,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Under 172.5",
+          "line": 172.5,
+          "model_prob": 0.4924,
+          "raw_model_prob": 0.4782,
+          "market_fair_prob": 0.5,
+          "market_odds": -110,
+          "market_prob": 0.5238,
+          "ev_pct": -6.0,
+          "fair_odds": 103,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Dallas Wings ML",
+          "line": null,
+          "model_prob": 0.6306,
+          "raw_model_prob": 0.5593,
+          "market_fair_prob": 0.669,
+          "market_odds": -230,
+          "market_prob": 0.697,
+          "ev_pct": -9.52,
+          "fair_odds": -171,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Spread",
+          "side": "Dallas Wings -6.5",
+          "line": -6.5,
+          "model_prob": 0.4519,
+          "raw_model_prob": 0.3827,
+          "market_fair_prob": 0.4892,
+          "market_odds": -105,
+          "market_prob": 0.5122,
+          "ev_pct": -11.77,
+          "fair_odds": 121,
+          "book": "DraftKings"
+        }
+      ],
+      "projected_box": {
+        "away": {
+          "players": [
+            {
+              "name": "Paige Bueckers",
+              "pos": "",
+              "min": 35.0,
+              "pts": 24.8,
+              "reb": 5.2,
+              "ast": 6.5,
+              "stl": 1.1,
+              "blk": 0.5,
+              "threes": 2.5,
+              "fg": "7.9/15.4",
+              "ft": "3.0/3.5"
+            },
+            {
+              "name": "Jessica Shepard",
+              "pos": "",
+              "min": 33.8,
+              "pts": 17.8,
+              "reb": 12.3,
+              "ast": 5.7,
+              "stl": 0.9,
+              "blk": 0.3,
+              "threes": 0.4,
+              "fg": "5.9/10.1",
+              "ft": "2.6/3.7"
+            },
+            {
+              "name": "Arike Ogunbowale",
+              "pos": "",
+              "min": 31.9,
+              "pts": 18.9,
+              "reb": 4.0,
+              "ast": 3.8,
+              "stl": 1.1,
+              "blk": 0.3,
+              "threes": 2.2,
+              "fg": "5.0/12.4",
+              "ft": "3.5/4.0"
+            },
+            {
+              "name": "Awak Kuier",
+              "pos": "",
+              "min": 19.3,
+              "pts": 8.0,
+              "reb": 4.6,
+              "ast": 1.4,
+              "stl": 0.7,
+              "blk": 1.5,
+              "threes": 1.0,
+              "fg": "2.3/4.5",
+              "ft": "0.9/1.3"
+            },
+            {
+              "name": "Maddy Siegrist",
+              "pos": "",
+              "min": 15.4,
+              "pts": 8.0,
+              "reb": 3.1,
+              "ast": 1.2,
+              "stl": 0.6,
+              "blk": 0.5,
+              "threes": 1.1,
+              "fg": "2.5/5.2",
+              "ft": "0.6/0.7"
+            },
+            {
+              "name": "Odyssey Sims",
+              "pos": "",
+              "min": 15.2,
+              "pts": 6.2,
+              "reb": 1.5,
+              "ast": 2.3,
+              "stl": 0.7,
+              "blk": 0.3,
+              "threes": 0.8,
+              "fg": "1.6/4.3",
+              "ft": "1.0/1.2"
+            },
+            {
+              "name": "Aziaha James",
+              "pos": "",
+              "min": 12.7,
+              "pts": 7.6,
+              "reb": 2.8,
+              "ast": 1.5,
+              "stl": 0.9,
+              "blk": 0.4,
+              "threes": 0.7,
+              "fg": "2.2/5.7",
+              "ft": "1.4/1.8"
+            },
+            {
+              "name": "Alysha Clark",
+              "pos": "",
+              "min": 12.5,
+              "pts": 3.9,
+              "reb": 2.2,
+              "ast": 1.0,
+              "stl": 0.5,
+              "blk": 0.4,
+              "threes": 0.7,
+              "fg": "0.8/2.0",
+              "ft": "0.6/0.8"
+            }
+          ],
+          "totals": {
+            "min": 175.8,
+            "pts": 87.7,
+            "reb": 35.7,
+            "ast": 23.4,
+            "stl": 6.5,
+            "blk": 4.2,
+            "threes": 9.4
+          }
+        },
+        "home": {
+          "players": [
+            {
+              "name": "Alyssa Thomas",
+              "pos": "",
+              "min": 33.4,
+              "pts": 19.0,
+              "reb": 8.6,
+              "ast": 10.2,
+              "stl": 1.5,
+              "blk": 0.6,
+              "threes": 0.4,
+              "fg": "5.5/10.6",
+              "ft": "3.4/4.9"
+            },
+            {
+              "name": "Kahleah Copper",
+              "pos": "",
+              "min": 32.9,
+              "pts": 26.9,
+              "reb": 4.4,
+              "ast": 2.7,
+              "stl": 1.0,
+              "blk": 0.3,
+              "threes": 2.4,
+              "fg": "7.2/16.1",
+              "ft": "5.3/6.7"
+            },
+            {
+              "name": "Noemie Brochant",
+              "pos": "",
+              "min": 23.4,
+              "pts": 9.0,
+              "reb": 2.6,
+              "ast": 2.6,
+              "stl": 1.1,
+              "blk": 0.4,
+              "threes": 1.4,
+              "fg": "2.5/5.6",
+              "ft": "0.3/0.4"
+            },
+            {
+              "name": "Natasha Mack",
+              "pos": "",
+              "min": 22.6,
+              "pts": 11.7,
+              "reb": 7.2,
+              "ast": 1.8,
+              "stl": 1.0,
+              "blk": 1.2,
+              "threes": 0.5,
+              "fg": "3.7/6.1",
+              "ft": "1.3/1.6"
+            },
+            {
+              "name": "Sami Whitcomb",
+              "pos": "",
+              "min": 17.5,
+              "pts": 7.5,
+              "reb": 2.3,
+              "ast": 2.7,
+              "stl": 0.7,
+              "blk": 0.3,
+              "threes": 1.6,
+              "fg": "1.7/5.2",
+              "ft": "0.6/0.6"
+            },
+            {
+              "name": "Valeriane Ayayi",
+              "pos": "",
+              "min": 16.4,
+              "pts": 8.5,
+              "reb": 3.2,
+              "ast": 1.7,
+              "stl": 0.7,
+              "blk": 0.4,
+              "threes": 0.9,
+              "fg": "1.5/4.0",
+              "ft": "2.8/3.4"
+            },
+            {
+              "name": "Lexi Held",
+              "pos": "",
+              "min": 15.4,
+              "pts": 7.4,
+              "reb": 1.6,
+              "ast": 1.9,
+              "stl": 0.7,
+              "blk": 0.3,
+              "threes": 1.2,
+              "fg": "1.9/4.8",
+              "ft": "0.8/0.9"
+            },
+            {
+              "name": "Shay Ciezki",
+              "pos": "",
+              "min": 15.1,
+              "pts": 9.4,
+              "reb": 2.5,
+              "ast": 2.1,
+              "stl": 0.7,
+              "blk": 0.4,
+              "threes": 1.1,
+              "fg": "2.7/5.5",
+              "ft": "2.2/2.5"
+            },
+            {
+              "name": "Kara Dunn",
+              "pos": "",
+              "min": 14.2,
+              "pts": 6.9,
+              "reb": 2.2,
+              "ast": 1.4,
+              "stl": 0.6,
+              "blk": 0.3,
+              "threes": 1.3,
+              "fg": "1.7/5.0",
+              "ft": "\u2014"
+            }
+          ],
+          "totals": {
+            "min": 190.9,
+            "pts": 85.5,
+            "reb": 34.6,
+            "ast": 27.1,
+            "stl": 8.0,
+            "blk": 4.2,
+            "threes": 10.8
+          }
+        }
+      },
+      "injuries": {
+        "away": [
+          {
+            "name": "Alanna Smith",
+            "status": "Out",
+            "cat": "out",
+            "detail": "Lower Leg",
+            "return": "2026-09-27"
+          },
+          {
+            "name": "Azzi Fudd",
+            "status": "Out",
+            "cat": "out",
+            "detail": "Knee",
+            "return": "2027-04-15"
+          }
+        ],
+        "home": [
+          {
+            "name": "Jovana Nogic",
+            "status": "Out",
+            "cat": "out",
+            "detail": "Not Injury Related",
+            "return": "2027-05-01"
+          },
+          {
+            "name": "Kelsey Plum",
+            "status": "Out",
+            "cat": "out",
+            "detail": "Lower Leg",
+            "return": "2027-05-01"
+          }
+        ]
+      }
+    }
+  ]
 }
