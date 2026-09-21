@@ -1,0 +1,385 @@
+{
+  "date": "2026-09-22",
+  "n_sims": 10000,
+  "generated_at": "2026-09-21T02:22:02.998938-04:00",
+  "sport": "wnba",
+  "games": [
+    {
+      "bdl_game_id": "7b4346357cf675721c800c999cf08209",
+      "date": "2026-09-22",
+      "tipoff_et": "8:00 PM ET",
+      "status": "",
+      "away_team": "Minnesota Lynx",
+      "home_team": "Indiana Fever",
+      "away_abbr": "MIN",
+      "home_abbr": "IND",
+      "model": {
+        "away_win_pct": 0.3783,
+        "home_win_pct": 0.6217,
+        "mean_away_pts": 89.5,
+        "mean_home_pts": 93.4,
+        "mean_total": 182.9,
+        "mean_margin": 3.9
+      },
+      "picks": [
+        {
+          "market": "Total",
+          "side": "Under 188.5",
+          "line": 188.5,
+          "model_prob": 0.5527,
+          "raw_model_prob": 0.6506,
+          "market_fair_prob": 0.5,
+          "market_odds": -110,
+          "market_prob": 0.5238,
+          "ev_pct": 5.52,
+          "fair_odds": -124,
+          "book": "FanDuel"
+        },
+        {
+          "market": "Spread",
+          "side": "Indiana Fever +1.5",
+          "line": 1.5,
+          "model_prob": 0.5541,
+          "raw_model_prob": 0.6464,
+          "market_fair_prob": 0.5043,
+          "market_odds": -112,
+          "market_prob": 0.5283,
+          "ev_pct": 4.87,
+          "fair_odds": -124,
+          "book": "FanDuel"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Indiana Fever ML",
+          "line": null,
+          "model_prob": 0.5222,
+          "raw_model_prob": 0.6072,
+          "market_fair_prob": 0.4764,
+          "market_odds": 100,
+          "market_prob": 0.5,
+          "ev_pct": 4.44,
+          "fair_odds": -109,
+          "book": "FanDuel"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Minnesota Lynx ML",
+          "line": null,
+          "model_prob": 0.4778,
+          "raw_model_prob": 0.3928,
+          "market_fair_prob": 0.5236,
+          "market_odds": -122,
+          "market_prob": 0.5495,
+          "ev_pct": -13.05,
+          "fair_odds": 109,
+          "book": "FanDuel"
+        },
+        {
+          "market": "Spread",
+          "side": "Minnesota Lynx -1.5",
+          "line": -1.5,
+          "model_prob": 0.4459,
+          "raw_model_prob": 0.3536,
+          "market_fair_prob": 0.4957,
+          "market_odds": -108,
+          "market_prob": 0.5192,
+          "ev_pct": -14.11,
+          "fair_odds": 124,
+          "book": "FanDuel"
+        },
+        {
+          "market": "Total",
+          "side": "Over 188.5",
+          "line": 188.5,
+          "model_prob": 0.4473,
+          "raw_model_prob": 0.3494,
+          "market_fair_prob": 0.5,
+          "market_odds": -110,
+          "market_prob": 0.5238,
+          "ev_pct": -14.61,
+          "fair_odds": 124,
+          "book": "FanDuel"
+        }
+      ],
+      "projected_box": {
+        "away": {
+          "players": [
+            {
+              "name": "Kayla McBride",
+              "pos": "",
+              "min": 32.6,
+              "pts": 20.9,
+              "reb": 3.9,
+              "ast": 2.6,
+              "stl": 1.8,
+              "blk": 0.4,
+              "threes": 3.3,
+              "fg": "5.9/12.8",
+              "ft": "3.3/3.6"
+            },
+            {
+              "name": "Olivia Miles",
+              "pos": "",
+              "min": 31.0,
+              "pts": 22.5,
+              "reb": 5.4,
+              "ast": 6.3,
+              "stl": 1.4,
+              "blk": 0.7,
+              "threes": 1.9,
+              "fg": "7.0/14.3",
+              "ft": "4.2/4.8"
+            },
+            {
+              "name": "Courtney Williams",
+              "pos": "",
+              "min": 30.5,
+              "pts": 17.0,
+              "reb": 5.6,
+              "ast": 4.6,
+              "stl": 1.4,
+              "blk": 0.5,
+              "threes": 1.5,
+              "fg": "6.0/13.3",
+              "ft": "1.0/1.3"
+            },
+            {
+              "name": "Napheesa Collier",
+              "pos": "",
+              "min": 30.5,
+              "pts": 19.7,
+              "reb": 7.4,
+              "ast": 3.3,
+              "stl": 1.4,
+              "blk": 1.1,
+              "threes": 1.8,
+              "fg": "6.6/13.2",
+              "ft": "2.8/3.4"
+            },
+            {
+              "name": "Natasha Howard",
+              "pos": "",
+              "min": 29.2,
+              "pts": 17.5,
+              "reb": 8.1,
+              "ast": 3.7,
+              "stl": 1.8,
+              "blk": 1.1,
+              "threes": 0.5,
+              "fg": "6.0/10.2",
+              "ft": "2.7/3.7"
+            },
+            {
+              "name": "Nia Coffey",
+              "pos": "",
+              "min": 23.0,
+              "pts": 8.2,
+              "reb": 5.0,
+              "ast": 2.1,
+              "stl": 1.1,
+              "blk": 1.1,
+              "threes": 1.5,
+              "fg": "2.4/5.4",
+              "ft": "0.3/0.6"
+            },
+            {
+              "name": "Nia Brodie",
+              "pos": "",
+              "min": 23.0,
+              "pts": 8.2,
+              "reb": 5.0,
+              "ast": 2.1,
+              "stl": 1.1,
+              "blk": 1.1,
+              "threes": 1.5,
+              "fg": "2.4/5.4",
+              "ft": "0.3/0.6"
+            },
+            {
+              "name": "Emma Cechova",
+              "pos": "",
+              "min": 17.3,
+              "pts": 9.6,
+              "reb": 3.5,
+              "ast": 1.4,
+              "stl": 0.7,
+              "blk": 0.6,
+              "threes": 0.7,
+              "fg": "3.3/5.3",
+              "ft": "1.7/2.7"
+            },
+            {
+              "name": "Dorka Juhasz",
+              "pos": "",
+              "min": 14.5,
+              "pts": 5.2,
+              "reb": 3.0,
+              "ast": 1.6,
+              "stl": 0.6,
+              "blk": 0.6,
+              "threes": 1.0,
+              "fg": "1.4/3.6",
+              "ft": "0.1/0.2"
+            },
+            {
+              "name": "Maya Caldwell",
+              "pos": "",
+              "min": 13.9,
+              "pts": 5.1,
+              "reb": 2.5,
+              "ast": 1.3,
+              "stl": 0.7,
+              "blk": 0.4,
+              "threes": 0.9,
+              "fg": "1.4/3.7",
+              "ft": "0.5/0.7"
+            }
+          ],
+          "totals": {
+            "min": 245.5,
+            "pts": 89.5,
+            "reb": 49.4,
+            "ast": 29.0,
+            "stl": 12.0,
+            "blk": 7.6,
+            "threes": 14.6
+          }
+        },
+        "home": {
+          "players": [
+            {
+              "name": "Kelsey Mitchell",
+              "pos": "",
+              "min": 32.9,
+              "pts": 27.2,
+              "reb": 2.5,
+              "ast": 3.2,
+              "stl": 1.3,
+              "blk": 0.3,
+              "threes": 3.3,
+              "fg": "8.9/17.1",
+              "ft": "4.3/5.1"
+            },
+            {
+              "name": "Caitlin Clark",
+              "pos": "",
+              "min": 31.3,
+              "pts": 24.3,
+              "reb": 4.6,
+              "ast": 8.7,
+              "stl": 1.1,
+              "blk": 0.6,
+              "threes": 3.1,
+              "fg": "7.2/15.8",
+              "ft": "5.3/6.3"
+            },
+            {
+              "name": "Aliyah Boston",
+              "pos": "",
+              "min": 27.6,
+              "pts": 18.5,
+              "reb": 8.6,
+              "ast": 3.4,
+              "stl": 1.6,
+              "blk": 1.3,
+              "threes": 1.3,
+              "fg": "6.4/12.1",
+              "ft": "2.8/3.4"
+            },
+            {
+              "name": "Sophie Cunningham",
+              "pos": "",
+              "min": 22.6,
+              "pts": 9.7,
+              "reb": 2.8,
+              "ast": 1.7,
+              "stl": 0.8,
+              "blk": 0.3,
+              "threes": 1.7,
+              "fg": "2.5/5.3",
+              "ft": "1.6/1.8"
+            },
+            {
+              "name": "Monique Billings",
+              "pos": "",
+              "min": 19.2,
+              "pts": 7.9,
+              "reb": 5.1,
+              "ast": 1.3,
+              "stl": 1.0,
+              "blk": 0.6,
+              "threes": 0.4,
+              "fg": "2.3/4.4",
+              "ft": "1.9/2.6"
+            },
+            {
+              "name": "Makayla Timpson",
+              "pos": "",
+              "min": 19.1,
+              "pts": 6.8,
+              "reb": 5.2,
+              "ast": 1.0,
+              "stl": 0.8,
+              "blk": 0.9,
+              "threes": 0.4,
+              "fg": "2.3/3.7",
+              "ft": "0.9/1.3"
+            },
+            {
+              "name": "Lexie Hull",
+              "pos": "",
+              "min": 19.0,
+              "pts": 6.6,
+              "reb": 3.5,
+              "ast": 1.1,
+              "stl": 0.7,
+              "blk": 0.4,
+              "threes": 1.0,
+              "fg": "1.9/4.4",
+              "ft": "0.7/0.9"
+            },
+            {
+              "name": "Tyasha Harris",
+              "pos": "",
+              "min": 13.9,
+              "pts": 5.3,
+              "reb": 1.6,
+              "ast": 2.2,
+              "stl": 0.5,
+              "blk": 0.3,
+              "threes": 0.9,
+              "fg": "1.5/3.4",
+              "ft": "0.7/0.8"
+            },
+            {
+              "name": "Myisha Hines-Allen",
+              "pos": "",
+              "min": 13.8,
+              "pts": 4.7,
+              "reb": 3.5,
+              "ast": 1.7,
+              "stl": 0.7,
+              "blk": 0.5,
+              "threes": 0.5,
+              "fg": "1.5/3.1",
+              "ft": "0.5/0.9"
+            }
+          ],
+          "totals": {
+            "min": 199.4,
+            "pts": 93.4,
+            "reb": 37.4,
+            "ast": 24.3,
+            "stl": 8.5,
+            "blk": 5.2,
+            "threes": 12.6
+          }
+        }
+      },
+      "injuries": {
+        "away": [],
+        "home": []
+      }
+    }
+  ]
+}
