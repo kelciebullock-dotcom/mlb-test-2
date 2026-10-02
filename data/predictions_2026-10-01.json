@@ -1,7 +1,7 @@
 {
   "date": "2026-10-01",
   "n_sims": 10000,
-  "generated_at": "2026-10-01T19:08:49.227396-04:00",
+  "generated_at": "2026-10-01T22:15:22.720700-04:00",
   "games": [
     {
       "bdl_game_id": "401907973",
@@ -17,9 +17,9 @@
       "park_factor": 99.0,
       "weather": {
         "venue": "Truist Park",
-        "temp_f": 75.9,
-        "wind_mph": 4.5,
-        "wind_dir": "E",
+        "temp_f": 77.2,
+        "wind_mph": 5.2,
+        "wind_dir": "NE",
         "precip_pct": 0.0
       },
       "model": {
@@ -32,41 +32,41 @@
       },
       "picks": [
         {
-          "market": "Moneyline",
-          "side": "Atlanta Braves ML",
-          "line": null,
-          "model_prob": 0.5589,
-          "raw_model_prob": 0.6135,
-          "market_fair_prob": 0.5043,
-          "market_odds": -112.0,
-          "market_prob": 0.5283,
-          "ev_pct": 5.79,
-          "fair_odds": -127,
-          "book": "DraftKings"
-        },
-        {
           "market": "Runline",
           "side": "Atlanta Braves +1.5",
           "line": 1.5,
-          "model_prob": 0.6999,
+          "model_prob": 0.7001,
           "raw_model_prob": 0.7651,
-          "market_fair_prob": 0.6347,
-          "market_odds": -197.0,
-          "market_prob": 0.6633,
-          "ev_pct": 5.52,
+          "market_fair_prob": 0.6351,
+          "market_odds": -198.0,
+          "market_prob": 0.6644,
+          "ev_pct": 5.37,
           "fair_odds": -233,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Atlanta Braves ML",
+          "line": null,
+          "model_prob": 0.5611,
+          "raw_model_prob": 0.6135,
+          "market_fair_prob": 0.5087,
+          "market_odds": -114.0,
+          "market_prob": 0.5327,
+          "ev_pct": 5.33,
+          "fair_odds": -128,
           "book": "DraftKings"
         },
         {
           "market": "Total",
           "side": "Under 7.5",
           "line": 7.5,
-          "model_prob": 0.5363,
+          "model_prob": 0.5374,
           "raw_model_prob": 0.5574,
-          "market_fair_prob": 0.5152,
-          "market_odds": -117.0,
-          "market_prob": 0.5392,
-          "ev_pct": -0.53,
+          "market_fair_prob": 0.5174,
+          "market_odds": -118.0,
+          "market_prob": 0.5413,
+          "ev_pct": -0.72,
           "fair_odds": -116,
           "book": "DraftKings"
         },
@@ -74,12 +74,12 @@
           "market": "Total",
           "side": "Over 7.5",
           "line": 7.5,
-          "model_prob": 0.4637,
+          "model_prob": 0.4626,
           "raw_model_prob": 0.4426,
-          "market_fair_prob": 0.4848,
-          "market_odds": -103.0,
-          "market_prob": 0.5074,
-          "ev_pct": -8.61,
+          "market_fair_prob": 0.4826,
+          "market_odds": -102.0,
+          "market_prob": 0.505,
+          "ev_pct": -8.38,
           "fair_odds": 116,
           "book": "DraftKings"
         },
@@ -87,25 +87,25 @@
           "market": "Moneyline",
           "side": "Philadelphia Phillies ML",
           "line": null,
-          "model_prob": 0.4411,
+          "model_prob": 0.4389,
           "raw_model_prob": 0.3865,
-          "market_fair_prob": 0.4957,
-          "market_odds": -108.0,
-          "market_prob": 0.5192,
-          "ev_pct": -15.05,
-          "fair_odds": 127,
+          "market_fair_prob": 0.4913,
+          "market_odds": -106.0,
+          "market_prob": 0.5146,
+          "ev_pct": -14.7,
+          "fair_odds": 128,
           "book": "DraftKings"
         },
         {
           "market": "Runline",
           "side": "Philadelphia Phillies -1.5",
           "line": -1.5,
-          "model_prob": 0.3001,
+          "model_prob": 0.2999,
           "raw_model_prob": 0.2349,
-          "market_fair_prob": 0.3653,
+          "market_fair_prob": 0.3649,
           "market_odds": 162.0,
           "market_prob": 0.3817,
-          "ev_pct": -21.38,
+          "ev_pct": -21.43,
           "fair_odds": 233,
           "book": "DraftKings"
         }
@@ -146,7 +146,7 @@
               "ab": 3.7,
               "r": 0.5,
               "h": 0.9,
-              "hr": 0.11,
+              "hr": 0.1,
               "rbi": 0.5,
               "bb": 0.7,
               "k": 0.7,
@@ -185,7 +185,7 @@
               "ab": 3.9,
               "r": 0.3,
               "h": 1.0,
-              "hr": 0.1,
+              "hr": 0.09,
               "rbi": 0.4,
               "bb": 0.4,
               "k": 0.7,
@@ -235,7 +235,7 @@
             "ab": 35.4,
             "r": 3.2,
             "h": 9.0,
-            "hr": 0.97,
+            "hr": 0.95,
             "rbi": 3.1,
             "bb": 3.5,
             "k": 6.3,
@@ -262,7 +262,7 @@
               "ab": 4.1,
               "r": 0.7,
               "h": 1.2,
-              "hr": 0.32,
+              "hr": 0.31,
               "rbi": 0.4,
               "bb": 0.4,
               "k": 1.0,
@@ -327,11 +327,11 @@
               "ab": 3.9,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.18,
+              "hr": 0.17,
               "rbi": 0.4,
               "bb": 0.4,
               "k": 1.1,
-              "tb": 1.7
+              "tb": 1.6
             },
             {
               "slot": 7,
@@ -377,11 +377,11 @@
             "ab": 36.2,
             "r": 4.3,
             "h": 9.0,
-            "hr": 2.11,
+            "hr": 2.09,
             "rbi": 4.3,
             "bb": 3.1,
             "k": 8.8,
-            "tb": 16.9
+            "tb": 16.8
           },
           "starter": {
             "name": "Ray Kerr",
@@ -402,162 +402,162 @@
           "team": "ATL",
           "opp": "PHI",
           "slot": 3,
-          "p_hr": 0.3058,
-          "hr_mean": 0.352,
-          "fair_odds": 227
+          "p_hr": 0.3026,
+          "hr_mean": 0.347,
+          "fair_odds": 230
         },
         {
           "name": "Drake Baldwin",
           "team": "ATL",
           "opp": "PHI",
           "slot": 1,
-          "p_hr": 0.2797,
-          "hr_mean": 0.317,
-          "fair_odds": 258
+          "p_hr": 0.2746,
+          "hr_mean": 0.311,
+          "fair_odds": 264
         },
         {
           "name": "Ronald Acu\u00f1a Jr.",
           "team": "ATL",
           "opp": "PHI",
           "slot": 2,
-          "p_hr": 0.2585,
-          "hr_mean": 0.291,
-          "fair_odds": 287
+          "p_hr": 0.2546,
+          "hr_mean": 0.287,
+          "fair_odds": 293
         },
         {
           "name": "Michael Harris II",
           "team": "ATL",
           "opp": "PHI",
           "slot": 4,
-          "p_hr": 0.2431,
-          "hr_mean": 0.271,
-          "fair_odds": 311
+          "p_hr": 0.2395,
+          "hr_mean": 0.266,
+          "fair_odds": 318
         },
         {
           "name": "Austin Riley",
           "team": "ATL",
           "opp": "PHI",
           "slot": 7,
-          "p_hr": 0.2298,
-          "hr_mean": 0.255,
-          "fair_odds": 335
+          "p_hr": 0.2266,
+          "hr_mean": 0.251,
+          "fair_odds": 341
         },
         {
           "name": "Kyle Schwarber",
           "team": "PHI",
           "opp": "ATL",
           "slot": 2,
-          "p_hr": 0.2021,
-          "hr_mean": 0.22,
-          "fair_odds": 395
+          "p_hr": 0.1992,
+          "hr_mean": 0.217,
+          "fair_odds": 402
         },
         {
           "name": "Dominic Smith",
           "team": "ATL",
           "opp": "PHI",
           "slot": 9,
-          "p_hr": 0.166,
-          "hr_mean": 0.179,
-          "fair_odds": 502
+          "p_hr": 0.163,
+          "hr_mean": 0.176,
+          "fair_odds": 513
         },
         {
           "name": "Mike Yastrzemski",
           "team": "ATL",
           "opp": "PHI",
           "slot": 6,
-          "p_hr": 0.1636,
-          "hr_mean": 0.176,
-          "fair_odds": 511
+          "p_hr": 0.1605,
+          "hr_mean": 0.173,
+          "fair_odds": 523
         },
         {
           "name": "Ozzie Albies",
           "team": "ATL",
           "opp": "PHI",
           "slot": 8,
-          "p_hr": 0.1464,
-          "hr_mean": 0.154,
-          "fair_odds": 583
+          "p_hr": 0.1433,
+          "hr_mean": 0.151,
+          "fair_odds": 598
         },
         {
           "name": "Edmundo Sosa",
           "team": "PHI",
           "opp": "ATL",
           "slot": 7,
-          "p_hr": 0.1258,
-          "hr_mean": 0.133,
-          "fair_odds": 695
-        },
-        {
-          "name": "Alec Bohm",
-          "team": "PHI",
-          "opp": "ATL",
-          "slot": 4,
-          "p_hr": 0.1141,
-          "hr_mean": 0.12,
-          "fair_odds": 776
+          "p_hr": 0.1236,
+          "hr_mean": 0.131,
+          "fair_odds": 709
         },
         {
           "name": "Mauricio Dub\u00f3n",
           "team": "ATL",
           "opp": "PHI",
           "slot": 5,
-          "p_hr": 0.1137,
-          "hr_mean": 0.119,
-          "fair_odds": 780
+          "p_hr": 0.1123,
+          "hr_mean": 0.117,
+          "fair_odds": 790
+        },
+        {
+          "name": "Alec Bohm",
+          "team": "PHI",
+          "opp": "ATL",
+          "slot": 4,
+          "p_hr": 0.1122,
+          "hr_mean": 0.118,
+          "fair_odds": 791
         },
         {
           "name": "Bryce Harper",
           "team": "PHI",
           "opp": "ATL",
           "slot": 3,
-          "p_hr": 0.1018,
-          "hr_mean": 0.106,
-          "fair_odds": 882
+          "p_hr": 0.1002,
+          "hr_mean": 0.105,
+          "fair_odds": 898
         },
         {
           "name": "Bryan De La Cruz",
           "team": "PHI",
           "opp": "ATL",
           "slot": 6,
-          "p_hr": 0.0932,
-          "hr_mean": 0.097,
-          "fair_odds": 973
+          "p_hr": 0.0912,
+          "hr_mean": 0.095,
+          "fair_odds": 996
         },
         {
           "name": "J.T. Realmuto",
           "team": "PHI",
           "opp": "ATL",
           "slot": 8,
-          "p_hr": 0.0877,
-          "hr_mean": 0.09,
-          "fair_odds": 1040
+          "p_hr": 0.0862,
+          "hr_mean": 0.089,
+          "fair_odds": 1060
         },
         {
           "name": "Trea Turner",
           "team": "PHI",
           "opp": "ATL",
           "slot": 1,
-          "p_hr": 0.0807,
-          "hr_mean": 0.083,
-          "fair_odds": 1139
+          "p_hr": 0.0796,
+          "hr_mean": 0.082,
+          "fair_odds": 1156
         },
         {
           "name": "Bryson Stott",
           "team": "PHI",
           "opp": "ATL",
           "slot": 5,
-          "p_hr": 0.0728,
-          "hr_mean": 0.075,
-          "fair_odds": 1274
+          "p_hr": 0.0719,
+          "hr_mean": 0.074,
+          "fair_odds": 1291
         },
         {
           "name": "Justin Crawford",
           "team": "PHI",
           "opp": "ATL",
           "slot": 9,
-          "p_hr": 0.0473,
+          "p_hr": 0.0467,
           "hr_mean": 0.048,
-          "fair_odds": 2014
+          "fair_odds": 2041
         }
       ],
       "context": {
@@ -569,8 +569,8 @@
         "venue": "Truist Park",
         "park_factor": "99",
         "umpire_hp": "Mark Ripperger",
-        "weather_temp_f": "75.9",
-        "weather_wind": "4.5 mph E",
+        "weather_temp_f": "77.2",
+        "weather_wind": "5.2 mph NE",
         "weather_precip_pct": "0",
         "away_record": "88-74 \u00b7 L10 4-6 \u00b7 W1 \u00b7 RD +15",
         "away_vs_opp_hand": "AVG .241 / OPS .705 / 54 HR",
