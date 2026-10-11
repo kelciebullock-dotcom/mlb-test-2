@@ -1,7 +1,7 @@
 {
   "date": "2026-10-10",
   "n_sims": 10000,
-  "generated_at": "2026-10-10T17:37:23.148117-04:00",
+  "generated_at": "2026-10-10T20:58:08.933888-04:00",
   "games": [
     {
       "bdl_game_id": "401907994",
@@ -18,95 +18,95 @@
       "weather": {
         "venue": "Progressive Field",
         "temp_f": 65.6,
-        "wind_mph": 6.3,
+        "wind_mph": 9.0,
         "wind_dir": "SE",
-        "precip_pct": 3.0
+        "precip_pct": 7.0
       },
       "model": {
-        "away_win_pct": 0.4594,
-        "home_win_pct": 0.5406,
-        "mean_away_runs": 3.83,
-        "mean_home_runs": 3.67,
-        "mean_total": 7.5,
-        "mean_margin": -0.17
+        "away_win_pct": 0.45,
+        "home_win_pct": 0.55,
+        "mean_away_runs": 3.58,
+        "mean_home_runs": 3.43,
+        "mean_total": 7.01,
+        "mean_margin": -0.15
       },
       "picks": [
         {
           "market": "Moneyline",
           "side": "Chicago White Sox ML",
           "line": null,
-          "model_prob": 0.4766,
-          "raw_model_prob": 0.5163,
-          "market_fair_prob": 0.4369,
-          "market_odds": 119.0,
-          "market_prob": 0.4566,
-          "ev_pct": 4.38,
-          "fair_odds": 110,
+          "model_prob": 0.4736,
+          "raw_model_prob": 0.5129,
+          "market_fair_prob": 0.4343,
+          "market_odds": 124.0,
+          "market_prob": 0.4464,
+          "ev_pct": 6.08,
+          "fair_odds": 111,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Under 7",
+          "line": 7.0,
+          "model_prob": 0.5151,
+          "raw_model_prob": 0.555,
+          "market_fair_prob": 0.4752,
+          "market_odds": 101.0,
+          "market_prob": 0.4975,
+          "ev_pct": 3.53,
+          "fair_odds": -106,
           "book": "DraftKings"
         },
         {
           "market": "Runline",
           "side": "Chicago White Sox +1.5",
           "line": 1.5,
-          "model_prob": 0.652,
-          "raw_model_prob": 0.6803,
+          "model_prob": 0.6565,
+          "raw_model_prob": 0.6893,
           "market_fair_prob": 0.6238,
           "market_odds": -188.0,
           "market_prob": 0.6528,
-          "ev_pct": -0.11,
-          "fair_odds": -187,
-          "book": "DraftKings"
-        },
-        {
-          "market": "Total",
-          "side": "Under 7.5",
-          "line": 7.5,
-          "model_prob": 0.544,
-          "raw_model_prob": 0.561,
-          "market_fair_prob": 0.527,
-          "market_odds": -123.0,
-          "market_prob": 0.5516,
-          "ev_pct": -1.37,
-          "fair_odds": -119,
-          "book": "DraftKings"
-        },
-        {
-          "market": "Total",
-          "side": "Over 7.5",
-          "line": 7.5,
-          "model_prob": 0.456,
-          "raw_model_prob": 0.439,
-          "market_fair_prob": 0.473,
-          "market_odds": 102.0,
-          "market_prob": 0.495,
-          "ev_pct": -7.89,
-          "fair_odds": 119,
+          "ev_pct": 0.58,
+          "fair_odds": -191,
           "book": "DraftKings"
         },
         {
           "market": "Moneyline",
           "side": "Cleveland Guardians ML",
           "line": null,
-          "model_prob": 0.5234,
-          "raw_model_prob": 0.4837,
-          "market_fair_prob": 0.5631,
-          "market_odds": -143.0,
-          "market_prob": 0.5885,
-          "ev_pct": -11.06,
-          "fair_odds": -110,
+          "model_prob": 0.5264,
+          "raw_model_prob": 0.4871,
+          "market_fair_prob": 0.5657,
+          "market_odds": -139.0,
+          "market_prob": 0.5816,
+          "ev_pct": -9.49,
+          "fair_odds": -111,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Over 7",
+          "line": 7.0,
+          "model_prob": 0.4849,
+          "raw_model_prob": 0.445,
+          "market_fair_prob": 0.5248,
+          "market_odds": -122.0,
+          "market_prob": 0.5495,
+          "ev_pct": -11.76,
+          "fair_odds": 106,
           "book": "DraftKings"
         },
         {
           "market": "Runline",
           "side": "Cleveland Guardians -1.5",
           "line": -1.5,
-          "model_prob": 0.348,
-          "raw_model_prob": 0.3197,
+          "model_prob": 0.3435,
+          "raw_model_prob": 0.3107,
           "market_fair_prob": 0.3762,
           "market_odds": 154.0,
           "market_prob": 0.3937,
-          "ev_pct": -11.62,
-          "fair_odds": 187,
+          "ev_pct": -12.76,
+          "fair_odds": 191,
           "book": "DraftKings"
         }
       ],
@@ -147,7 +147,7 @@
               "r": 0.5,
               "h": 0.9,
               "hr": 0.25,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.6,
               "k": 1.2,
               "tb": 1.8
@@ -157,7 +157,7 @@
               "pos": "1B",
               "name": "Munetaka Murakami",
               "ab": 3.7,
-              "r": 0.5,
+              "r": 0.4,
               "h": 0.8,
               "hr": 0.43,
               "rbi": 0.6,
@@ -170,7 +170,7 @@
               "pos": "DH",
               "name": "Andrew Benintendi",
               "ab": 4.0,
-              "r": 0.4,
+              "r": 0.3,
               "h": 0.9,
               "hr": 0.21,
               "rbi": 0.5,
@@ -186,9 +186,9 @@
               "r": 0.4,
               "h": 0.9,
               "hr": 0.14,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.3,
-              "k": 1.2,
+              "k": 1.3,
               "tb": 1.6
             },
             {
@@ -233,12 +233,12 @@
           ],
           "totals": {
             "ab": 35.3,
-            "r": 3.8,
+            "r": 3.6,
             "h": 7.6,
             "hr": 1.9,
-            "rbi": 3.8,
+            "rbi": 3.6,
             "bb": 4.0,
-            "k": 14.6,
+            "k": 14.7,
             "tb": 14.8
           },
           "starter": {
@@ -276,10 +276,10 @@
               "r": 0.5,
               "h": 0.9,
               "hr": 0.08,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.5,
               "k": 0.7,
-              "tb": 1.3
+              "tb": 1.4
             },
             {
               "slot": 3,
@@ -289,7 +289,7 @@
               "r": 0.5,
               "h": 1.0,
               "hr": 0.13,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.5,
               "k": 0.8,
               "tb": 1.6
@@ -314,7 +314,7 @@
               "ab": 3.9,
               "r": 0.4,
               "h": 1.0,
-              "hr": 0.16,
+              "hr": 0.17,
               "rbi": 0.5,
               "bb": 0.4,
               "k": 1.2,
@@ -327,7 +327,7 @@
               "ab": 3.8,
               "r": 0.4,
               "h": 0.9,
-              "hr": 0.12,
+              "hr": 0.13,
               "rbi": 0.4,
               "bb": 0.5,
               "k": 1.1,
@@ -375,13 +375,13 @@
           ],
           "totals": {
             "ab": 35.3,
-            "r": 3.7,
+            "r": 3.4,
             "h": 8.5,
-            "hr": 0.95,
-            "rbi": 3.6,
+            "hr": 0.97,
+            "rbi": 3.4,
             "bb": 3.8,
             "k": 8.7,
-            "tb": 13.2
+            "tb": 13.3
           },
           "starter": {
             "name": "Gavin Williams",
@@ -402,162 +402,162 @@
           "team": "CWS",
           "opp": "CLE",
           "slot": 4,
-          "p_hr": 0.3612,
-          "hr_mean": 0.427,
-          "fair_odds": 177
+          "p_hr": 0.3634,
+          "hr_mean": 0.431,
+          "fair_odds": 175
         },
         {
           "name": "Colson Montgomery",
           "team": "CWS",
           "opp": "CLE",
           "slot": 8,
-          "p_hr": 0.2316,
-          "hr_mean": 0.258,
-          "fair_odds": 332
+          "p_hr": 0.2331,
+          "hr_mean": 0.259,
+          "fair_odds": 329
         },
         {
           "name": "Kyle Teel",
           "team": "CWS",
           "opp": "CLE",
           "slot": 2,
-          "p_hr": 0.2283,
-          "hr_mean": 0.253,
-          "fair_odds": 338
+          "p_hr": 0.2294,
+          "hr_mean": 0.255,
+          "fair_odds": 336
         },
         {
           "name": "Miguel Vargas",
           "team": "CWS",
           "opp": "CLE",
           "slot": 3,
-          "p_hr": 0.224,
-          "hr_mean": 0.247,
-          "fair_odds": 346
+          "p_hr": 0.2266,
+          "hr_mean": 0.25,
+          "fair_odds": 341
         },
         {
           "name": "Andrew Benintendi",
           "team": "CWS",
           "opp": "CLE",
           "slot": 5,
-          "p_hr": 0.1915,
-          "hr_mean": 0.207,
-          "fair_odds": 422
+          "p_hr": 0.1912,
+          "hr_mean": 0.206,
+          "fair_odds": 423
         },
         {
           "name": "Nathaniel Lowe",
           "team": "CLE",
           "opp": "CWS",
           "slot": 5,
-          "p_hr": 0.1552,
-          "hr_mean": 0.165,
-          "fair_odds": 544
+          "p_hr": 0.1584,
+          "hr_mean": 0.168,
+          "fair_odds": 531
         },
         {
           "name": "Tristan Peters",
           "team": "CWS",
           "opp": "CLE",
           "slot": 6,
-          "p_hr": 0.1333,
-          "hr_mean": 0.14,
-          "fair_odds": 650
-        },
-        {
-          "name": "Patrick Bailey",
-          "team": "CLE",
-          "opp": "CWS",
-          "slot": 7,
-          "p_hr": 0.1291,
-          "hr_mean": 0.135,
-          "fair_odds": 675
+          "p_hr": 0.1371,
+          "hr_mean": 0.143,
+          "fair_odds": 629
         },
         {
           "name": "Sam Antonacci",
           "team": "CWS",
           "opp": "CLE",
           "slot": 1,
-          "p_hr": 0.1266,
-          "hr_mean": 0.133,
-          "fair_odds": 690
+          "p_hr": 0.1282,
+          "hr_mean": 0.135,
+          "fair_odds": 680
+        },
+        {
+          "name": "Patrick Bailey",
+          "team": "CLE",
+          "opp": "CWS",
+          "slot": 7,
+          "p_hr": 0.1281,
+          "hr_mean": 0.134,
+          "fair_odds": 681
         },
         {
           "name": "Chase DeLauter",
           "team": "CLE",
           "opp": "CWS",
           "slot": 3,
-          "p_hr": 0.1262,
-          "hr_mean": 0.133,
-          "fair_odds": 692
+          "p_hr": 0.1277,
+          "hr_mean": 0.135,
+          "fair_odds": 683
         },
         {
           "name": "Travis Bazzana",
           "team": "CLE",
           "opp": "CWS",
           "slot": 6,
-          "p_hr": 0.1174,
-          "hr_mean": 0.123,
-          "fair_odds": 752
+          "p_hr": 0.1196,
+          "hr_mean": 0.126,
+          "fair_odds": 736
         },
         {
           "name": "Brenton Doyle",
           "team": "CWS",
           "opp": "CLE",
           "slot": 9,
-          "p_hr": 0.1112,
-          "hr_mean": 0.117,
-          "fair_odds": 799
+          "p_hr": 0.1131,
+          "hr_mean": 0.119,
+          "fair_odds": 784
         },
         {
           "name": "Chase Meidroth",
           "team": "CWS",
           "opp": "CLE",
           "slot": 7,
-          "p_hr": 0.1037,
-          "hr_mean": 0.108,
-          "fair_odds": 864
+          "p_hr": 0.1067,
+          "hr_mean": 0.112,
+          "fair_odds": 837
         },
         {
           "name": "Jo Adell",
           "team": "CLE",
           "opp": "CWS",
           "slot": 4,
-          "p_hr": 0.1026,
-          "hr_mean": 0.106,
-          "fair_odds": 875
+          "p_hr": 0.1032,
+          "hr_mean": 0.107,
+          "fair_odds": 869
         },
         {
           "name": "Petey Halpin",
           "team": "CLE",
           "opp": "CWS",
           "slot": 8,
-          "p_hr": 0.0989,
-          "hr_mean": 0.102,
-          "fair_odds": 911
+          "p_hr": 0.1003,
+          "hr_mean": 0.103,
+          "fair_odds": 897
         },
         {
           "name": "Jos\u00e9 Ram\u00edrez",
           "team": "CLE",
           "opp": "CWS",
           "slot": 2,
-          "p_hr": 0.0801,
-          "hr_mean": 0.083,
-          "fair_odds": 1148
+          "p_hr": 0.0817,
+          "hr_mean": 0.085,
+          "fair_odds": 1124
         },
         {
           "name": "Brayan Rocchio",
           "team": "CLE",
           "opp": "CWS",
           "slot": 9,
-          "p_hr": 0.0796,
-          "hr_mean": 0.083,
-          "fair_odds": 1156
+          "p_hr": 0.0804,
+          "hr_mean": 0.084,
+          "fair_odds": 1144
         },
         {
           "name": "Steven Kwan",
           "team": "CLE",
           "opp": "CWS",
           "slot": 1,
-          "p_hr": 0.0348,
-          "hr_mean": 0.035,
-          "fair_odds": 2774
+          "p_hr": 0.0355,
+          "hr_mean": 0.036,
+          "fair_odds": 2717
         }
       ],
       "context": {
@@ -570,8 +570,8 @@
         "park_factor": "98",
         "umpire_hp": "Vic Carapazza",
         "weather_temp_f": "65.6",
-        "weather_wind": "6.3 mph SE",
-        "weather_precip_pct": "3",
+        "weather_wind": "9.0 mph SE",
+        "weather_precip_pct": "7",
         "away_record": "84-78 \u00b7 L10 7-3 \u00b7 W1 \u00b7 RD +56",
         "away_vs_opp_hand": "AVG .235 / OPS .716 / 143 HR",
         "away_il_count": "6",
