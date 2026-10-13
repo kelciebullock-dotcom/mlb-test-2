@@ -1,0 +1,527 @@
+{
+  "date": "2026-10-14",
+  "n_sims": 10000,
+  "generated_at": "2026-10-13T15:13:18.022006-04:00",
+  "games": [
+    {
+      "bdl_game_id": null,
+      "game_pk": 849811,
+      "date": "2026-10-14",
+      "away_team": "Milwaukee Brewers",
+      "home_team": "Los Angeles Dodgers",
+      "away_abbr": "MIL",
+      "home_abbr": "LAD",
+      "venue": "",
+      "away_pitcher": "Robert Gasser",
+      "home_pitcher": "Blake Snell",
+      "park_factor": 100.0,
+      "weather": {
+        "venue": "UNIQLO Field at Dodger Stadium"
+      },
+      "model": {
+        "away_win_pct": 0.3149,
+        "home_win_pct": 0.6851,
+        "mean_away_runs": 3.34,
+        "mean_home_runs": 4.72,
+        "mean_total": 8.06,
+        "mean_margin": 1.39
+      },
+      "picks": [],
+      "projected_box": {
+        "away": {
+          "batters": [
+            {
+              "slot": 1,
+              "pos": "2B",
+              "name": "Brice Turang",
+              "ab": 3.8,
+              "r": 0.5,
+              "h": 0.7,
+              "hr": 0.09,
+              "rbi": 0.3,
+              "bb": 0.6,
+              "k": 1.6,
+              "tb": 1.1
+            },
+            {
+              "slot": 2,
+              "pos": "C",
+              "name": "William Contreras",
+              "ab": 4.0,
+              "r": 0.4,
+              "h": 0.8,
+              "hr": 0.12,
+              "rbi": 0.3,
+              "bb": 0.5,
+              "k": 1.0,
+              "tb": 1.3
+            },
+            {
+              "slot": 3,
+              "pos": "1B",
+              "name": "Jake Bauers",
+              "ab": 3.7,
+              "r": 0.5,
+              "h": 0.7,
+              "hr": 0.18,
+              "rbi": 0.5,
+              "bb": 0.8,
+              "k": 1.6,
+              "tb": 1.4
+            },
+            {
+              "slot": 4,
+              "pos": "LF",
+              "name": "Jackson Chourio",
+              "ab": 4.0,
+              "r": 0.4,
+              "h": 0.9,
+              "hr": 0.18,
+              "rbi": 0.6,
+              "bb": 0.4,
+              "k": 1.5,
+              "tb": 1.6
+            },
+            {
+              "slot": 5,
+              "pos": "CF",
+              "name": "Garrett Mitchell",
+              "ab": 3.8,
+              "r": 0.4,
+              "h": 0.7,
+              "hr": 0.09,
+              "rbi": 0.4,
+              "bb": 0.5,
+              "k": 1.8,
+              "tb": 1.1
+            },
+            {
+              "slot": 6,
+              "pos": "DH",
+              "name": "Christian Yelich",
+              "ab": 3.8,
+              "r": 0.3,
+              "h": 0.6,
+              "hr": 0.1,
+              "rbi": 0.3,
+              "bb": 0.5,
+              "k": 1.6,
+              "tb": 1.0
+            },
+            {
+              "slot": 7,
+              "pos": "SS",
+              "name": "Joey Ortiz",
+              "ab": 3.9,
+              "r": 0.3,
+              "h": 0.7,
+              "hr": 0.07,
+              "rbi": 0.3,
+              "bb": 0.4,
+              "k": 1.3,
+              "tb": 1.1
+            },
+            {
+              "slot": 8,
+              "pos": "3B",
+              "name": "David Hamilton",
+              "ab": 3.8,
+              "r": 0.3,
+              "h": 0.6,
+              "hr": 0.06,
+              "rbi": 0.3,
+              "bb": 0.4,
+              "k": 1.4,
+              "tb": 0.9
+            },
+            {
+              "slot": 9,
+              "pos": "RF",
+              "name": "Sal Frelick",
+              "ab": 3.8,
+              "r": 0.3,
+              "h": 0.6,
+              "hr": 0.04,
+              "rbi": 0.2,
+              "bb": 0.4,
+              "k": 0.8,
+              "tb": 0.9
+            }
+          ],
+          "totals": {
+            "ab": 34.6,
+            "r": 3.3,
+            "h": 6.3,
+            "hr": 0.93,
+            "rbi": 3.2,
+            "bb": 4.5,
+            "k": 12.6,
+            "tb": 10.4
+          },
+          "starter": {
+            "name": "Robert Gasser",
+            "ip": 5.4,
+            "h": 5.4,
+            "r": 2.7,
+            "er": 2.7,
+            "bb": 1.8,
+            "k": 5.3,
+            "hr": 0.85,
+            "starts": 20
+          }
+        },
+        "home": {
+          "batters": [
+            {
+              "slot": 1,
+              "pos": "1B",
+              "name": "Freddie Freeman",
+              "ab": 4.1,
+              "r": 0.7,
+              "h": 1.0,
+              "hr": 0.13,
+              "rbi": 0.4,
+              "bb": 0.4,
+              "k": 0.8,
+              "tb": 1.6
+            },
+            {
+              "slot": 2,
+              "pos": "RF",
+              "name": "Kyle Tucker",
+              "ab": 4.0,
+              "r": 0.6,
+              "h": 1.0,
+              "hr": 0.12,
+              "rbi": 0.4,
+              "bb": 0.5,
+              "k": 0.8,
+              "tb": 1.6
+            },
+            {
+              "slot": 3,
+              "pos": "TWP",
+              "name": "Shohei Ohtani",
+              "ab": 3.9,
+              "r": 0.6,
+              "h": 1.1,
+              "hr": 0.26,
+              "rbi": 0.7,
+              "bb": 0.5,
+              "k": 1.1,
+              "tb": 2.1
+            },
+            {
+              "slot": 4,
+              "pos": "CF",
+              "name": "Andy Pages",
+              "ab": 4.0,
+              "r": 0.5,
+              "h": 1.2,
+              "hr": 0.18,
+              "rbi": 0.7,
+              "bb": 0.3,
+              "k": 0.9,
+              "tb": 1.9
+            },
+            {
+              "slot": 5,
+              "pos": "3B",
+              "name": "Max Muncy",
+              "ab": 3.9,
+              "r": 0.5,
+              "h": 0.9,
+              "hr": 0.21,
+              "rbi": 0.7,
+              "bb": 0.4,
+              "k": 1.1,
+              "tb": 1.7
+            },
+            {
+              "slot": 6,
+              "pos": "SS",
+              "name": "Mookie Betts",
+              "ab": 4.0,
+              "r": 0.4,
+              "h": 1.1,
+              "hr": 0.17,
+              "rbi": 0.6,
+              "bb": 0.3,
+              "k": 0.5,
+              "tb": 1.8
+            },
+            {
+              "slot": 7,
+              "pos": "LF",
+              "name": "Teoscar Hern\u00e1ndez",
+              "ab": 3.9,
+              "r": 0.4,
+              "h": 1.1,
+              "hr": 0.19,
+              "rbi": 0.5,
+              "bb": 0.3,
+              "k": 1.2,
+              "tb": 1.9
+            },
+            {
+              "slot": 8,
+              "pos": "2B",
+              "name": "Tommy Edman",
+              "ab": 4.0,
+              "r": 0.4,
+              "h": 1.0,
+              "hr": 0.12,
+              "rbi": 0.4,
+              "bb": 0.3,
+              "k": 0.9,
+              "tb": 1.5
+            },
+            {
+              "slot": 9,
+              "pos": "C",
+              "name": "Will Smith",
+              "ab": 3.8,
+              "r": 0.5,
+              "h": 1.0,
+              "hr": 0.17,
+              "rbi": 0.4,
+              "bb": 0.4,
+              "k": 0.7,
+              "tb": 1.7
+            }
+          ],
+          "totals": {
+            "ab": 35.6,
+            "r": 4.7,
+            "h": 9.4,
+            "hr": 1.55,
+            "rbi": 4.8,
+            "bb": 3.4,
+            "k": 8.0,
+            "tb": 15.8
+          },
+          "starter": {
+            "name": "Blake Snell",
+            "ip": 5.0,
+            "h": 4.3,
+            "r": 1.3,
+            "er": 1.3,
+            "bb": 1.9,
+            "k": 6.8,
+            "hr": 0.0,
+            "starts": 9
+          }
+        }
+      },
+      "hr_projections": [
+        {
+          "name": "Shohei Ohtani",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 3,
+          "p_hr": 0.2358,
+          "hr_mean": 0.262,
+          "fair_odds": 324
+        },
+        {
+          "name": "Max Muncy",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 5,
+          "p_hr": 0.1908,
+          "hr_mean": 0.206,
+          "fair_odds": 424
+        },
+        {
+          "name": "Teoscar Hern\u00e1ndez",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 7,
+          "p_hr": 0.175,
+          "hr_mean": 0.19,
+          "fair_odds": 471
+        },
+        {
+          "name": "Jake Bauers",
+          "team": "MIL",
+          "opp": "LAD",
+          "slot": 3,
+          "p_hr": 0.169,
+          "hr_mean": 0.181,
+          "fair_odds": 492
+        },
+        {
+          "name": "Jackson Chourio",
+          "team": "MIL",
+          "opp": "LAD",
+          "slot": 4,
+          "p_hr": 0.1646,
+          "hr_mean": 0.177,
+          "fair_odds": 508
+        },
+        {
+          "name": "Andy Pages",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 4,
+          "p_hr": 0.1646,
+          "hr_mean": 0.176,
+          "fair_odds": 508
+        },
+        {
+          "name": "Mookie Betts",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 6,
+          "p_hr": 0.162,
+          "hr_mean": 0.173,
+          "fair_odds": 517
+        },
+        {
+          "name": "Will Smith",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 9,
+          "p_hr": 0.1578,
+          "hr_mean": 0.167,
+          "fair_odds": 534
+        },
+        {
+          "name": "Tommy Edman",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 8,
+          "p_hr": 0.1189,
+          "hr_mean": 0.125,
+          "fair_odds": 741
+        },
+        {
+          "name": "Freddie Freeman",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 1,
+          "p_hr": 0.1187,
+          "hr_mean": 0.126,
+          "fair_odds": 742
+        },
+        {
+          "name": "William Contreras",
+          "team": "MIL",
+          "opp": "LAD",
+          "slot": 2,
+          "p_hr": 0.1128,
+          "hr_mean": 0.116,
+          "fair_odds": 787
+        },
+        {
+          "name": "Kyle Tucker",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 2,
+          "p_hr": 0.1106,
+          "hr_mean": 0.116,
+          "fair_odds": 804
+        },
+        {
+          "name": "Christian Yelich",
+          "team": "MIL",
+          "opp": "LAD",
+          "slot": 6,
+          "p_hr": 0.092,
+          "hr_mean": 0.096,
+          "fair_odds": 987
+        },
+        {
+          "name": "Garrett Mitchell",
+          "team": "MIL",
+          "opp": "LAD",
+          "slot": 5,
+          "p_hr": 0.0903,
+          "hr_mean": 0.093,
+          "fair_odds": 1007
+        },
+        {
+          "name": "Brice Turang",
+          "team": "MIL",
+          "opp": "LAD",
+          "slot": 1,
+          "p_hr": 0.0844,
+          "hr_mean": 0.088,
+          "fair_odds": 1085
+        },
+        {
+          "name": "Joey Ortiz",
+          "team": "MIL",
+          "opp": "LAD",
+          "slot": 7,
+          "p_hr": 0.0672,
+          "hr_mean": 0.069,
+          "fair_odds": 1388
+        },
+        {
+          "name": "David Hamilton",
+          "team": "MIL",
+          "opp": "LAD",
+          "slot": 8,
+          "p_hr": 0.0554,
+          "hr_mean": 0.056,
+          "fair_odds": 1705
+        },
+        {
+          "name": "Sal Frelick",
+          "team": "MIL",
+          "opp": "LAD",
+          "slot": 9,
+          "p_hr": 0.0438,
+          "hr_mean": 0.045,
+          "fair_odds": 2183
+        }
+      ],
+      "context": {
+        "date": "2026-10-14",
+        "game_pk": "849811",
+        "away_team": "Milwaukee Brewers",
+        "home_team": "Los Angeles Dodgers",
+        "first_pitch_et": "8:00 PM ET",
+        "venue": "UNIQLO Field at Dodger Stadium",
+        "park_factor": "",
+        "umpire_hp": "",
+        "weather_temp_f": "",
+        "weather_wind": "",
+        "weather_precip_pct": "",
+        "away_record": "103-59 \u00b7 L10 8-2 \u00b7 W5 \u00b7 RD +214",
+        "away_vs_opp_hand": "AVG .245 / OPS .706 / 40 HR",
+        "away_il_count": "4",
+        "away_il_names": "Angel Zerpa, Brandon Woodruff, Brian Fitzpatrick, Quinn Priester",
+        "away_pitcher": "Robert Gasser",
+        "away_pitcher_hand": "L",
+        "away_pitcher_era": "3.87",
+        "away_pitcher_xera": "4.27",
+        "away_pitcher_k_pct": "22.3",
+        "away_pitcher_bb_pct": "7.4",
+        "away_pitcher_barrel_pct": "7.6",
+        "away_pitcher_whiff_pct": "22.5",
+        "away_pitcher_hardhit_pct": "34",
+        "away_pitcher_last3": "2026-09-13: 5.0 IP, 1 ER, 5 K | 2026-09-19: 7.0 IP, 0 ER, 2 K | 2026-09-25: 6.0 IP, 1 ER, 9 K",
+        "away_bullpen_ip_last3d": "9.2",
+        "away_bullpen_b2b_arms": "2",
+        "home_record": "100-62 \u00b7 L10 8-2 \u00b7 W3 \u00b7 RD +201",
+        "home_vs_opp_hand": "AVG .251 / OPS .756 / 67 HR",
+        "home_il_count": "6",
+        "home_il_names": "Ben Casparius, Brusdar Graterol, Eric Lauer, Gavin Stone, Jake Cousins",
+        "home_pitcher": "Blake Snell",
+        "home_pitcher_hand": "L",
+        "home_pitcher_era": "1.90",
+        "home_pitcher_xera": "2.17",
+        "home_pitcher_k_pct": "31.8",
+        "home_pitcher_bb_pct": "9.2",
+        "home_pitcher_barrel_pct": "2",
+        "home_pitcher_whiff_pct": "34.8",
+        "home_pitcher_hardhit_pct": "15.8",
+        "home_pitcher_last3": "2026-09-11: 5.2 IP, 1 ER, 8 K | 2026-09-16: 1.0 IP, 0 ER, 1 K | 2026-09-26: 4.0 IP, 1 ER, 3 K",
+        "home_bullpen_ip_last3d": "8.1",
+        "home_bullpen_b2b_arms": "2"
+      }
+    }
+  ]
+}
