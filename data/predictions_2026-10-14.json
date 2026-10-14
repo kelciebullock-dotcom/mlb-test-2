@@ -1,10 +1,10 @@
 {
   "date": "2026-10-14",
   "n_sims": 10000,
-  "generated_at": "2026-10-14T00:46:57.105140-04:00",
+  "generated_at": "2026-10-14T13:05:40.784721-04:00",
   "games": [
     {
-      "bdl_game_id": null,
+      "bdl_game_id": "401908032",
       "game_pk": 849811,
       "date": "2026-10-14",
       "away_team": "Milwaukee Brewers",
@@ -19,14 +19,93 @@
         "venue": "UNIQLO Field at Dodger Stadium"
       },
       "model": {
-        "away_win_pct": 0.3149,
-        "home_win_pct": 0.6851,
-        "mean_away_runs": 3.34,
-        "mean_home_runs": 4.72,
-        "mean_total": 8.06,
-        "mean_margin": 1.39
+        "away_win_pct": 0.3123,
+        "home_win_pct": 0.6877,
+        "mean_away_runs": 3.1,
+        "mean_home_runs": 4.39,
+        "mean_total": 7.5,
+        "mean_margin": 1.29
       },
-      "picks": [],
+      "picks": [
+        {
+          "market": "Total",
+          "side": "Under 7.5",
+          "line": 7.5,
+          "model_prob": 0.5323,
+          "raw_model_prob": 0.5569,
+          "market_fair_prob": 0.5076,
+          "market_odds": -113.0,
+          "market_prob": 0.5305,
+          "ev_pct": 0.33,
+          "fair_odds": -114,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Runline",
+          "side": "Los Angeles Dodgers -1.5",
+          "line": -1.5,
+          "model_prob": 0.444,
+          "raw_model_prob": 0.4571,
+          "market_fair_prob": 0.4308,
+          "market_odds": 122.0,
+          "market_prob": 0.4505,
+          "ev_pct": -1.44,
+          "fair_odds": 125,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Los Angeles Dodgers ML",
+          "line": null,
+          "model_prob": 0.6214,
+          "raw_model_prob": 0.6331,
+          "market_fair_prob": 0.6097,
+          "market_odds": -176.0,
+          "market_prob": 0.6377,
+          "ev_pct": -2.55,
+          "fair_odds": -164,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Runline",
+          "side": "Milwaukee Brewers +1.5",
+          "line": 1.5,
+          "model_prob": 0.556,
+          "raw_model_prob": 0.5429,
+          "market_fair_prob": 0.5692,
+          "market_odds": -147.0,
+          "market_prob": 0.5951,
+          "ev_pct": -6.57,
+          "fair_odds": -125,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Milwaukee Brewers ML",
+          "line": null,
+          "model_prob": 0.3786,
+          "raw_model_prob": 0.3669,
+          "market_fair_prob": 0.3903,
+          "market_odds": 145.0,
+          "market_prob": 0.4082,
+          "ev_pct": -7.24,
+          "fair_odds": 164,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Over 7.5",
+          "line": 7.5,
+          "model_prob": 0.4677,
+          "raw_model_prob": 0.4431,
+          "market_fair_prob": 0.4924,
+          "market_odds": -106.0,
+          "market_prob": 0.5146,
+          "ev_pct": -9.1,
+          "fair_odds": 114,
+          "book": "DraftKings"
+        }
+      ],
       "projected_box": {
         "away": {
           "batters": [
@@ -61,11 +140,11 @@
               "pos": "1B",
               "name": "Jake Bauers",
               "ab": 3.7,
-              "r": 0.5,
+              "r": 0.4,
               "h": 0.7,
               "hr": 0.18,
               "rbi": 0.5,
-              "bb": 0.8,
+              "bb": 0.7,
               "k": 1.6,
               "tb": 1.4
             },
@@ -77,7 +156,7 @@
               "r": 0.4,
               "h": 0.9,
               "hr": 0.18,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.4,
               "k": 1.5,
               "tb": 1.6
@@ -87,7 +166,7 @@
               "pos": "CF",
               "name": "Garrett Mitchell",
               "ab": 3.8,
-              "r": 0.4,
+              "r": 0.3,
               "h": 0.7,
               "hr": 0.09,
               "rbi": 0.4,
@@ -128,8 +207,8 @@
               "ab": 3.8,
               "r": 0.3,
               "h": 0.6,
-              "hr": 0.06,
-              "rbi": 0.3,
+              "hr": 0.05,
+              "rbi": 0.2,
               "bb": 0.4,
               "k": 1.4,
               "tb": 0.9
@@ -150,11 +229,11 @@
           ],
           "totals": {
             "ab": 34.6,
-            "r": 3.3,
+            "r": 3.1,
             "h": 6.3,
-            "hr": 0.93,
-            "rbi": 3.2,
-            "bb": 4.5,
+            "hr": 0.92,
+            "rbi": 3.0,
+            "bb": 4.4,
             "k": 12.6,
             "tb": 10.4
           },
@@ -177,7 +256,7 @@
               "pos": "1B",
               "name": "Freddie Freeman",
               "ab": 4.1,
-              "r": 0.7,
+              "r": 0.6,
               "h": 1.0,
               "hr": 0.13,
               "rbi": 0.4,
@@ -192,11 +271,11 @@
               "ab": 4.0,
               "r": 0.6,
               "h": 1.0,
-              "hr": 0.12,
+              "hr": 0.11,
               "rbi": 0.4,
               "bb": 0.5,
               "k": 0.8,
-              "tb": 1.6
+              "tb": 1.5
             },
             {
               "slot": 3,
@@ -232,10 +311,10 @@
               "r": 0.5,
               "h": 0.9,
               "hr": 0.21,
-              "rbi": 0.7,
+              "rbi": 0.6,
               "bb": 0.4,
               "k": 1.1,
-              "tb": 1.7
+              "tb": 1.8
             },
             {
               "slot": 6,
@@ -245,7 +324,7 @@
               "r": 0.4,
               "h": 1.1,
               "hr": 0.17,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.3,
               "k": 0.5,
               "tb": 1.8
@@ -258,7 +337,7 @@
               "r": 0.4,
               "h": 1.1,
               "hr": 0.19,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.3,
               "k": 1.2,
               "tb": 1.9
@@ -270,7 +349,7 @@
               "ab": 4.0,
               "r": 0.4,
               "h": 1.0,
-              "hr": 0.12,
+              "hr": 0.13,
               "rbi": 0.4,
               "bb": 0.3,
               "k": 0.9,
@@ -281,7 +360,7 @@
               "pos": "C",
               "name": "Will Smith",
               "ab": 3.8,
-              "r": 0.5,
+              "r": 0.4,
               "h": 1.0,
               "hr": 0.17,
               "rbi": 0.4,
@@ -292,10 +371,10 @@
           ],
           "totals": {
             "ab": 35.6,
-            "r": 4.7,
+            "r": 4.4,
             "h": 9.4,
             "hr": 1.55,
-            "rbi": 4.8,
+            "rbi": 4.5,
             "bb": 3.4,
             "k": 8.0,
             "tb": 15.8
@@ -319,7 +398,7 @@
           "team": "LAD",
           "opp": "MIL",
           "slot": 3,
-          "p_hr": 0.2358,
+          "p_hr": 0.2361,
           "hr_mean": 0.262,
           "fair_odds": 324
         },
@@ -328,117 +407,117 @@
           "team": "LAD",
           "opp": "MIL",
           "slot": 5,
-          "p_hr": 0.1908,
-          "hr_mean": 0.206,
-          "fair_odds": 424
+          "p_hr": 0.192,
+          "hr_mean": 0.208,
+          "fair_odds": 421
         },
         {
           "name": "Teoscar Hern\u00e1ndez",
           "team": "LAD",
           "opp": "MIL",
           "slot": 7,
-          "p_hr": 0.175,
-          "hr_mean": 0.19,
-          "fair_odds": 471
+          "p_hr": 0.1745,
+          "hr_mean": 0.189,
+          "fair_odds": 473
         },
         {
           "name": "Jake Bauers",
           "team": "MIL",
           "opp": "LAD",
           "slot": 3,
-          "p_hr": 0.169,
-          "hr_mean": 0.181,
-          "fair_odds": 492
+          "p_hr": 0.1675,
+          "hr_mean": 0.18,
+          "fair_odds": 497
         },
         {
           "name": "Jackson Chourio",
           "team": "MIL",
           "opp": "LAD",
           "slot": 4,
-          "p_hr": 0.1646,
-          "hr_mean": 0.177,
-          "fair_odds": 508
+          "p_hr": 0.1653,
+          "hr_mean": 0.178,
+          "fair_odds": 505
         },
         {
           "name": "Andy Pages",
           "team": "LAD",
           "opp": "MIL",
           "slot": 4,
-          "p_hr": 0.1646,
+          "p_hr": 0.1647,
           "hr_mean": 0.176,
-          "fair_odds": 508
+          "fair_odds": 507
         },
         {
           "name": "Mookie Betts",
           "team": "LAD",
           "opp": "MIL",
           "slot": 6,
-          "p_hr": 0.162,
+          "p_hr": 0.1625,
           "hr_mean": 0.173,
-          "fair_odds": 517
+          "fair_odds": 515
         },
         {
           "name": "Will Smith",
           "team": "LAD",
           "opp": "MIL",
           "slot": 9,
-          "p_hr": 0.1578,
-          "hr_mean": 0.167,
-          "fair_odds": 534
-        },
-        {
-          "name": "Tommy Edman",
-          "team": "LAD",
-          "opp": "MIL",
-          "slot": 8,
-          "p_hr": 0.1189,
-          "hr_mean": 0.125,
-          "fair_odds": 741
+          "p_hr": 0.1612,
+          "hr_mean": 0.171,
+          "fair_odds": 520
         },
         {
           "name": "Freddie Freeman",
           "team": "LAD",
           "opp": "MIL",
           "slot": 1,
-          "p_hr": 0.1187,
+          "p_hr": 0.1206,
+          "hr_mean": 0.128,
+          "fair_odds": 729
+        },
+        {
+          "name": "Tommy Edman",
+          "team": "LAD",
+          "opp": "MIL",
+          "slot": 8,
+          "p_hr": 0.1198,
           "hr_mean": 0.126,
-          "fair_odds": 742
+          "fair_odds": 735
         },
         {
           "name": "William Contreras",
           "team": "MIL",
           "opp": "LAD",
           "slot": 2,
-          "p_hr": 0.1128,
+          "p_hr": 0.1123,
           "hr_mean": 0.116,
-          "fair_odds": 787
+          "fair_odds": 790
         },
         {
           "name": "Kyle Tucker",
           "team": "LAD",
           "opp": "MIL",
           "slot": 2,
-          "p_hr": 0.1106,
-          "hr_mean": 0.116,
-          "fair_odds": 804
+          "p_hr": 0.1094,
+          "hr_mean": 0.115,
+          "fair_odds": 814
         },
         {
           "name": "Christian Yelich",
           "team": "MIL",
           "opp": "LAD",
           "slot": 6,
-          "p_hr": 0.092,
-          "hr_mean": 0.096,
-          "fair_odds": 987
+          "p_hr": 0.0936,
+          "hr_mean": 0.097,
+          "fair_odds": 968
         },
         {
           "name": "Garrett Mitchell",
           "team": "MIL",
           "opp": "LAD",
           "slot": 5,
-          "p_hr": 0.0903,
-          "hr_mean": 0.093,
-          "fair_odds": 1007
+          "p_hr": 0.0912,
+          "hr_mean": 0.095,
+          "fair_odds": 996
         },
         {
           "name": "Brice Turang",
@@ -446,7 +525,7 @@
           "opp": "LAD",
           "slot": 1,
           "p_hr": 0.0844,
-          "hr_mean": 0.088,
+          "hr_mean": 0.087,
           "fair_odds": 1085
         },
         {
@@ -454,27 +533,27 @@
           "team": "MIL",
           "opp": "LAD",
           "slot": 7,
-          "p_hr": 0.0672,
+          "p_hr": 0.0671,
           "hr_mean": 0.069,
-          "fair_odds": 1388
+          "fair_odds": 1390
         },
         {
           "name": "David Hamilton",
           "team": "MIL",
           "opp": "LAD",
           "slot": 8,
-          "p_hr": 0.0554,
-          "hr_mean": 0.056,
-          "fair_odds": 1705
+          "p_hr": 0.0531,
+          "hr_mean": 0.053,
+          "fair_odds": 1783
         },
         {
           "name": "Sal Frelick",
           "team": "MIL",
           "opp": "LAD",
           "slot": 9,
-          "p_hr": 0.0438,
-          "hr_mean": 0.045,
-          "fair_odds": 2183
+          "p_hr": 0.0427,
+          "hr_mean": 0.044,
+          "fair_odds": 2242
         }
       ],
       "context": {
