@@ -1,10 +1,10 @@
 {
   "date": "2026-10-17",
   "n_sims": 10000,
-  "generated_at": "2026-10-16T01:48:18.201842-04:00",
+  "generated_at": "2026-10-16T12:34:03.182979-04:00",
   "games": [
     {
-      "bdl_game_id": "401908025",
+      "bdl_game_id": "401908026",
       "game_pk": 849816,
       "date": "2026-10-17",
       "away_team": "Tampa Bay Rays",
@@ -17,9 +17,9 @@
       "park_factor": 98.0,
       "weather": {
         "venue": "Progressive Field",
-        "temp_f": 46.6,
-        "wind_mph": 4.1,
-        "wind_dir": "E",
+        "temp_f": 47.1,
+        "wind_mph": 3.8,
+        "wind_dir": "W",
         "precip_pct": 1.0
       },
       "model": {
@@ -32,81 +32,81 @@
       },
       "picks": [
         {
-          "market": "Moneyline",
-          "side": "Tampa Bay Rays ML",
-          "line": null,
-          "model_prob": 0.4777,
-          "raw_model_prob": 0.5079,
-          "market_fair_prob": 0.4475,
-          "market_odds": 117.0,
-          "market_prob": 0.4608,
-          "ev_pct": 3.66,
-          "fair_odds": 109,
-          "book": "DraftKings"
-        },
-        {
           "market": "Total",
           "side": "Under 6.5",
           "line": 6.5,
-          "model_prob": 0.5241,
+          "model_prob": 0.5209,
           "raw_model_prob": 0.5569,
-          "market_fair_prob": 0.4913,
-          "market_odds": -106.0,
-          "market_prob": 0.5146,
-          "ev_pct": 1.86,
-          "fair_odds": -110,
+          "market_fair_prob": 0.4848,
+          "market_odds": -103.0,
+          "market_prob": 0.5074,
+          "ev_pct": 2.65,
+          "fair_odds": -109,
           "book": "DraftKings"
         },
         {
           "market": "Runline",
-          "side": "Tampa Bay Rays +1.5",
+          "side": "Cleveland Guardians +1.5",
           "line": 1.5,
-          "model_prob": 0.6657,
-          "raw_model_prob": 0.6897,
-          "market_fair_prob": 0.6418,
-          "market_odds": -204.0,
-          "market_prob": 0.6711,
-          "ev_pct": -0.79,
-          "fair_odds": -199,
+          "model_prob": 0.6524,
+          "raw_model_prob": 0.6696,
+          "market_fair_prob": 0.6351,
+          "market_odds": -198.0,
+          "market_prob": 0.6644,
+          "ev_pct": -1.81,
+          "fair_odds": -188,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Tampa Bay Rays ML",
+          "line": null,
+          "model_prob": 0.5061,
+          "raw_model_prob": 0.5079,
+          "market_fair_prob": 0.5043,
+          "market_odds": -112.0,
+          "market_prob": 0.5283,
+          "ev_pct": -4.2,
+          "fair_odds": -102,
           "book": "DraftKings"
         },
         {
           "market": "Moneyline",
           "side": "Cleveland Guardians ML",
           "line": null,
-          "model_prob": 0.5223,
+          "model_prob": 0.4939,
           "raw_model_prob": 0.4921,
-          "market_fair_prob": 0.5525,
-          "market_odds": -132.0,
-          "market_prob": 0.569,
-          "ev_pct": -8.2,
-          "fair_odds": -109,
+          "market_fair_prob": 0.4957,
+          "market_odds": -108.0,
+          "market_prob": 0.5192,
+          "ev_pct": -4.88,
+          "fair_odds": 102,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Runline",
+          "side": "Tampa Bay Rays -1.5",
+          "line": -1.5,
+          "model_prob": 0.3476,
+          "raw_model_prob": 0.3304,
+          "market_fair_prob": 0.3649,
+          "market_odds": 162.0,
+          "market_prob": 0.3817,
+          "ev_pct": -8.92,
+          "fair_odds": 188,
           "book": "DraftKings"
         },
         {
           "market": "Total",
           "side": "Over 6.5",
           "line": 6.5,
-          "model_prob": 0.4759,
+          "model_prob": 0.4791,
           "raw_model_prob": 0.4431,
-          "market_fair_prob": 0.5087,
-          "market_odds": -114.0,
-          "market_prob": 0.5327,
-          "ev_pct": -10.67,
-          "fair_odds": 110,
-          "book": "DraftKings"
-        },
-        {
-          "market": "Runline",
-          "side": "Cleveland Guardians -1.5",
-          "line": -1.5,
-          "model_prob": 0.3343,
-          "raw_model_prob": 0.3103,
-          "market_fair_prob": 0.3582,
-          "market_odds": 167.0,
-          "market_prob": 0.3745,
-          "ev_pct": -10.75,
-          "fair_odds": 199,
+          "market_fair_prob": 0.5152,
+          "market_odds": -117.0,
+          "market_prob": 0.5392,
+          "ev_pct": -11.13,
+          "fair_odds": 109,
           "book": "DraftKings"
         }
       ],
@@ -402,162 +402,162 @@
           "team": "TB",
           "opp": "CLE",
           "slot": 1,
-          "p_hr": 0.2119,
-          "hr_mean": 0.232,
-          "fair_odds": 372
+          "p_hr": 0.2133,
+          "hr_mean": 0.234,
+          "fair_odds": 369
         },
         {
           "name": "Jonathan Aranda",
           "team": "TB",
           "opp": "CLE",
           "slot": 3,
-          "p_hr": 0.1502,
-          "hr_mean": 0.162,
-          "fair_odds": 566
+          "p_hr": 0.1509,
+          "hr_mean": 0.163,
+          "fair_odds": 563
         },
         {
           "name": "Nathaniel Lowe",
           "team": "CLE",
           "opp": "TB",
           "slot": 7,
-          "p_hr": 0.1459,
+          "p_hr": 0.1467,
           "hr_mean": 0.154,
-          "fair_odds": 585
+          "fair_odds": 582
         },
         {
           "name": "Angel Mart\u00ednez",
           "team": "CLE",
           "opp": "TB",
           "slot": 8,
-          "p_hr": 0.131,
-          "hr_mean": 0.138,
-          "fair_odds": 663
+          "p_hr": 0.1317,
+          "hr_mean": 0.139,
+          "fair_odds": 659
         },
         {
           "name": "Chandler Simpson",
           "team": "TB",
           "opp": "CLE",
           "slot": 4,
-          "p_hr": 0.125,
-          "hr_mean": 0.132,
-          "fair_odds": 700
+          "p_hr": 0.1255,
+          "hr_mean": 0.133,
+          "fair_odds": 697
         },
         {
           "name": "Chase DeLauter",
           "team": "CLE",
           "opp": "TB",
           "slot": 4,
-          "p_hr": 0.117,
-          "hr_mean": 0.122,
-          "fair_odds": 755
+          "p_hr": 0.1172,
+          "hr_mean": 0.123,
+          "fair_odds": 753
         },
         {
           "name": "Patrick Bailey",
           "team": "CLE",
           "opp": "TB",
           "slot": 9,
-          "p_hr": 0.1106,
+          "p_hr": 0.1108,
           "hr_mean": 0.117,
-          "fair_odds": 804
+          "fair_odds": 803
         },
         {
           "name": "Travis Bazzana",
           "team": "CLE",
           "opp": "TB",
           "slot": 6,
-          "p_hr": 0.1083,
-          "hr_mean": 0.114,
-          "fair_odds": 823
+          "p_hr": 0.1089,
+          "hr_mean": 0.115,
+          "fair_odds": 818
         },
         {
           "name": "Yandy D\u00edaz",
           "team": "TB",
           "opp": "CLE",
           "slot": 2,
-          "p_hr": 0.1066,
-          "hr_mean": 0.113,
-          "fair_odds": 838
+          "p_hr": 0.1074,
+          "hr_mean": 0.114,
+          "fair_odds": 831
         },
         {
           "name": "Cedric Mullins",
           "team": "TB",
           "opp": "CLE",
           "slot": 6,
-          "p_hr": 0.1061,
+          "p_hr": 0.1066,
           "hr_mean": 0.111,
-          "fair_odds": 843
+          "fair_odds": 838
         },
         {
           "name": "Liam Hicks",
           "team": "TB",
           "opp": "CLE",
           "slot": 5,
-          "p_hr": 0.1022,
+          "p_hr": 0.1024,
           "hr_mean": 0.108,
-          "fair_odds": 878
+          "fair_odds": 877
         },
         {
           "name": "Jo Adell",
           "team": "CLE",
           "opp": "TB",
           "slot": 1,
-          "p_hr": 0.0966,
+          "p_hr": 0.0974,
           "hr_mean": 0.101,
-          "fair_odds": 935
+          "fair_odds": 927
         },
         {
           "name": "Jonny DeLuca",
           "team": "TB",
           "opp": "CLE",
           "slot": 9,
-          "p_hr": 0.0954,
-          "hr_mean": 0.099,
-          "fair_odds": 948
+          "p_hr": 0.0958,
+          "hr_mean": 0.1,
+          "fair_odds": 944
         },
         {
           "name": "Richie Palacios",
           "team": "TB",
           "opp": "CLE",
           "slot": 8,
-          "p_hr": 0.0915,
-          "hr_mean": 0.095,
-          "fair_odds": 993
+          "p_hr": 0.0919,
+          "hr_mean": 0.096,
+          "fair_odds": 988
         },
         {
           "name": "Brayan Rocchio",
           "team": "CLE",
           "opp": "TB",
           "slot": 3,
-          "p_hr": 0.0796,
-          "hr_mean": 0.081,
-          "fair_odds": 1156
+          "p_hr": 0.0799,
+          "hr_mean": 0.082,
+          "fair_odds": 1152
         },
         {
           "name": "Jos\u00e9 Ram\u00edrez",
           "team": "CLE",
           "opp": "TB",
           "slot": 5,
-          "p_hr": 0.0725,
+          "p_hr": 0.0726,
           "hr_mean": 0.075,
-          "fair_odds": 1279
+          "fair_odds": 1277
         },
         {
           "name": "Taylor Walls",
           "team": "TB",
           "opp": "CLE",
           "slot": 7,
-          "p_hr": 0.0389,
+          "p_hr": 0.039,
           "hr_mean": 0.04,
-          "fair_odds": 2471
+          "fair_odds": 2464
         },
         {
           "name": "Steven Kwan",
           "team": "CLE",
           "opp": "TB",
           "slot": 2,
-          "p_hr": 0.0315,
+          "p_hr": 0.0318,
           "hr_mean": 0.032,
-          "fair_odds": 3075
+          "fair_odds": 3045
         }
       ],
       "context": {
@@ -569,8 +569,8 @@
         "venue": "Progressive Field",
         "park_factor": "98",
         "umpire_hp": "",
-        "weather_temp_f": "46.6",
-        "weather_wind": "4.1 mph E",
+        "weather_temp_f": "47.1",
+        "weather_wind": "3.8 mph W",
         "weather_precip_pct": "1",
         "away_record": "98-64 \u00b7 L10 5-5 \u00b7 L1 \u00b7 RD +86",
         "away_vs_opp_hand": "",
