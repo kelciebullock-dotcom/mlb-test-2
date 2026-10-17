@@ -1,10 +1,10 @@
 {
   "date": "2026-10-17",
   "n_sims": 10000,
-  "generated_at": "2026-10-17T00:18:09.269466-04:00",
+  "generated_at": "2026-10-17T11:28:19.215458-04:00",
   "games": [
     {
-      "bdl_game_id": "401908026",
+      "bdl_game_id": "401908027",
       "game_pk": 849816,
       "date": "2026-10-17",
       "away_team": "Tampa Bay Rays",
@@ -17,20 +17,99 @@
       "park_factor": 98.0,
       "weather": {
         "venue": "Progressive Field",
-        "temp_f": 44.2,
-        "wind_mph": 4.6,
+        "temp_f": 44.6,
+        "wind_mph": 4.0,
         "wind_dir": "SW",
         "precip_pct": 0.0
       },
       "model": {
-        "away_win_pct": 0.4851,
-        "home_win_pct": 0.5149,
-        "mean_away_runs": 4.16,
-        "mean_home_runs": 3.76,
-        "mean_total": 7.92,
-        "mean_margin": -0.41
+        "away_win_pct": 0.4772,
+        "home_win_pct": 0.5228,
+        "mean_away_runs": 3.44,
+        "mean_home_runs": 3.07,
+        "mean_total": 6.51,
+        "mean_margin": -0.36
       },
-      "picks": [],
+      "picks": [
+        {
+          "market": "Total",
+          "side": "Under 6.5",
+          "line": 6.5,
+          "model_prob": 0.5257,
+          "raw_model_prob": 0.5558,
+          "market_fair_prob": 0.4957,
+          "market_odds": -108.0,
+          "market_prob": 0.5192,
+          "ev_pct": 1.25,
+          "fair_odds": -111,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Tampa Bay Rays ML",
+          "line": null,
+          "model_prob": 0.523,
+          "raw_model_prob": 0.5374,
+          "market_fair_prob": 0.5087,
+          "market_odds": -114.0,
+          "market_prob": 0.5327,
+          "ev_pct": -1.82,
+          "fair_odds": -110,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Runline",
+          "side": "Cleveland Guardians +1.5",
+          "line": 1.5,
+          "model_prob": 0.6366,
+          "raw_model_prob": 0.6437,
+          "market_fair_prob": 0.6296,
+          "market_odds": -193.0,
+          "market_prob": 0.6587,
+          "ev_pct": -3.35,
+          "fair_odds": -175,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Runline",
+          "side": "Tampa Bay Rays -1.5",
+          "line": -1.5,
+          "model_prob": 0.3634,
+          "raw_model_prob": 0.3563,
+          "market_fair_prob": 0.3704,
+          "market_odds": 158.0,
+          "market_prob": 0.3876,
+          "ev_pct": -6.25,
+          "fair_odds": 175,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Cleveland Guardians ML",
+          "line": null,
+          "model_prob": 0.477,
+          "raw_model_prob": 0.4626,
+          "market_fair_prob": 0.4913,
+          "market_odds": -106.0,
+          "market_prob": 0.5146,
+          "ev_pct": -7.31,
+          "fair_odds": 110,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Over 6.5",
+          "line": 6.5,
+          "model_prob": 0.4743,
+          "raw_model_prob": 0.4442,
+          "market_fair_prob": 0.5043,
+          "market_odds": -112.0,
+          "market_prob": 0.5283,
+          "ev_pct": -10.23,
+          "fair_odds": 111,
+          "book": "DraftKings"
+        }
+      ],
       "projected_box": {
         "away": {
           "batters": [
@@ -39,12 +118,12 @@
               "pos": "3B",
               "name": "Junior Caminero",
               "ab": 3.7,
-              "r": 0.6,
+              "r": 0.5,
               "h": 1.0,
-              "hr": 0.23,
-              "rbi": 0.5,
+              "hr": 0.24,
+              "rbi": 0.4,
               "bb": 0.7,
-              "k": 0.9,
+              "k": 0.8,
               "tb": 1.9
             },
             {
@@ -52,11 +131,11 @@
               "pos": "DH",
               "name": "Yandy D\u00edaz",
               "ab": 3.9,
-              "r": 0.6,
+              "r": 0.5,
               "h": 1.0,
               "hr": 0.12,
-              "rbi": 0.5,
-              "bb": 0.5,
+              "rbi": 0.4,
+              "bb": 0.6,
               "k": 0.7,
               "tb": 1.6
             },
@@ -65,10 +144,10 @@
               "pos": "1B",
               "name": "Jonathan Aranda",
               "ab": 3.7,
-              "r": 0.5,
+              "r": 0.4,
               "h": 0.9,
               "hr": 0.16,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.7,
               "k": 1.1,
               "tb": 1.6
@@ -78,10 +157,10 @@
               "pos": "LF",
               "name": "Chandler Simpson",
               "ab": 4.0,
-              "r": 0.5,
+              "r": 0.4,
               "h": 1.0,
-              "hr": 0.12,
-              "rbi": 0.5,
+              "hr": 0.13,
+              "rbi": 0.4,
               "bb": 0.3,
               "k": 0.4,
               "tb": 1.5
@@ -91,10 +170,10 @@
               "pos": "C",
               "name": "Liam Hicks",
               "ab": 3.7,
-              "r": 0.5,
+              "r": 0.4,
               "h": 1.0,
               "hr": 0.11,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.7,
               "k": 0.5,
               "tb": 1.5
@@ -104,12 +183,12 @@
               "pos": "CF",
               "name": "Cedric Mullins",
               "ab": 3.7,
-              "r": 0.4,
+              "r": 0.3,
               "h": 0.7,
               "hr": 0.11,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.6,
-              "k": 0.8,
+              "k": 0.9,
               "tb": 1.2
             },
             {
@@ -117,12 +196,12 @@
               "pos": "SS",
               "name": "Taylor Walls",
               "ab": 3.6,
-              "r": 0.4,
+              "r": 0.3,
               "h": 0.7,
-              "hr": 0.03,
+              "hr": 0.04,
               "rbi": 0.3,
               "bb": 0.6,
-              "k": 1.1,
+              "k": 1.0,
               "tb": 1.0
             },
             {
@@ -130,10 +209,10 @@
               "pos": "2B",
               "name": "Richie Palacios",
               "ab": 3.5,
-              "r": 0.4,
-              "h": 0.9,
+              "r": 0.3,
+              "h": 0.8,
               "hr": 0.09,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.7,
               "k": 0.8,
               "tb": 1.3
@@ -143,10 +222,10 @@
               "pos": "RF",
               "name": "Jonny DeLuca",
               "ab": 3.9,
-              "r": 0.4,
+              "r": 0.3,
               "h": 0.8,
               "hr": 0.1,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.4,
               "k": 0.9,
               "tb": 1.3
@@ -154,12 +233,12 @@
           ],
           "totals": {
             "ab": 33.7,
-            "r": 4.2,
-            "h": 8.0,
-            "hr": 1.07,
-            "rbi": 4.2,
-            "bb": 5.2,
-            "k": 7.2,
+            "r": 3.4,
+            "h": 7.9,
+            "hr": 1.1,
+            "rbi": 3.4,
+            "bb": 5.3,
+            "k": 7.1,
             "tb": 12.9
           },
           "starter": {
@@ -181,7 +260,7 @@
               "pos": "RF",
               "name": "Jo Adell",
               "ab": 4.4,
-              "r": 0.5,
+              "r": 0.4,
               "h": 1.0,
               "hr": 0.1,
               "rbi": 0.3,
@@ -194,7 +273,7 @@
               "pos": "LF",
               "name": "Steven Kwan",
               "ab": 4.2,
-              "r": 0.6,
+              "r": 0.5,
               "h": 1.3,
               "hr": 0.03,
               "rbi": 0.3,
@@ -209,10 +288,10 @@
               "ab": 4.3,
               "r": 0.4,
               "h": 1.1,
-              "hr": 0.07,
-              "rbi": 0.5,
+              "hr": 0.08,
+              "rbi": 0.4,
               "bb": 0.1,
-              "k": 0.5,
+              "k": 0.4,
               "tb": 1.6
             },
             {
@@ -220,10 +299,10 @@
               "pos": "RF",
               "name": "Chase DeLauter",
               "ab": 4.2,
-              "r": 0.5,
+              "r": 0.4,
               "h": 1.1,
               "hr": 0.12,
-              "rbi": 0.6,
+              "rbi": 0.5,
               "bb": 0.2,
               "k": 0.5,
               "tb": 1.8
@@ -233,10 +312,10 @@
               "pos": "3B",
               "name": "Jos\u00e9 Ram\u00edrez",
               "ab": 4.1,
-              "r": 0.4,
+              "r": 0.3,
               "h": 1.0,
               "hr": 0.07,
-              "rbi": 0.5,
+              "rbi": 0.4,
               "bb": 0.2,
               "k": 0.4,
               "tb": 1.5
@@ -246,7 +325,7 @@
               "pos": "2B",
               "name": "Travis Bazzana",
               "ab": 4.1,
-              "r": 0.4,
+              "r": 0.3,
               "h": 1.1,
               "hr": 0.11,
               "rbi": 0.4,
@@ -259,7 +338,7 @@
               "pos": "1B",
               "name": "Nathaniel Lowe",
               "ab": 4.1,
-              "r": 0.4,
+              "r": 0.3,
               "h": 1.1,
               "hr": 0.14,
               "rbi": 0.4,
@@ -275,7 +354,7 @@
               "r": 0.3,
               "h": 1.0,
               "hr": 0.13,
-              "rbi": 0.4,
+              "rbi": 0.3,
               "bb": 0.1,
               "k": 0.6,
               "tb": 1.7
@@ -285,10 +364,10 @@
               "pos": "C",
               "name": "Patrick Bailey",
               "ab": 4.1,
-              "r": 0.3,
+              "r": 0.2,
               "h": 1.0,
               "hr": 0.12,
-              "rbi": 0.3,
+              "rbi": 0.2,
               "bb": 0.2,
               "k": 0.8,
               "tb": 1.6
@@ -296,12 +375,12 @@
           ],
           "totals": {
             "ab": 37.7,
-            "r": 3.8,
+            "r": 3.1,
             "h": 9.7,
-            "hr": 0.89,
-            "rbi": 3.7,
+            "hr": 0.9,
+            "rbi": 3.2,
             "bb": 1.6,
-            "k": 5.1,
+            "k": 5.0,
             "tb": 14.7
           },
           "starter": {
@@ -323,162 +402,162 @@
           "team": "TB",
           "opp": "CLE",
           "slot": 1,
-          "p_hr": 0.2121,
-          "hr_mean": 0.233,
-          "fair_odds": 371
+          "p_hr": 0.214,
+          "hr_mean": 0.235,
+          "fair_odds": 367
         },
         {
           "name": "Jonathan Aranda",
           "team": "TB",
           "opp": "CLE",
           "slot": 3,
-          "p_hr": 0.1474,
-          "hr_mean": 0.157,
-          "fair_odds": 578
+          "p_hr": 0.1506,
+          "hr_mean": 0.161,
+          "fair_odds": 564
         },
         {
           "name": "Nathaniel Lowe",
           "team": "CLE",
           "opp": "TB",
           "slot": 7,
-          "p_hr": 0.1326,
-          "hr_mean": 0.14,
-          "fair_odds": 654
+          "p_hr": 0.1292,
+          "hr_mean": 0.136,
+          "fair_odds": 674
         },
         {
           "name": "Angel Mart\u00ednez",
           "team": "CLE",
           "opp": "TB",
           "slot": 8,
-          "p_hr": 0.1233,
+          "p_hr": 0.1231,
           "hr_mean": 0.131,
-          "fair_odds": 711
+          "fair_odds": 712
         },
         {
           "name": "Chandler Simpson",
           "team": "TB",
           "opp": "CLE",
           "slot": 4,
-          "p_hr": 0.1162,
-          "hr_mean": 0.123,
-          "fair_odds": 761
+          "p_hr": 0.12,
+          "hr_mean": 0.127,
+          "fair_odds": 733
         },
         {
           "name": "Yandy D\u00edaz",
           "team": "TB",
           "opp": "CLE",
           "slot": 2,
-          "p_hr": 0.1128,
-          "hr_mean": 0.118,
-          "fair_odds": 787
-        },
-        {
-          "name": "Chase DeLauter",
-          "team": "CLE",
-          "opp": "TB",
-          "slot": 4,
-          "p_hr": 0.1122,
-          "hr_mean": 0.117,
-          "fair_odds": 791
+          "p_hr": 0.1139,
+          "hr_mean": 0.12,
+          "fair_odds": 778
         },
         {
           "name": "Patrick Bailey",
           "team": "CLE",
           "opp": "TB",
           "slot": 9,
-          "p_hr": 0.1111,
-          "hr_mean": 0.116,
-          "fair_odds": 800
+          "p_hr": 0.1134,
+          "hr_mean": 0.119,
+          "fair_odds": 782
+        },
+        {
+          "name": "Chase DeLauter",
+          "team": "CLE",
+          "opp": "TB",
+          "slot": 4,
+          "p_hr": 0.1129,
+          "hr_mean": 0.118,
+          "fair_odds": 786
         },
         {
           "name": "Liam Hicks",
           "team": "TB",
           "opp": "CLE",
           "slot": 5,
-          "p_hr": 0.1076,
-          "hr_mean": 0.112,
-          "fair_odds": 829
-        },
-        {
-          "name": "Travis Bazzana",
-          "team": "CLE",
-          "opp": "TB",
-          "slot": 6,
-          "p_hr": 0.1062,
-          "hr_mean": 0.11,
-          "fair_odds": 842
+          "p_hr": 0.1064,
+          "hr_mean": 0.111,
+          "fair_odds": 840
         },
         {
           "name": "Cedric Mullins",
           "team": "TB",
           "opp": "CLE",
           "slot": 6,
-          "p_hr": 0.1035,
-          "hr_mean": 0.11,
-          "fair_odds": 866
+          "p_hr": 0.1051,
+          "hr_mean": 0.111,
+          "fair_odds": 851
+        },
+        {
+          "name": "Travis Bazzana",
+          "team": "CLE",
+          "opp": "TB",
+          "slot": 6,
+          "p_hr": 0.1049,
+          "hr_mean": 0.108,
+          "fair_odds": 853
         },
         {
           "name": "Jonny DeLuca",
           "team": "TB",
           "opp": "CLE",
           "slot": 9,
-          "p_hr": 0.0975,
-          "hr_mean": 0.1,
-          "fair_odds": 926
+          "p_hr": 0.0995,
+          "hr_mean": 0.103,
+          "fair_odds": 905
         },
         {
           "name": "Jo Adell",
           "team": "CLE",
           "opp": "TB",
           "slot": 1,
-          "p_hr": 0.0951,
-          "hr_mean": 0.099,
-          "fair_odds": 952
+          "p_hr": 0.0926,
+          "hr_mean": 0.095,
+          "fair_odds": 980
         },
         {
           "name": "Richie Palacios",
           "team": "TB",
           "opp": "CLE",
           "slot": 8,
-          "p_hr": 0.0867,
+          "p_hr": 0.0874,
           "hr_mean": 0.091,
-          "fair_odds": 1053
+          "fair_odds": 1044
         },
         {
           "name": "Brayan Rocchio",
           "team": "CLE",
           "opp": "TB",
           "slot": 3,
-          "p_hr": 0.0718,
-          "hr_mean": 0.074,
-          "fair_odds": 1293
+          "p_hr": 0.0726,
+          "hr_mean": 0.075,
+          "fair_odds": 1277
         },
         {
           "name": "Jos\u00e9 Ram\u00edrez",
           "team": "CLE",
           "opp": "TB",
           "slot": 5,
-          "p_hr": 0.066,
-          "hr_mean": 0.068,
-          "fair_odds": 1415
+          "p_hr": 0.0655,
+          "hr_mean": 0.067,
+          "fair_odds": 1427
         },
         {
           "name": "Taylor Walls",
           "team": "TB",
           "opp": "CLE",
           "slot": 7,
-          "p_hr": 0.0335,
-          "hr_mean": 0.034,
-          "fair_odds": 2885
+          "p_hr": 0.0346,
+          "hr_mean": 0.035,
+          "fair_odds": 2790
         },
         {
           "name": "Steven Kwan",
           "team": "CLE",
           "opp": "TB",
           "slot": 2,
-          "p_hr": 0.0322,
-          "hr_mean": 0.032,
-          "fair_odds": 3006
+          "p_hr": 0.0324,
+          "hr_mean": 0.033,
+          "fair_odds": 2986
         }
       ],
       "context": {
@@ -486,12 +565,12 @@
         "game_pk": "849816",
         "away_team": "Tampa Bay Rays",
         "home_team": "Cleveland Guardians",
-        "first_pitch_et": "8:00 PM ET",
+        "first_pitch_et": "8:08 PM ET",
         "venue": "Progressive Field",
         "park_factor": "98",
         "umpire_hp": "",
-        "weather_temp_f": "44.2",
-        "weather_wind": "4.6 mph SW",
+        "weather_temp_f": "44.6",
+        "weather_wind": "4.0 mph SW",
         "weather_precip_pct": "0",
         "away_record": "98-64 \u00b7 L10 5-5 \u00b7 L1 \u00b7 RD +86",
         "away_vs_opp_hand": "AVG .263 / OPS .752 / 133 HR",
