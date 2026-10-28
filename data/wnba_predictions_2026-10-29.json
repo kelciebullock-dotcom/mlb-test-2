@@ -1,0 +1,369 @@
+{
+  "date": "2026-10-29",
+  "n_sims": 10000,
+  "generated_at": "2026-10-28T04:23:44.150921-04:00",
+  "sport": "wnba",
+  "games": [
+    {
+      "bdl_game_id": "1d30c8df5cd7dfc1a0771a7cd9aa21c9",
+      "date": "2026-10-29",
+      "tipoff_et": "12:30 PM ET",
+      "status": "",
+      "away_team": "Golden State Valkyries",
+      "home_team": "Atlanta Dream",
+      "away_abbr": "GSV",
+      "home_abbr": "ATL",
+      "model": {
+        "away_win_pct": 0.3304,
+        "home_win_pct": 0.6696,
+        "mean_away_pts": 78.4,
+        "mean_home_pts": 84.2,
+        "mean_total": 162.7,
+        "mean_margin": 5.8
+      },
+      "picks": [
+        {
+          "market": "Total",
+          "side": "Over 147.5",
+          "line": 147.5,
+          "model_prob": 0.6148,
+          "raw_model_prob": 0.848,
+          "market_fair_prob": 0.4892,
+          "market_odds": -105,
+          "market_prob": 0.5122,
+          "ev_pct": 20.02,
+          "fair_odds": -160,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Spread",
+          "side": "Atlanta Dream -4.5",
+          "line": -4.5,
+          "model_prob": 0.5047,
+          "raw_model_prob": 0.5335,
+          "market_fair_prob": 0.4892,
+          "market_odds": -105,
+          "market_prob": 0.5122,
+          "ev_pct": -1.47,
+          "fair_odds": -102,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Atlanta Dream ML",
+          "line": null,
+          "model_prob": 0.6258,
+          "raw_model_prob": 0.6564,
+          "market_fair_prob": 0.6092,
+          "market_odds": -175,
+          "market_prob": 0.6364,
+          "ev_pct": -1.67,
+          "fair_odds": -167,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Spread",
+          "side": "Golden State Valkyries +4.5",
+          "line": 4.5,
+          "model_prob": 0.4953,
+          "raw_model_prob": 0.4665,
+          "market_fair_prob": 0.5108,
+          "market_odds": -115,
+          "market_prob": 0.5349,
+          "ev_pct": -7.4,
+          "fair_odds": 102,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Moneyline",
+          "side": "Golden State Valkyries ML",
+          "line": null,
+          "model_prob": 0.3742,
+          "raw_model_prob": 0.3436,
+          "market_fair_prob": 0.3908,
+          "market_odds": 145,
+          "market_prob": 0.4082,
+          "ev_pct": -8.31,
+          "fair_odds": 167,
+          "book": "DraftKings"
+        },
+        {
+          "market": "Total",
+          "side": "Under 147.5",
+          "line": 147.5,
+          "model_prob": 0.3852,
+          "raw_model_prob": 0.152,
+          "market_fair_prob": 0.5108,
+          "market_odds": -115,
+          "market_prob": 0.5349,
+          "ev_pct": -27.98,
+          "fair_odds": 160,
+          "book": "DraftKings"
+        }
+      ],
+      "projected_box": {
+        "away": {
+          "players": [
+            {
+              "name": "Veronica Burton",
+              "pos": "",
+              "min": 28.6,
+              "pts": 12.1,
+              "reb": 3.8,
+              "ast": 5.4,
+              "stl": 1.5,
+              "blk": 0.6,
+              "threes": 1.4,
+              "fg": "3.9/9.2",
+              "ft": "3.0/3.6"
+            },
+            {
+              "name": "Gabby Williams",
+              "pos": "",
+              "min": 25.1,
+              "pts": 13.8,
+              "reb": 3.5,
+              "ast": 2.3,
+              "stl": 1.5,
+              "blk": 0.4,
+              "threes": 1.6,
+              "fg": "5.2/12.8",
+              "ft": "2.3/3.1"
+            },
+            {
+              "name": "Kayla Thornton",
+              "pos": "",
+              "min": 24.3,
+              "pts": 8.0,
+              "reb": 4.4,
+              "ast": 1.0,
+              "stl": 0.8,
+              "blk": 0.4,
+              "threes": 1.5,
+              "fg": "2.5/6.9",
+              "ft": "1.3/1.4"
+            },
+            {
+              "name": "Kiah Stokes",
+              "pos": "",
+              "min": 22.3,
+              "pts": 4.4,
+              "reb": 5.6,
+              "ast": 1.5,
+              "stl": 0.7,
+              "blk": 1.5,
+              "threes": 0.7,
+              "fg": "1.5/3.4",
+              "ft": "0.2/0.4"
+            },
+            {
+              "name": "Janelle Salaun",
+              "pos": "",
+              "min": 22.0,
+              "pts": 12.3,
+              "reb": 4.0,
+              "ast": 1.4,
+              "stl": 0.7,
+              "blk": 0.3,
+              "threes": 2.1,
+              "fg": "4.1/9.7",
+              "ft": "2.2/2.7"
+            },
+            {
+              "name": "Kaila Charles",
+              "pos": "",
+              "min": 20.2,
+              "pts": 6.6,
+              "reb": 4.5,
+              "ast": 1.5,
+              "stl": 0.9,
+              "blk": 0.4,
+              "threes": 0.7,
+              "fg": "2.4/5.8",
+              "ft": "1.0/1.3"
+            },
+            {
+              "name": "Cecilia Zandalasini",
+              "pos": "",
+              "min": 19.0,
+              "pts": 8.5,
+              "reb": 2.3,
+              "ast": 1.8,
+              "stl": 0.9,
+              "blk": 0.4,
+              "threes": 1.3,
+              "fg": "3.1/8.0",
+              "ft": "1.0/1.2"
+            },
+            {
+              "name": "Tiffany Hayes",
+              "pos": "",
+              "min": 17.0,
+              "pts": 8.8,
+              "reb": 2.2,
+              "ast": 2.4,
+              "stl": 0.8,
+              "blk": 0.4,
+              "threes": 0.7,
+              "fg": "3.0/6.5",
+              "ft": "2.4/3.1"
+            },
+            {
+              "name": "Kaitlyn Chen",
+              "pos": "",
+              "min": 15.3,
+              "pts": 7.0,
+              "reb": 1.4,
+              "ast": 1.9,
+              "stl": 0.5,
+              "blk": 0.3,
+              "threes": 0.8,
+              "fg": "2.9/5.5",
+              "ft": "0.7/1.0"
+            }
+          ],
+          "totals": {
+            "min": 193.8,
+            "pts": 78.4,
+            "reb": 31.7,
+            "ast": 19.2,
+            "stl": 8.3,
+            "blk": 4.7,
+            "threes": 10.8
+          }
+        },
+        "home": {
+          "players": [
+            {
+              "name": "Rhyne Howard",
+              "pos": "",
+              "min": 34.2,
+              "pts": 16.8,
+              "reb": 4.4,
+              "ast": 3.9,
+              "stl": 2.2,
+              "blk": 0.9,
+              "threes": 2.7,
+              "fg": "5.8/14.3",
+              "ft": "3.0/3.5"
+            },
+            {
+              "name": "Allisha Gray",
+              "pos": "",
+              "min": 32.6,
+              "pts": 17.9,
+              "reb": 4.1,
+              "ast": 2.8,
+              "stl": 1.4,
+              "blk": 0.5,
+              "threes": 1.6,
+              "fg": "6.4/13.8",
+              "ft": "4.5/5.5"
+            },
+            {
+              "name": "Jordin Canada",
+              "pos": "",
+              "min": 31.1,
+              "pts": 11.6,
+              "reb": 4.0,
+              "ast": 7.3,
+              "stl": 1.8,
+              "blk": 0.4,
+              "threes": 1.0,
+              "fg": "3.8/8.8",
+              "ft": "3.1/4.0"
+            },
+            {
+              "name": "Angel Reese",
+              "pos": "",
+              "min": 31.0,
+              "pts": 15.6,
+              "reb": 12.5,
+              "ast": 3.0,
+              "stl": 1.7,
+              "blk": 0.7,
+              "threes": 0.6,
+              "fg": "5.8/12.9",
+              "ft": "4.5/6.3"
+            },
+            {
+              "name": "Naz Hillmon",
+              "pos": "",
+              "min": 28.7,
+              "pts": 9.2,
+              "reb": 5.1,
+              "ast": 1.9,
+              "stl": 0.7,
+              "blk": 0.5,
+              "threes": 1.1,
+              "fg": "3.4/7.4",
+              "ft": "1.0/1.3"
+            },
+            {
+              "name": "DeWanna Bonner",
+              "pos": "",
+              "min": 26.8,
+              "pts": 10.3,
+              "reb": 6.4,
+              "ast": 1.9,
+              "stl": 1.1,
+              "blk": 0.7,
+              "threes": 1.1,
+              "fg": "3.4/8.5",
+              "ft": "2.3/2.7"
+            },
+            {
+              "name": "Isobel Borlase",
+              "pos": "",
+              "min": 13.0,
+              "pts": 4.8,
+              "reb": 1.8,
+              "ast": 1.2,
+              "stl": 0.5,
+              "blk": 0.3,
+              "threes": 0.6,
+              "fg": "1.8/4.1",
+              "ft": "0.8/0.9"
+            }
+          ],
+          "totals": {
+            "min": 197.4,
+            "pts": 84.2,
+            "reb": 38.3,
+            "ast": 22.0,
+            "stl": 9.4,
+            "blk": 4.0,
+            "threes": 8.7
+          }
+        }
+      },
+      "injuries": {
+        "away": [
+          {
+            "name": "Iliana Rupert",
+            "status": "Out",
+            "cat": "out",
+            "detail": "Not Injury Related",
+            "return": "2027-05-01"
+          }
+        ],
+        "home": [
+          {
+            "name": "Brionna Jones",
+            "status": "Out",
+            "cat": "out",
+            "detail": "Leg",
+            "return": "2027-05-01"
+          },
+          {
+            "name": "Matilde Villa",
+            "status": "Out",
+            "cat": "out",
+            "detail": "Coach's Decision",
+            "return": "2027-05-01"
+          }
+        ]
+      }
+    }
+  ]
+}
